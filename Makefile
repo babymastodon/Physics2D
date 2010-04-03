@@ -7,7 +7,7 @@ LIBS =  -lSDL -lGLU -lGL
 TARGET = Application
 VPATH = ./src
 
-OBJECTS =	main.o \
+OBJECTS =	main.o\
 			Physics.o\
 			SceneGraph.o\
 			Graphics.o
