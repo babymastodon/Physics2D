@@ -4,10 +4,10 @@ CXXFLAGS = -Wall
 DEL_FILE = rm -f
 LINK = g++
 LIBS =  -lSDL -lGLU -lGL
-TARGET = Application
+TARGET = Physics2D
 VPATH = ./src
 
-OBJECTS =	main.o \
+OBJECTS =	main.o\
 			Physics.o\
 			SceneGraph.o\
 			Graphics.o

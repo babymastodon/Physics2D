@@ -22,3 +22,6 @@ profile
 *.o
 *.pyc
 *.pyo
+
+#ignore application
+Physics2D
