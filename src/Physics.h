@@ -5,10 +5,11 @@
 #include <SDL/SDL.h>
 #include "PhysicsEvent.h"
 #include <queue>
+#include "Thread.h"
 
 using namespace std;
 
-class Physics{
+class Physics: public Thread{
 	public:
 		/*
 		 * remember to:
@@ -18,7 +19,7 @@ class Physics{
 		Physics();
 		~Physics();
 		/*
-		 * automaticallt locks the queue mutex, adds the event,
+		 * automatically locks the queue mutex, adds the event,
 		 * then releases it
 		 */
 		void addEvent(PhysicsEvent pe);
@@ -28,6 +29,11 @@ class Physics{
 		const SceneGraph& getSceneGraph() const;
 	
 	private:
+		/*
+		 * the function for the thread that was overridden:
+		 */
+		int mainLoop();
+		
 		SceneGraph scene_graph;
 		SDL_mutex* queue_mutex;
 		queue<PhysicsEvent> event_queue;

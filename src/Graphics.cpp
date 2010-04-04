@@ -3,13 +3,10 @@
 #include <GL/glu.h>
 #include <SDL/SDL.h>
 
-using namespace std;
-
-Graphics::Graphics(const char* n, int w, int h, const Physics& ph) : physics(ph){
+Graphics::Graphics(const char* n, int w, int h, const Physics& ph) : Thread(), physics(ph){
 	window_name = n;
 	window_width = w;
 	window_height = h;
-    quit=false;
 }
 
 Graphics::~Graphics(){
@@ -56,7 +53,7 @@ void Graphics::init(){
     glMatrixMode(GL_MODELVIEW);
 }
 
-void Graphics::mainLoop(){
+int Graphics::mainLoop(){
 	init();
 	/*GLuint oldTime = SDL_GetTicks();
 	GLuint newTime;
@@ -70,8 +67,10 @@ void Graphics::mainLoop(){
     	
     	oldTime=newTime;
 	}*/
-	display();
-	SDL_Delay(5000);
+	while(keepRunning()){
+    	SDL_Delay(1000);
+	}
+	return 0;
 }
 
 void Graphics::display(){
@@ -88,8 +87,4 @@ void Graphics::display(){
 
 void Graphics::update(){
 	//lock scene graph and update graphics objects
-}
-
-void Graphics::stop(){
-	quit=true;
 }

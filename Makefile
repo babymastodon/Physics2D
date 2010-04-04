@@ -14,7 +14,8 @@ OBJECTS =	main.o\
 			GraphicsObject.o\
 			PhysicsObject.o\
 			PhysicsEvent.o\
-			EventHandler.o
+			EventHandler.o\
+			Thread.o
 
 all: Makefile $(TARGET)
 
