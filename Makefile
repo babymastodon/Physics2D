@@ -10,7 +10,10 @@ VPATH = ./src
 OBJECTS =	main.o\
 			Physics.o\
 			SceneGraph.o\
-			Graphics.o
+			Graphics.o\
+			GraphicsObject.o\
+			PhysicsObject.o\
+			PhysicsEvent.o
 
 all: Makefile $(TARGET)
 

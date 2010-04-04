@@ -37,6 +37,7 @@ Graphics::Graphics(const char* name, int w, int h){
 	glClearColor(1,.6,.5,1);
     glColor3f(1,1,1);
     
+    //Should we do an orthagonal or 3D projection?   
     glViewport(0,0,w,h); 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -71,9 +72,12 @@ void Graphics::display(){
     
     glLoadIdentity();
     glLightfv(GL_LIGHT0,GL_POSITION,lightPos0);
-    glPushMatrix();
-    	glTranslatef(0,0,-10);
-	glPopMatrix();
+    
+    //draw objects if they are on the screen
     
     SDL_GL_SwapBuffers();
+}
+
+void Graphics::update(){
+	//lock scene graph and update graphics objects
 }
