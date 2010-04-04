@@ -17,6 +17,7 @@ class Thread{
 		
 	protected:
 		bool keepRunning();
+	
 	private:
 		virtual int mainLoop() =0;
 		static int threadFunc(void* data);

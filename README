@@ -1,0 +1,19 @@
+To download and compile the source code on ubuntu:
+
+make sure that you have git, g++, opengl, and sdl developmet libraries
+installed:
+
+sudo apt-get install build-essential libsdl1.2-dev git
+
+in the command prompt, type:
+
+git clone http://csserver.exeter.edu/~hogbait/git/physics.git
+cd physics
+make
+
+Hopefully, it will compile. If it doesn't, you are probably missing some
+dependant libraries.
+
+To run, type:
+
+./Physics2D
