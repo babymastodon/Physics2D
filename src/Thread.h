@@ -23,6 +23,8 @@ class Thread{
 		
 		/*
 		 * Thread stops when quit == true
+		 * Possible problem: the quit variable is not thread safe,
+		 * but should be fine since it is rarely used
 		 */
 		bool quit;
 		SDL_Thread* thread;
