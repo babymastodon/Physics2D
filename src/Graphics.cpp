@@ -5,14 +5,25 @@
 
 using namespace std;
 
-Graphics::Graphics(const char* name, int w, int h){
+Graphics::Graphics(const char* n, int w, int h, const Physics& ph) : physics(ph){
+	window_name = n;
+	window_width = w;
+	window_height = h;
+    quit=false;
+}
+
+Graphics::~Graphics(){
+	SDL_Quit();
+}
+
+void Graphics::init(){
 	SDL_Init(SDL_INIT_VIDEO);
 	const SDL_VideoInfo* info = NULL;
 	info = SDL_GetVideoInfo();
 	//SDL_Surface *icon = SDL_LoadBMP("icon.bmp");
-	SDL_WM_SetCaption(name,name);
+	SDL_WM_SetCaption(window_name,window_name);
 	//SDL_WM_SetIcon(icon,NULL);
-	SDL_SetVideoMode(w,h,info->vfmt->BitsPerPixel,SDL_OPENGL);
+	SDL_SetVideoMode(window_width,window_height,info->vfmt->BitsPerPixel,SDL_OPENGL);
 	SDL_GL_SetAttribute( SDL_GL_RED_SIZE, 5 );
     SDL_GL_SetAttribute( SDL_GL_GREEN_SIZE, 5 );
     SDL_GL_SetAttribute( SDL_GL_BLUE_SIZE, 5 );
@@ -38,18 +49,15 @@ Graphics::Graphics(const char* name, int w, int h){
     glColor3f(1,1,1);
     
     //Should we do an orthagonal or 3D projection?   
-    glViewport(0,0,w,h); 
+    glViewport(0,0,window_width,window_height); 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(45,(float)w/(float)h, .01, 1000);
+    gluPerspective(45,(float)window_width/(float)window_height, .01, 1000);
     glMatrixMode(GL_MODELVIEW);
 }
 
-Graphics::~Graphics(){
-	SDL_Quit();
-}
-
-void Graphics::gameLoop(){
+void Graphics::mainLoop(){
+	init();
 	/*GLuint oldTime = SDL_GetTicks();
 	GLuint newTime;
 	while(!quit){
@@ -80,4 +88,8 @@ void Graphics::display(){
 
 void Graphics::update(){
 	//lock scene graph and update graphics objects
+}
+
+void Graphics::stop(){
+	quit=true;
 }

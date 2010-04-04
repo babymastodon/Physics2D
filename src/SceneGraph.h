@@ -31,6 +31,10 @@ class SceneGraph{
 		 */
 		void lock();
 		void unlock();
+		/*
+		 * make sure that all of the accessor functions are const so
+		 * that the graphics class can access them
+		 */
 	private:
 		SDL_mutex* mutex;
 		vector<PhysicsObject> pobj_list;

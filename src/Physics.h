@@ -22,6 +22,10 @@ class Physics{
 		 * then releases it
 		 */
 		void addEvent(PhysicsEvent pe);
+		/*
+		 * the scene graph can only be modified by the physics object
+		 */
+		const SceneGraph& getSceneGraph() const;
 	
 	private:
 		SceneGraph scene_graph;

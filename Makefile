@@ -13,7 +13,8 @@ OBJECTS =	main.o\
 			Graphics.o\
 			GraphicsObject.o\
 			PhysicsObject.o\
-			PhysicsEvent.o
+			PhysicsEvent.o\
+			EventHandler.o
 
 all: Makefile $(TARGET)
 
