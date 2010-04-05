@@ -29,12 +29,14 @@ class SceneGraph{
 		 * processing before handing off the SceneGraph to each other.
 		 * for more info, wikipedia: counting semaphore
 		 */
-		void lock();
-		void unlock();
+		void lock() const;
+		void unlock() const;
 		/*
 		 * make sure that all of the accessor functions are const so
 		 * that the graphics class can access them
 		 */
+		float getWorldWidth() const;
+		float getWorldHeight() const;
 	private:
 		SDL_mutex* mutex;
 		vector<PhysicsObject> pobj_list;

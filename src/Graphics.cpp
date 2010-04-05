@@ -10,7 +10,6 @@ Graphics::Graphics(const char* n, int w, int h, const Physics& ph) : Thread(), p
 }
 
 Graphics::~Graphics(){
-	SDL_Quit();
 }
 
 void Graphics::init(){
@@ -68,8 +67,10 @@ int Graphics::mainLoop(){
     	oldTime=newTime;
 	}*/
 	while(keepRunning()){
+		display();
     	SDL_Delay(1000);
 	}
+	SDL_Quit();
 	return 0;
 }
 
@@ -82,9 +83,20 @@ void Graphics::display(){
     
     //draw objects if they are on the screen
     
+    PCircle po(1,1,30);
+    GCircle go(po);
+    
+    glPushMatrix();
+    	glTranslatef(0,0,-1);
+    	go.draw();
+    	glBegin(GL_QUADS);
+    	glEnd();
+    glPopMatrix();
+    
     SDL_GL_SwapBuffers();
 }
 
 void Graphics::update(){
+	const SceneGraph& scene_graph = physics.getSceneGraph();
 	//lock scene graph and update graphics objects
 }

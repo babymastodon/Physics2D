@@ -2,6 +2,7 @@
 #define GRAPHICS_H
 
 #include "GraphicsObject.h"
+#include "PhysicsObject.h"
 #include "SceneGraph.h"
 #include "Physics.h"
 #include "Thread.h"
