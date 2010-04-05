@@ -1,12 +1,9 @@
 #include "Physics.h"
 
-Physics::Physics():Thread(){
+Physics::Physics(SceneGraph& world):Thread(),scene_graph(world){
 }
 Physics::~Physics(){}
 
-const SceneGraph& Physics::getSceneGraph() const{
-	return scene_graph;
-}
 
 int Physics::mainLoop(){
 	while(keepRunning()){

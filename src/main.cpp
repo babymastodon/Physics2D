@@ -4,8 +4,9 @@
 
 int main(int argc, char** argv)
 {
-	Physics physics;
-	Graphics graphics("Title",800,600,physics);
+	SceneGraph world;
+	Physics physics(world);
+	Graphics graphics("Title",800,600,world);
 	EventHandler event_handler(physics,graphics);
 	
 	physics.start();

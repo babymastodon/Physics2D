@@ -11,8 +11,6 @@ OBJECTS =	main.o\
 			Physics.o\
 			SceneGraph.o\
 			Graphics.o\
-			GraphicsObject.o\
-			PhysicsObject.o\
 			PhysicsEvent.o\
 			EventHandler.o\
 			Thread.o\

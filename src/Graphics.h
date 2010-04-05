@@ -1,8 +1,6 @@
 #ifndef GRAPHICS_H
 #define GRAPHICS_H
 
-#include "GraphicsObject.h"
-#include "PhysicsObject.h"
 #include "SceneGraph.h"
 #include "Physics.h"
 #include "Thread.h"
@@ -13,7 +11,7 @@ using namespace std;
 
 class Graphics: public Thread{
 	public:
-		Graphics(const char* name, int w, int h, const Physics& ph);
+		Graphics(const char* name, int w, int h, const SceneGraph& world);
 		~Graphics();
 		
 	private:
@@ -26,8 +24,10 @@ class Graphics: public Thread{
 		void update();
 		void init();
 		
-		vector<GraphicsObject*> gobj_list;
-		const Physics& physics;
+		/*
+		 * there need to be some sort of structure for sending events
+		 * to the graphics object.
+		 */
 		
 		const char* window_name;
 		int window_width;
@@ -37,6 +37,8 @@ class Graphics: public Thread{
 		 */
 		float viewport_x;
 		float viewport_y;
+		
+		const SceneGraph& scene_graph;
 };
 
 #endif

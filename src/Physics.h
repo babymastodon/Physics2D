@@ -16,7 +16,7 @@ class Physics: public Thread{
 		 * create and destroy the mutex
 		 * empty the list of physics objects when done
 		 */
-		Physics();
+		Physics(SceneGraph& world);
 		~Physics();
 		/*
 		 * automatically locks the queue mutex, adds the event,
@@ -33,17 +33,22 @@ class Physics: public Thread{
 		 * the function for the thread that was overridden:
 		 */
 		int mainLoop();
-		
-		SceneGraph scene_graph;
-		SDL_mutex* queue_mutex;
-		queue<PhysicsEvent*> event_queue;
-		
 		void processEvents();
 		/*
 		 * internal wrappers for the SDL mutex P and V functions
 		 */
 		void lockQueue();
 		void unlockQueue();
+		PhysicsEvent& popEvent();
+		
+		/*
+		 * the idea for the physics event queue needs to be reviewed.
+		 * Research event structures for multithreading
+		 */
+		SDL_mutex* queue_mutex;
+		queue<PhysicsEvent*> event_queue;
+		
+		SceneGraph& scene_graph;
 };
 
 #endif

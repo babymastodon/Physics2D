@@ -3,7 +3,7 @@
 #include <GL/glu.h>
 #include <SDL/SDL.h>
 
-Graphics::Graphics(const char* n, int w, int h, const Physics& ph) : Thread(), physics(ph){
+Graphics::Graphics(const char* n, int w, int h, const SceneGraph& world) : Thread(), scene_graph(world){
 	window_name = n;
 	window_width = w;
 	window_height = h;
