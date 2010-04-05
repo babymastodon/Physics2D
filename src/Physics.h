@@ -36,7 +36,7 @@ class Physics: public Thread{
 		
 		SceneGraph scene_graph;
 		SDL_mutex* queue_mutex;
-		queue<PhysicsEvent> event_queue;
+		queue<PhysicsEvent*> event_queue;
 		
 		void processEvents();
 		/*

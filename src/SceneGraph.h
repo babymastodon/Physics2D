@@ -39,7 +39,15 @@ class SceneGraph{
 		float getWorldHeight() const;
 	private:
 		SDL_mutex* mutex;
-		vector<PhysicsObject> pobj_list;
+		vector<PhysicsObject*> pobj_list;
+		
+		/*
+		 * width and height of the virtual world
+		 * note: the whole world will not necessarily fit on the whole
+		 * screen.
+		 */
+		float worldWidth;
+		float worldHeight;
 };
 
 

@@ -15,7 +15,8 @@ OBJECTS =	main.o\
 			PhysicsObject.o\
 			PhysicsEvent.o\
 			EventHandler.o\
-			Thread.o
+			Thread.o\
+			SceneGraphNode.o
 
 all: Makefile $(TARGET)
 

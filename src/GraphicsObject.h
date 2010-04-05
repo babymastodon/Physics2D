@@ -26,7 +26,7 @@ class GCircle: public GraphicsObject{
 		/*
 		 * color is in form ARGB
 		 */
-		GCircle(const PCircle& po, int ed=10, int col=0xffffff);
+		GCircle(const PCircle& po, int ed=20, int col=0xffffff);
 		~GCircle();
 		
 		void draw() const;

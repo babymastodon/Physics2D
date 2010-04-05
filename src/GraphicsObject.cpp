@@ -22,7 +22,7 @@ GCircle::GCircle(const PCircle& po, int edges, int col) : GraphicsObject(po){
 				glVertex2f(0.0,0.0);
 				for (int i=0; i<=edges; i++){
 					float r=physics_object.getradius();
-					glVertex2f(r*cos(PI*i/edges),r*sin(PI*i/edges));
+					glVertex2f(r*cos(2*PI*i/edges),-r*sin(2*PI*i/edges));
 				}
 			glEnd();
 		glPopMatrix();

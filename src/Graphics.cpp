@@ -48,7 +48,8 @@ void Graphics::init(){
     glViewport(0,0,window_width,window_height); 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(45,(float)window_width/(float)window_height, .01, 1000);
+    //gluPerspective(45,(float)window_width/(float)window_height, .01, 1000);
+    glOrtho(0,window_width,0,window_height,-1,1);
     glMatrixMode(GL_MODELVIEW);
 }
 
@@ -81,22 +82,15 @@ void Graphics::display(){
     glLoadIdentity();
     glLightfv(GL_LIGHT0,GL_POSITION,lightPos0);
     
-    //draw objects if they are on the screen
+    //move the viewport
+    glTranslatef(-viewport_x,-viewport_y,0);
     
-    PCircle po(1,1,30);
-    GCircle go(po);
-    
-    glPushMatrix();
-    	glTranslatef(0,0,-1);
-    	go.draw();
-    	glBegin(GL_QUADS);
-    	glEnd();
-    glPopMatrix();
+    //draw stuff
     
     SDL_GL_SwapBuffers();
 }
 
 void Graphics::update(){
-	const SceneGraph& scene_graph = physics.getSceneGraph();
+	//const SceneGraph& scene_graph = physics.getSceneGraph();
 	//lock scene graph and update graphics objects
 }

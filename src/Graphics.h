@@ -26,12 +26,17 @@ class Graphics: public Thread{
 		void update();
 		void init();
 		
-		vector<GraphicsObject> gobj_list;
+		vector<GraphicsObject*> gobj_list;
 		const Physics& physics;
 		
 		const char* window_name;
 		int window_width;
 		int window_height;
+		/*
+		 * coordinates of the bottom left corner of the viewport
+		 */
+		float viewport_x;
+		float viewport_y;
 };
 
 #endif
