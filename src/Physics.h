@@ -3,7 +3,6 @@
 
 #include "SceneGraph.h"
 #include <SDL/SDL.h>
-#include "PhysicsEvent.h"
 #include <queue>
 #include "Thread.h"
 
@@ -34,7 +33,6 @@ class Physics: public Thread{
 		 */
 		void lockQueue();
 		void unlockQueue();
-		PhysicsEvent& popEvent();
 		
 		
 		SceneGraph& scene_graph;
