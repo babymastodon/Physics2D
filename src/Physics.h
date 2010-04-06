@@ -18,16 +18,11 @@ class Physics: public Thread{
 		 */
 		Physics(SceneGraph& world);
 		~Physics();
-		/*
-		 * automatically locks the queue mutex, adds the event,
-		 * then releases it
-		 */
-		void addEvent(PhysicsEvent pe);
-		/*
-		 * the scene graph can only be modified by the physics object
-		 */
-		const SceneGraph& getSceneGraph() const;
 	
+		/*
+		 * need functions that will modify the behavior of physics
+		 */
+		
 	private:
 		/*
 		 * the function for the thread that was overridden:
@@ -41,12 +36,6 @@ class Physics: public Thread{
 		void unlockQueue();
 		PhysicsEvent& popEvent();
 		
-		/*
-		 * the idea for the physics event queue needs to be reviewed.
-		 * Research event structures for multithreading
-		 */
-		SDL_mutex* queue_mutex;
-		queue<PhysicsEvent*> event_queue;
 		
 		SceneGraph& scene_graph;
 };

@@ -5,6 +5,7 @@
 /*
  * Forget about separation of domain and representation. I'm putting
  * the functions for physics and drawing into the same class.
+ * Sorry, couldn't think of a better name
  */
 
 class SceneGraphNode{

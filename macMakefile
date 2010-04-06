@@ -1,9 +1,9 @@
 
 CXX = g++
-CXXFLAGS = -Wall
+CXXFLAGS = -Wall -m32
 DEL_FILE = rm -f
 LINK = g++
-LIBS =  -lSDL -lGLU -lGL
+LIBS =  -framework SDL -framework OpenGl
 TARGET = Physics2D
 VPATH = ./src
 

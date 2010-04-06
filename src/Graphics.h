@@ -4,7 +4,7 @@
 #include "SceneGraph.h"
 #include "Physics.h"
 #include "Thread.h"
-#include <SDL/SDL.h>
+#include <SDL/SDL_opengl.h>
 #include <vector>
 
 using namespace std;
@@ -13,6 +13,12 @@ class Graphics: public Thread{
 	public:
 		Graphics(const char* name, int w, int h, const SceneGraph& world);
 		~Graphics();
+		
+		/*
+		 * need functions that will modify the behavior of graphics
+		 * such as moving the display around (remember that the 
+		 * whole world is not necessarily displayed on the screen)
+		 */
 		
 	private:
 		/*
@@ -23,11 +29,6 @@ class Graphics: public Thread{
 		void display();
 		void update();
 		void init();
-		
-		/*
-		 * there need to be some sort of structure for sending events
-		 * to the graphics object.
-		 */
 		
 		const char* window_name;
 		int window_width;
