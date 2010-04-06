@@ -1,6 +1,6 @@
 #include "Graphics.h"
 
-Graphics::Graphics(const char* n, int w, int h, const SceneGraph& world) : Thread(), scene_graph(world){
+Graphics::Graphics(const char* n, int w, int h,SceneGraph& world) : Thread(), scene_graph(world){
 	window_name = n;
 	window_width = w;
 	window_height = h;

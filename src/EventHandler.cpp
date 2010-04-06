@@ -1,6 +1,6 @@
 #include "EventHandler.h"
 
-EventHandler::EventHandler(Physics& ph, Graphics& gr) : Thread(), physics(ph), graphics(gr){
+EventHandler::EventHandler(Physics& ph, Graphics& gr, SceneGraph& sg) : Thread(), physics(ph), graphics(gr), scene_graph(sg){
 }
 EventHandler::~EventHandler(){}
 

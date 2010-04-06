@@ -4,6 +4,7 @@
 #include "Physics.h"
 #include "Graphics.h"
 #include "Thread.h"
+#include "SceneGraph.h"
 #include <SDL/SDL.h>
 
 /*
@@ -14,7 +15,7 @@
 
 class EventHandler: public Thread{
 	public:
-		EventHandler(Physics& ph, Graphics& gr);
+		EventHandler(Physics& ph, Graphics& gr, SceneGraph& sg);
 		~EventHandler();
 		
 	private:
@@ -26,6 +27,7 @@ class EventHandler: public Thread{
 		//not const so that it can modify behavior
 		Physics& physics;
 		Graphics& graphics;
+		SceneGraph& scene_graph;
 };
 
 #endif

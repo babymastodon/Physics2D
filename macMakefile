@@ -13,7 +13,7 @@ OBJECTS =	main.o\
 			Graphics.o\
 			EventHandler.o\
 			Thread.o\
-			SceneGraphNode.o
+			PObject.o
 
 all: Makefile $(TARGET)
 

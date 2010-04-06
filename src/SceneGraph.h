@@ -3,7 +3,7 @@
 
 #include <SDL/SDL.h>
 #include <vector>
-#include "SceneGraphNode.h"
+#include "PObject.h"
 
 using namespace std;
 
@@ -39,7 +39,7 @@ class SceneGraph{
 		float getWorldHeight() const;
 	private:
 		SDL_mutex* mutex;
-		vector<SceneGraphNode*> pobj_list;
+		vector<PObject*> pobj_list;
 		
 		/*
 		 * width and height of the virtual world

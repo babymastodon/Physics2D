@@ -7,7 +7,7 @@ int main(int argc, char** argv)
 	SceneGraph world;
 	Physics physics(world);
 	Graphics graphics("Title",800,600,world);
-	EventHandler event_handler(physics,graphics);
+	EventHandler event_handler(physics,graphics,world);
 	
 	physics.start();
 	graphics.start();

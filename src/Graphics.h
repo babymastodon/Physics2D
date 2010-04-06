@@ -11,7 +11,7 @@ using namespace std;
 
 class Graphics: public Thread{
 	public:
-		Graphics(const char* name, int w, int h, const SceneGraph& world);
+		Graphics(const char* name, int w, int h, SceneGraph& world);
 		~Graphics();
 		
 		/*
@@ -39,7 +39,7 @@ class Graphics: public Thread{
 		float viewport_x;
 		float viewport_y;
 		
-		const SceneGraph& scene_graph;
+		SceneGraph& scene_graph;
 };
 
 #endif

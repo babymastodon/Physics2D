@@ -1,5 +1,5 @@
-#ifndef SCENEGRAPHNODE_H
-#define SCENEGRAPHNODE_H
+#ifndef POBJECT_H
+#define POBJECT_H
 
 #include <SDL/SDL_opengl.h>
 /*
@@ -8,10 +8,10 @@
  * Sorry, couldn't think of a better name
  */
 
-class SceneGraphNode{
+class PObject{
 	public:
-		SceneGraphNode();
-		~SceneGraphNode();
+		PObject();
+		~PObject();
 		
 		virtual void draw() =0;
 		virtual void move(GLuint time) =0;
@@ -24,7 +24,7 @@ class SceneGraphNode{
 		 * accurately determines if point x,y lies within the object.
 		 */
 		virtual bool contains(float x, float y)=0;
-		virtual bool collides(SceneGraphNode& sgn)=0;
+		virtual bool collides(PObject& sgn)=0;
 		/*
 		 * what other functions should all physics objects have?
 		 */
