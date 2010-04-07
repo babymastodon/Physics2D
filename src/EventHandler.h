@@ -7,10 +7,10 @@
 #include "SceneGraph.h"
 #include <SDL/SDL.h>
 
-/*
- * This class recieves SDL events, interprets them, and send them off
+/*!
+ * The EventHandler class recieves SDL events, interprets them, passes them
  * to either the Physics or Grahics objects.
- * it runs on a separate thread
+ * it runs in a separate thread
  */
 
 class EventHandler: public Thread{
@@ -19,13 +19,14 @@ class EventHandler: public Thread{
 		~EventHandler();
 		
 	private:
-		/*
-		 * the function for the thread that was overridden:
+		/*!
+		 * the function for the overriden thread
 		 */
 		int mainLoop();
 		
-		//not const so that it can modify behavior
+		///not const so that it can modify behavior
 		Physics& physics;
+		///not const so that it can modify behavior
 		Graphics& graphics;
 		SceneGraph& scene_graph;
 };

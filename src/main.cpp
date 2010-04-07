@@ -2,6 +2,14 @@
 #include "Graphics.h"
 #include "EventHandler.h"
 
+/**
+	@mainpage Physics2D - A project to simulate physical interactions of two dimensional objects
+	@version 1.0 Pre-Alpha Release
+	@author Zack Drach
+	@author Nicholas Lima
+	@date Tuesday, April 6, 2010
+*/
+
 int main(int argc, char** argv)
 {
 	SceneGraph world;

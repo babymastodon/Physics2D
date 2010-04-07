@@ -16,6 +16,7 @@ void Thread::stop(){
 void Thread::start(){
 	if (thread==NULL){
 		quit=false;
+		// Creates a separate thread to run the mainLoop function defined in this class
 		thread = SDL_CreateThread(threadFunc,this);
 	}
 }
@@ -25,6 +26,6 @@ void Thread::waitForStop(){
 	thread = NULL;
 }
 
-bool Thread::keepRunning(){
+bool Thread::keepRunning() {
 	return !quit;
 }

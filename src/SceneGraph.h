@@ -7,16 +7,27 @@
 
 using namespace std;
 
+/**
+ * The SceneGraph class contains a vector of PObjects, and serves
+ * as a container for all of the objects in the world. It's different from the 
+ * Graphics object in that it's not limited to the boundaries of the window.
+ */
+
 class SceneGraph{
 	public:
-		/*
-		 * remember to:
-		 * create and destroy the mutex
-		 * empty the list of physics objects when done
+		/*!
+		 * SceneGraph constructor:
+		 * 1) Populate pobj_list with PObject pointers
+		 * 2) Generate the mutex for further use
 		 */
 		SceneGraph();
+		/*!
+		 * The SceneGraph destructor empties the p_object vector
+		 * of any remaining PObjects (free the memory to avoid a memory leak)
+		 * It also destroys the private mutex that it instantiated in the constructor
+		 */
 		~SceneGraph();
-		/*
+		/*!
 		 * Wrappers for the SDL mutex P and V function
 		 * Will lock and unlock the private mutex
 		 * The sceneGraph must be explicitly locked before any of its
@@ -31,23 +42,22 @@ class SceneGraph{
 		 */
 		void lock() const;
 		void unlock() const;
-		/*
-		 * make sure that all of the accessor functions are const so
+		
+		/*!
+		 * All of the accessor functions are declared const so
 		 * that the graphics class can access them
 		 */
-		float getWorldWidth() const;
-		float getWorldHeight() const;
+		float getWorldWidth() const; ///< @return worldWidth A float representing the width of the SceneGraph
+		float getWorldHeight() const; ///< @return worldWidth A float representing the width of the SceneGraph
+	
 	private:
+	
 		SDL_mutex* mutex;
 		vector<PObject*> pobj_list;
 		
-		/*
-		 * width and height of the virtual world
-		 * note: the whole world will not necessarily fit on the whole
-		 * screen.
-		 */
-		float worldWidth;
-		float worldHeight;
+		
+		float worldWidth; ///< Width of the SceneGraph - Can be larger than window
+		float worldHeight; ///< Height of the SceneGraph - Can be larger than window
 };
 
 

@@ -1,14 +1,34 @@
 #include "Graphics.h"
 
+/**
+ * Construct a new Graphics object with a name, width, height, and 
+ * an assosciated SceneGraph object. Calls Thread constructor.
+ * 
+ * @param n Name of the main window
+ * @param w Width of the main window
+ * @param h Height of the main window
+ * @param world A scenegraph reference that contains all of the PObjects in this world
+ * 
+ */
 Graphics::Graphics(const char* n, int w, int h,SceneGraph& world) : Thread(), scene_graph(world){
 	window_name = n;
 	window_width = w;
 	window_height = h;
 }
 
+/*!
+ * Default Graphics Destructor;
+ * No need to free memory: the SceneGraph was declared a reference
+ */
 Graphics::~Graphics(){
 }
 
+/*!
+ *	The Graphics Initialization function
+ * Initializes the OpenGL environment for two-dimensional
+ * drawing, and sets up smooth lighting. Also initializes an
+ * orthagonal projection.
+ */
 void Graphics::init(){
 	SDL_Init(SDL_INIT_VIDEO);
 	const SDL_VideoInfo* info = NULL;
@@ -37,8 +57,8 @@ void Graphics::init(){
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientColor);
     glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
     glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
-	glClearColor(1,.6,.5,1);
+	 glEnable(GL_LIGHT0);
+	 glClearColor(1,.6,.5,1);
     glColor3f(1,1,1);
     
     //Should we do an orthagonal or 3D projection?   
@@ -72,6 +92,11 @@ int Graphics::mainLoop(){
 	return 0;
 }
 
+/**
+ * Display function, which is responsible for translating to the origin,
+ * and then calling the draw functions of the individual PObjects
+ * in the world variable that are currently visible in the window.
+ */
 void Graphics::display(){
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     GLfloat lightPos0[] = {0,0,0,1};
@@ -86,6 +111,7 @@ void Graphics::display(){
     
     SDL_GL_SwapBuffers();
 }
+
 
 void Graphics::update(){
 	//const SceneGraph& scene_graph = physics.getSceneGraph();

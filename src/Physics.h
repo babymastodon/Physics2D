@@ -10,32 +10,33 @@ using namespace std;
 
 class Physics: public Thread{
 	public:
-		/*
-		 * remember to:
-		 * create and destroy the mutex
-		 * empty the list of physics objects when done
+		/**
+		 * Physics Constructor:
+		 * 1) Creates the mutex
+		 * 2) Sets scene_graph to the SceneGraph passed as parameter
+		 * @param world A reference to the SceneGraph that will be assosciated with this Physics object.
 		 */
-		Physics(SceneGraph& world);
+		Physics(SceneGraph& world); 
 		~Physics();
 	
-		/*
-		 * need functions that will modify the behavior of physics
-		 */
+		
+		// TODO: need functions that will modify the behavior of physics
+
 		
 	private:
-		/*
+		/*!
 		 * the function for the thread that was overridden:
 		 */
 		int mainLoop();
+		
 		void processEvents();
-		/*
-		 * internal wrappers for the SDL mutex P and V functions
-		 */
-		void lockQueue();
-		void unlockQueue();
+
+
+		void lockQueue(); ///< internal wrapper for the SDL mutex P and V functions
+		void unlockQueue(); ///< internal wrapper for the SDL mutex P and V functions
 		
 		
-		SceneGraph& scene_graph;
+		SceneGraph& scene_graph; 
 };
 
 #endif
