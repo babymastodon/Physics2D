@@ -6,6 +6,8 @@
 #include <queue>
 #include "Thread.h"
 
+#define P_REFRESH_RATE 100 //frequency of the physics engine;
+
 using namespace std;
 
 class Physics: public Thread{

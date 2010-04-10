@@ -4,10 +4,8 @@
 #include "SceneGraph.h"
 #include "Physics.h"
 #include "Thread.h"
+#include "PElipse.h"
 #include <SDL/SDL_opengl.h>
-#include <vector>
-
-using namespace std;
 
 /*!
  * The Graphics class is responsible for keeping track of the SceneGraphNodes
@@ -36,7 +34,6 @@ class Graphics: public Thread{
 		int mainLoop();
 		
 		void display();
-		void update();
 		void init();
 		
 		const char* window_name;
@@ -47,6 +44,8 @@ class Graphics: public Thread{
 		float viewport_y; ///< y coordinate of the bottom left corner of the viewport
 		
 		SceneGraph& scene_graph; ///< Contains all of the SceneGraphNodes that are present in the program.
+		
+		PMovingObject* object;///< This is only a sample object to debug object initialization and drawing.
 };
 
 #endif

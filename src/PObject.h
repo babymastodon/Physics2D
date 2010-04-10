@@ -2,11 +2,12 @@
 #define POBJECT_H
 
 #include <SDL/SDL_opengl.h>
+#include <math.h>
+#define PI 3.14159265359
 
 /*
  * Forget about separation of domain and representation. I'm putting
  * the functions for physics and drawing into the same class.
- * Sorry, couldn't think of a better name
  */
 
 /**
@@ -31,7 +32,7 @@ class PObject{
 		/**
 		 * Checks for a collision between the bounding rectangle of
 		 * this PObject and the rectangle defined by the parameters.
-		 * (x,y) represents the top left corner of the rectangle.
+		 * (x,y) represents the BOTTOM left corner of the rectangle.
 		 *	@return True if the two rectangles intersect; false otherwise
 		 */
 		virtual bool intersect(float x, float y, float width, float height)=0;
@@ -45,35 +46,25 @@ class PObject{
 		virtual bool contains(float x, float y)=0;
 		
 		/*!
-		 *  Checks for collisions between this PObject and the one passed
-		 *  as a parameter. Uses bounding rectangles to check for collisions.
+		 *  Slow check for collisions between this PObject and the one passed
+		 *  as a parameter. Uses the contains function to check for collisions.
 		 *  @param sgn A reference to the second PObject used for collision checking
-		 *  @return True if the bounding rectangles for the two objects intersect; false otherwise. 
+		 *  @return True if the two objects intersect; false otherwise. 
 		 */
 		virtual bool collides(PObject& sgn)=0;
+		
+		/*!
+		 * Compiles the display lists displaying this object in the
+		 * OpenGL context. Should only be called after openGl has 
+		 * been initialized.
+		 */
+		virtual void compileList(){}
 		
 		/*
 		 * what other functions should all physics objects have?
 		 */
 	private:
 };
-
-/*
- * how to draw circle:
-glNewList(displayList,GL_COMPILE);
-	glPushMatrix();
-		glTranslatef(physics_object.getx(),physics_object.gety(),0);
-		glColor3b(red,green,blue);
-		glBegin(GL_TRIANGLE_FAN);
-			glVertex2f(0.0,0.0);
-			for (int i=0; i<=edges; i++){
-				float r=physics_object.getradius();
-				glVertex2f(r*cos(2*PI*i/edges),-r*sin(2*PI*i/edges));
-			}
-		glEnd();
-	glPopMatrix();
-glEndList();
- */
 
 /*
  * remember to use display lists: compile in constructor and call in

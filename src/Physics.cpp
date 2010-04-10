@@ -6,8 +6,19 @@ Physics::~Physics(){}
 
 
 int Physics::mainLoop(){
+	GLuint oldTime = SDL_GetTicks();
+	GLuint newTime;
 	while(keepRunning()){
-    	SDL_Delay(1000);
+		newTime = SDL_GetTicks();
+		if (newTime-oldTime <= 1000/P_REFRESH_RATE){
+			SDL_Delay(1000/P_REFRESH_RATE-(newTime-oldTime));
+			newTime=SDL_GetTicks();
+		}
+    	//GLuint delta_time = newTime-oldTime;
+    	
+    	//lock and update the scene graph
+    	
+    	oldTime=newTime;
 	}
 	return 0;
 }

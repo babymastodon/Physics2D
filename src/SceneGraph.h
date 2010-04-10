@@ -2,7 +2,7 @@
 #define SCENE_GRAPH_H
 
 #include <SDL/SDL.h>
-#include <vector>
+#include <deque>
 #include "PObject.h"
 
 using namespace std;
@@ -53,7 +53,7 @@ class SceneGraph{
 	private:
 	
 		SDL_mutex* mutex;
-		vector<PObject*> pobj_list;
+		deque<PObject*> pobj_list;
 		
 		
 		float worldWidth; ///< Width of the SceneGraph - Can be larger than window

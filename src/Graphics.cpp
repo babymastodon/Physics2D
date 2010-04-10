@@ -1,5 +1,7 @@
 #include "Graphics.h"
 
+#define FPSCAP 60
+
 /**
  * Construct a new Graphics object with a name, width, height, and 
  * an assosciated SceneGraph object. Calls Thread constructor.
@@ -14,6 +16,10 @@ Graphics::Graphics(const char* n, int w, int h,SceneGraph& world) : Thread(), sc
 	window_name = n;
 	window_width = w;
 	window_height = h;
+	object = new PElipse(40,40,100,50);
+	object->set_ay(-150);
+	object->set_vx(100);
+	object->set_vy(400);
 }
 
 /*!
@@ -21,6 +27,7 @@ Graphics::Graphics(const char* n, int w, int h,SceneGraph& world) : Thread(), sc
  * No need to free memory: the SceneGraph was declared a reference
  */
 Graphics::~Graphics(){
+	delete object;
 }
 
 /*!
@@ -68,26 +75,32 @@ void Graphics::init(){
     //gluPerspective(45,(float)window_width/(float)window_height, .01, 1000);
     glOrtho(0,window_width,0,window_height,-1,1);
     glMatrixMode(GL_MODELVIEW);
+    
+    
+    //compile the display list for all objects in the SceneGraph here
+    object->compileList();
 }
 
 int Graphics::mainLoop(){
 	init();
-	/*GLuint oldTime = SDL_GetTicks();
+	GLuint oldTime = SDL_GetTicks();
 	GLuint newTime;
-	while(!quit){
+	while(keepRunning()){
 		newTime = SDL_GetTicks();
-		if (newTime-oldTime <= 1000/fpsCap){
-			SDL_Delay(1000/fpsCap-(newTime-oldTime));
+		if (newTime-oldTime <= 1000/FPSCAP){
+			SDL_Delay(1000/FPSCAP-(newTime-oldTime));
 			newTime=SDL_GetTicks();
 		}
+		/*
+		 * movement is for testing only. Will be implemented in Physics
+		 * thread once progress on SceneGraph has been made.
+		 */
+		object->move(newTime-oldTime);
     	display();
     	
     	oldTime=newTime;
-	}*/
-	while(keepRunning()){
-		display();
-    	SDL_Delay(1000);
 	}
+	
 	SDL_Quit();
 	return 0;
 }
@@ -108,12 +121,7 @@ void Graphics::display(){
     glTranslatef(-viewport_x,-viewport_y,0);
     
     //draw stuff
+    object->draw();
     
     SDL_GL_SwapBuffers();
-}
-
-
-void Graphics::update(){
-	//const SceneGraph& scene_graph = physics.getSceneGraph();
-	//lock scene graph and update graphics objects
 }

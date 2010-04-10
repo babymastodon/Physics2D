@@ -13,7 +13,9 @@ OBJECTS =	main.o\
 			Graphics.o\
 			EventHandler.o\
 			Thread.o\
-			PObject.o
+			PObject.o\
+			PElipse.o\
+			PMovingObject.o
 
 all: Makefile $(TARGET)
 
