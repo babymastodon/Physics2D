@@ -22,7 +22,7 @@ int Physics::mainLoop(){
 	}
 	return 0;
 }
-
+/*
 void Physics::LockQueue(){
 	scene_graph.lock();
 	}
@@ -35,4 +35,4 @@ bool Physics::isQueueLocked(){
 	/// @todo Implement SceneGraph lock, unlock and isLocked functions.
 	
 	// return scene_graph.isLocked();
-	}
+	}*/
