@@ -10,7 +10,7 @@
 	@date Tuesday, April 6, 2010
 */
 
-int main(int argc, char** argv)
+int main(int argc, char* argv[])
 {
 	SceneGraph world;
 	Physics physics(world);
