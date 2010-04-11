@@ -25,3 +25,9 @@ profile
 
 #ignore application
 Physics2D
+
+#ignore qtcreator project files
+*.creator
+*.include
+*.files
+*.config
