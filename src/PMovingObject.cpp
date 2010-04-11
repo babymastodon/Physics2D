@@ -43,10 +43,13 @@ float PMovingObject::get_vy() const{
 
 void PMovingObject::move(GLuint time){
 	float time_scale = time/1000.0; //convert time from milliseconds to seconds
-	vx +=ax*time_scale;
-	vy += ay*time_scale;
+	// This version of the velocity change provides a slightly better approximation to Newtonian motion
+	vx +=ax*time_scale/2;
+	vy += ay*time_scale/2;
 	cornerx += vx*time_scale;
 	cornery += vy*time_scale;
+	vx +=ax*time_scale/2;
+	vy += ay*time_scale/2;
 	cout << "moved to " << cornerx << " " << cornery << endl;
 }
 

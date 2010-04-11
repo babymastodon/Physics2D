@@ -22,7 +22,7 @@ class Physics: public Thread{
 		~Physics();
 	
 		
-		// TODO: need functions that will modify the behavior of physics
+		/// @todo need functions that will modify the behavior of physics
 
 		
 	private:
@@ -34,9 +34,9 @@ class Physics: public Thread{
 		void processEvents();
 
 
+		bool isQueueLocked(); ///< returns true if mutex is currently locked
 		void lockQueue(); ///< internal wrapper for the SDL mutex P and V functions
 		void unlockQueue(); ///< internal wrapper for the SDL mutex P and V functions
-		
 		
 		SceneGraph& scene_graph; 
 };
