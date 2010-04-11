@@ -3,9 +3,10 @@ CXX = g++
 CXXFLAGS = -Wall -m32
 DEL_FILE = rm -f
 LINK = g++
-LIBS =  -framework SDL -framework OpenGl
+LIBS =  -framework SDL -framework OpenGl -framework Cocoa
 TARGET = Physics2D
 VPATH = ./src
+INCLUDE = -I/Library/Frameworks/SDL.framework/Headers -I/System/Library/Frameworks/OpenGl.framework/Headers
 
 OBJECTS =	main.o\
 			Physics.o\
@@ -15,7 +16,8 @@ OBJECTS =	main.o\
 			Thread.o\
 			PObject.o\
 			PElipse.o\
-			PMovingObject.o
+			PMovingObject.o\
+			SDLMain.o
 
 all: Makefile $(TARGET)
 
@@ -26,5 +28,8 @@ clean:
 	$(DEL_FILE) $(OBJECTS)
 	$(DEL_FILE) $(TARGET)
 
+SDLMain.o:
+	$(CXX) $(CXXFLAGS) $(INCLUDE) -c -o SDLMain.o $(VPATH)/SDLMain.m
+
 %.o : %.cpp %.h
-	$(CXX) $(CXXFLAGS) -c -o $*.o $(VPATH)/$*.cpp 
+	$(CXX) $(CXXFLAGS) $(INCLUDE) -c -o $*.o $(VPATH)/$*.cpp 
