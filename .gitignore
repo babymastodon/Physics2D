@@ -28,6 +28,6 @@ Physics2D
 
 #ignore qtcreator project files
 *.creator
-*.include
+*.includes
 *.files
 *.config
