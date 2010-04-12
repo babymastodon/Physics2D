@@ -11,7 +11,7 @@
 class PRectangle: public PMovingObject
 {
 	public:
-		PRectange(float x, float y, float width, float height,int ed=4);
+		PRectangle(float x, float y, float width, float height,int ed=4);
 		virtual void draw();
 		virtual void compileList();
 			

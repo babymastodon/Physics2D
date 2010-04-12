@@ -27,7 +27,7 @@ int WorldTreeNode::getNumElements()
 	}
 	else
 	{
-		return children[0]->getNumElements() + children[1]->getNumElements() + children[2]->getNumElements + children[3]->getNumElements();
+		return children[0]->getNumElements() + children[1]->getNumElements() + children[2]->getNumElements() + children[3]->getNumElements();
 	}
 }
 
@@ -113,7 +113,7 @@ void WorldTreeNode::remove(PObject* removethis)
                 children[3]->remove(removethis);
             }
 		
-			if ((children[0]->getNumElements() + children[1]->getNumElements + children[2]->getNumElements + children[3]->getNumElements < 10)
+			if ((children[0]->getNumElements() + children[1]->getNumElements() + children[2]->getNumElements() + children[3]->getNumElements()) < 10)
 				{
 					/* add collapsing implementation here */
 					
@@ -128,6 +128,7 @@ void WorldTreeNode::remove(PObject* removethis)
 		{
 			if (elements[i] == removethis)
 			{
+						//ERROR
                                 for (i; i < numElements; i++)
                                 {
                                     elements[i] = elements[i + 1];
