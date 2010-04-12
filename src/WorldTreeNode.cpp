@@ -81,10 +81,35 @@ void WorldTreeNode::remove(PObject* removethis)
 {
 	if (haschildren)
 	{
-	
+            if(removethis->intersect(cornerx + (width / 2), cornery + (height / 2), height / 2, width / 2))
+            {
+                children[0]->remove(removethis);
+            }
+            if(removethis->intersect(cornerx, cornery + (height / 2), height / 2, width / 2))
+            {
+                children[1]->remove(removethis);
+            }
+            if(removethis->intersect(cornerx, cornery, height / 2, width / 2))
+            {
+                children[2]->remove(removethis);
+            }
+            if(removethis->intersect(cornerx + (width / 2), cornery, height / 2, width / 2))
+            {
+                children[3]->remove(removethis);
+            }
 	}
-	else 
+        else
 	{
-		
+		for (int i = 0; i < numElements; i++)
+		{
+			if (elements[i] == removethis)
+			{
+                                for (i; i < numElements; i++)
+                                {
+                                    elements[i] = elements[i + 1];
+                                }
+                                numElements--;
+			}
+		}
 	}
 }
