@@ -4,6 +4,8 @@
  *
  *  Created by Nicholas Lima on 4/5/10.
  */
+#ifndef WORLDTREENODE_H
+#define WORLDTREENODE_H
 
 #include "PObject.h"
 
@@ -42,4 +44,6 @@ public:
 	void add(PObject* addthis);
 	void remove(PObject* removethis);
 };
+
+#endif
 
