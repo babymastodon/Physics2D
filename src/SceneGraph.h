@@ -49,6 +49,10 @@ class SceneGraph{
 		 */
 		float getWorldWidth() const; ///< @return worldWidth A float representing the width of the SceneGraph
 		float getWorldHeight() const; ///< @return worldWidth A float representing the width of the SceneGraph
+		
+		/*!
+		 * addObject(PObject);
+		 */
 	
 	private:
 	

@@ -5,7 +5,7 @@
  *  Created by Nicholas Lima on 4/5/10.
  */
 
-#include "SceneGraphNode.h"
+#include "PObject.h"
 
 /*
  * Represents a section of the world and stores the objects within that section
