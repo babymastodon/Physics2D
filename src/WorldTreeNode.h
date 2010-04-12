@@ -14,6 +14,9 @@
  * Objects can be added or removed, if a node contains too many elements
  * it creates 4 children each containing a smaller section of the world and adds
  * its elements to the appropriate child
+ *
+ * currently the node will devide when a 10th element is added to it, it is fairly simple
+ * to increase or decrease this number
  */
 class WorldTreeNode
 {
@@ -37,12 +40,14 @@ private:
  */
 	WorldTreeNode* children[4];
 	PObject* elements[10];
+
 	
 public:
 	WorldTreeNode(int cx, int cy, int hi, int wi);
 	WorldTreeNode* getChild(int x);
 	void add(PObject* addthis);
 	void remove(PObject* removethis);
+	int getNumElements();
 };
 
 #endif

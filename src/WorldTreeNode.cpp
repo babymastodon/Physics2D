@@ -18,10 +18,24 @@ WorldTreeNode::WorldTreeNode(int cx, int cy, int hi, int wi)
 	numElements = 0;
 	haschildren = false;
 }
+
+int WorldTreeNode::getNumElements()
+{
+	if (!haschildren)
+	{
+		return numElements;
+	}
+	else
+	{
+		return children[0]->getNumElements() + children[1]->getNumElements() + children[2]->getNumElements + children[3]->getNumElements();
+	}
+}
+
 WorldTreeNode* WorldTreeNode::getChild(int x)
 {
 	return children[x - 1];
 }
+
 void WorldTreeNode::add(PObject* addthis)
 {
 	if (numElements == 9 and !haschildren)
@@ -77,6 +91,7 @@ void WorldTreeNode::add(PObject* addthis)
 		numElements++;
 	}
 }
+
 void WorldTreeNode::remove(PObject* removethis)
 {
 	if (haschildren)
@@ -97,6 +112,15 @@ void WorldTreeNode::remove(PObject* removethis)
             {
                 children[3]->remove(removethis);
             }
+		
+			if ((children[0]->getNumElements() + children[1]->getNumElements + children[2]->getNumElements + children[3]->getNumElements < 10)
+				{
+					/* add collapsing implementation here */
+					
+					haschildren = false;
+					
+				}
+		
 	}
         else
 	{
