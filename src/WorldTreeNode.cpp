@@ -9,7 +9,7 @@
 
 #include "WorldTreeNode.h"
 
-WorldTreeNode::WorldTreeNode(int cx, int cy, int hi, int wi)
+WorldTreeNode::WorldTreeNode(float cx, float cy, float hi, float wi)
 {
 	cornerx = cx;
 	cornery = cy;
@@ -33,7 +33,7 @@ int WorldTreeNode::getNumElements()
 
 WorldTreeNode* WorldTreeNode::getChild(int x)
 {
-	return children[x - 1];
+	return children[x];
 }
 
 void WorldTreeNode::add(PObject* addthis)
@@ -45,6 +45,10 @@ void WorldTreeNode::add(PObject* addthis)
 		children[1] = new WorldTreeNode(cornerx, cornery + (height / 2), height / 2, width / 2);
 		children[2] = new WorldTreeNode(cornerx, cornery, height / 2, width / 2);
 		children[3] = new WorldTreeNode(cornerx + (width / 2), cornery, height / 2, width / 2);
+		for (int i = 0; i < 4; i++)
+		{
+			children[i]->setParent(this);
+		}
 		haschildren = true;
 		for (int i = 0; i < 11; i++)
 		{
@@ -115,26 +119,67 @@ void WorldTreeNode::remove(PObject* removethis)
 		
 			if ((children[0]->getNumElements() + children[1]->getNumElements() + children[2]->getNumElements() + children[3]->getNumElements()) < 10)
 				{
-					/* add collapsing implementation here */
-					
+					int counter = 0;
+					for (int i = 0; i < children[0]->getNumElements(); i++)
+					{
+						elements[i] = children[0]->getElement(i);
+						numElements++;
+						counter++;
+					}
+					for (int i = 0; i < children[1]->getNumElements(); i++)
+					{
+						elements[counter] = children[1]->getElement(i);
+						numElements++;
+						counter++;
+					}
+					for (int i = 0; i < children[2]->getNumElements(); i++)
+					{
+						elements[counter] = children[2]->getElement(i);
+						numElements++;
+						counter++;
+					}
+					for (int i = 0; i < children[3]->getNumElements(); i++)
+					{
+						elements[counter] = children[3]->getElement(i);
+						numElements++;
+						counter++;
+					}
+
 					haschildren = false;
-					
+					for (int i = 0; i < 4; i++)
+					{
+						children[i] = NULL;
+					}
 				}
 		
 	}
-        else
+	else
 	{
 		for (int i = 0; i < numElements; i++)
 		{
 			if (elements[i] == removethis)
 			{
-						//ERROR
-                                for (i; i < numElements; i++)
-                                {
-                                    elements[i] = elements[i + 1];
-                                }
-                                numElements--;
+				for (int j = i; j < numElements; j++)
+				{
+					elements[j] = elements[i + 1];
+				}
+				numElements--;
 			}
 		}
 	}
+}
+
+void WorldTreeNode::setParent(WorldTreeNode* thisisp)
+{
+	parent = thisisp;
+}
+
+WorldTreeNode* WorldTreeNode::getParent()
+{
+	return parent;
+}
+
+PObject* WorldTreeNode::getElement(int thisone)
+{
+	return elements[thisone];
 }

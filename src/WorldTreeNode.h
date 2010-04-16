@@ -25,10 +25,10 @@ private:
 /*
  *	stores the dimensions of the node
  */
-	int cornerx;
-	int cornery;
-	int height;
-	int width;
+	float cornerx;
+	float cornery;
+	float height;
+	float width;
 /*
  * stores the number of elements contained in the node, and whether or not the node has childrew
  */
@@ -40,14 +40,21 @@ private:
  */
 	WorldTreeNode* children[4];
 	PObject* elements[10];
+	WorldTreeNode* parent;
 
 	
 public:
-	WorldTreeNode(int cx, int cy, int hi, int wi);
+	WorldTreeNode(float cx, float cy, float hi, float wi);
 	WorldTreeNode* getChild(int x);
+	
 	void add(PObject* addthis);
 	void remove(PObject* removethis);
+	
 	int getNumElements();
+	PObject* getElement(int thisone);
+	
+	void setParent(WorldTreeNode* thisisp);
+	WorldTreeNode* getParent();
 };
 
 #endif

@@ -7,8 +7,7 @@ PRectangle::PRectangle(float x, float y, float w, float h,int ed) : PMovingObjec
 }
 void PRectangle::compileList()
 {
-	//float xaxis = width/2;
-	//float yaxis = height/2;
+	
 	display_list = glGenLists(2);
 	
 	if (display_list!=0){
@@ -16,6 +15,7 @@ void PRectangle::compileList()
 		glBegin(GL_TRIANGLE_FAN);
 		glNormal3f(0,0,1);
 		//Make sure it's counterclockwise (i fixed it)
+		//But now its clockwise?  Do you mean clockwise?
 		glVertex2f(0.0,0.0);
 		glVertex2f(0, height);
 		glVertex2f(width, height);
