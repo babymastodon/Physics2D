@@ -2,6 +2,7 @@
 #define SCENE_GRAPH_H
 
 #include <SDL/SDL.h>
+#include <SDL/SDL_opengl.h>
 #include <deque>
 #include "PObject.h"
 

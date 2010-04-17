@@ -5,6 +5,9 @@
 #include <math.h>
 #define PI 3.14159265359
 
+#include <iostream>
+using namespace std;
+
 /*
  * Forget about separation of domain and representation. I'm putting
  * the functions for physics and drawing into the same class.

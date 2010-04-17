@@ -1,9 +1,8 @@
 
 #include "PRectangle.h"
 
-PRectangle::PRectangle(float x, float y, float w, float h,int ed) : PMovingObject(x,y,w,h) 
+PRectangle::PRectangle(float x, float y, float w, float h) : PMovingObject(x,y,w,h) 
 {
-	edges = ed;
 }
 void PRectangle::compileList()
 {
@@ -14,12 +13,11 @@ void PRectangle::compileList()
 		glNewList(display_list,GL_COMPILE);
 		glBegin(GL_TRIANGLE_FAN);
 		glNormal3f(0,0,1);
-		//Make sure it's counterclockwise (i fixed it)
-		//But now its clockwise?  Do you mean clockwise?
+		//it's ok now
 		glVertex2f(0.0,0.0);
-		glVertex2f(0, height);
-		glVertex2f(width, height);
 		glVertex2f(width, 0);
+		glVertex2f(width, height);
+		glVertex2f(0, height);
 		glEnd();
 		glEndList();
 	}
@@ -28,9 +26,10 @@ void PRectangle::compileList()
 void PRectangle::draw()
 {
 	glPushMatrix();
-		glTranslatef(cornerx+width/2,cornery+height/2,0);
+		glTranslatef(cornerx,cornery,0);
 		glCallList(display_list);
 	glPopMatrix();
+	std::cout << "drew rect at " << cornerx << " " << cornery << std::endl;
 }
 
 

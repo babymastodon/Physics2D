@@ -2,10 +2,9 @@
 #define GRAPHICS_H
 
 #include "SceneGraph.h"
-#include "Physics.h"
 #include "Thread.h"
-#include "PElipse.h"
-#include <SDL/SDL_opengl.h>
+
+#include "PRectangle.h"
 
 /*!
  * The Graphics class is responsible for keeping track of the SceneGraphNodes
@@ -19,6 +18,11 @@ class Graphics: public Thread{
 	public:
 		Graphics(const char* name, int w, int h, SceneGraph& world);
 		~Graphics();
+		
+		/*!
+		 * returns true if SDL and OpenGL have been initialized
+		 */
+		bool isInitialized();
 		
 		/*
 		 * TODO:
@@ -34,7 +38,8 @@ class Graphics: public Thread{
 		int mainLoop();
 		
 		void display();
-		void init();
+		void initWindow();
+		void quitWindow();
 		
 		const char* window_name;
 		int window_width;
@@ -46,6 +51,8 @@ class Graphics: public Thread{
 		SceneGraph& scene_graph; ///< Contains all of the SceneGraphNodes that are present in the program.
 		
 		PMovingObject* object;///< This is only a sample object to debug object initialization and drawing.
+		
+		bool is_initialized;///< true if SDL opengl are initialized.
 };
 
 #endif

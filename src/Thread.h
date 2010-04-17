@@ -19,8 +19,8 @@ class Thread{
 		 */
 		Thread();
 		
-		void start(); ///< Function that starts the SDL_Thread. Only starts if thread == NULL
-		void stop(); 
+		void startThread(); ///< Function that starts the SDL_Thread. Only starts if thread == NULL
+		void stopThread(); 
 		void waitForStop(); ///< Waits for the current thread to finish, then clears thread pointer
 		
 		
@@ -45,11 +45,11 @@ class Thread{
 		static int threadFunc(void* data);
 		
 		/*!
-		 * Thread stops when quit == true
-		 * Possible problem: the quit variable is not thread safe,
+		 * Thread stops when quit_now
+		 * Possible problem: the quit_now variable is not thread safe,
 		 * but should be fine since it is rarely used
 		 */
-		bool quit;
+		bool quit_now;
 		SDL_Thread* thread;
 };
 #endif

@@ -15,7 +15,33 @@ EventHandler::~EventHandler(){}
 	 * if quit event, send stop signal to phys and graphics objects and return.
 */
 int EventHandler::mainLoop(){
-	
-	SDL_Delay(6000);
+	GLuint oldTime = SDL_GetTicks();
+	GLuint newTime;
+	while(keepRunning()){
+		newTime = SDL_GetTicks();
+		if (newTime-oldTime <= 1000/EVENT_CHECK_RATE){
+			SDL_Delay(1000/EVENT_CHECK_RATE-(newTime-oldTime));
+			newTime=SDL_GetTicks();
+		}
+    	if (graphics.isInitialized()) handleEvents();
+    	oldTime=newTime;
+	}
 	return 0;
+}
+
+void EventHandler::handleEvents(){
+	SDL_Event event;
+	while(SDL_PollEvent(&event) && keepRunning()){
+		switch(event.type){
+			case SDL_QUIT: stopThread(); break;
+			case SDL_KEYDOWN:
+				switch(event.key.keysym.sym){
+					default: break;
+				}break;
+			case SDL_KEYUP:
+				switch(event.key.keysym.sym){
+					default: break;
+				}break;
+		}
+	}
 }
