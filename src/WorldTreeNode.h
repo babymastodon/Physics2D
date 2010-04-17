@@ -9,6 +9,9 @@
 
 #include "PObject.h"
 
+#define MAX_ELEMENTS 9
+#define MIN_ELEMENTS 3
+
 /*
  * Represents a section of the world and stores the objects within that section
  * Objects can be added or removed, if a node contains too many elements
@@ -18,6 +21,14 @@
  * currently the node will devide when a 10th element is added to it, it is fairly simple
  * to increase or decrease this number
  */
+
+/*
+ * new implementation could contain a sorted deque in each node to keep track of
+ * all PObjects in its children. Although is is much more memory intensive, it will
+ * allow efficient traversal of the objects as well as a more
+ * efficient remove() method.
+ */
+
 class WorldTreeNode
 {
 private:
@@ -39,22 +50,29 @@ private:
  * then the elements array stores the node's elements
  */
 	WorldTreeNode* children[4];
-	PObject* elements[10];
+	PObject* elements[MAX_ELEMENTS+1];
 	WorldTreeNode* parent;
 
 	
 public:
-	WorldTreeNode(float cx, float cy, float hi, float wi);
+	//Changed order for to be consistant
+	WorldTreeNode(float cx, float cy, float wi, float hi);
+	~WorldTreeNode();
 	WorldTreeNode* getChild(int x);
 	
 	void add(PObject* addthis);
+	/*
+	 * Precondition: removeThis intersects with this node's bounding rect
+	 */
 	void remove(PObject* removethis);
 	
 	int getNumElements();
-	PObject* getElement(int thisone);
 	
-	void setParent(WorldTreeNode* thisisp);
 	WorldTreeNode* getParent();
+	
+private:
+	void setParent(WorldTreeNode* thisisp);
+	void addToChildren(PObject* addthis);
 };
 
 #endif

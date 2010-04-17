@@ -63,6 +63,14 @@ class PObject{
 		 */
 		virtual void compileList(){}
 		
+		/**
+		 * Checks if this object's bounding rect lies completely within
+		 * the given rectangle.
+		 * (x,y) represents the BOTTOM left corner of the rectangle.
+		 *	@return True if the object is completely within given rect; false otherwise
+		 */
+		virtual bool completelyInside(float x, float y, float width, float height)=0;
+		
 		/*
 		 * what other functions should all physics objects have?
 		 */
