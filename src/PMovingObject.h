@@ -18,6 +18,8 @@ class PMovingObject: public PObject
 		virtual bool intersect(float x, float y, float w, float h); 
 		virtual bool contains(float x, float y);
 		virtual bool collides(PObject& other);
+	
+	virtual bool onBound(float xcorner, float ycorner, float xwidth, float yheight);
 		
 		// Acceleration and velocity getter and setter functions
 		void set_ax(float n);

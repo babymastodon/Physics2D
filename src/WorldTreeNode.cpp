@@ -35,6 +35,10 @@ WorldTreeNode* WorldTreeNode::getChild(int x)
 {
 	return children[x];
 }
+bool WorldTreeNode::hasChildren()
+{
+	return haschildren;
+}
 
 void WorldTreeNode::add(PObject* addthis)
 {
@@ -182,4 +186,24 @@ WorldTreeNode* WorldTreeNode::getParent()
 PObject* WorldTreeNode::getElement(int thisone)
 {
 	return elements[thisone];
+}
+
+void WorldTreeNode::update()
+{
+	if (haschildren)
+	{
+		for (int i = 0; i < numElements; i++)
+		{
+			//this is where it needs to kick the element up to its parent if it is no longer in the node
+			//but what if it intersects with two squares?
+			//we need a border method in pobject to check it its on the boundary
+		}
+	}
+	else 
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			children[i]->update();
+		}
+	}
 }

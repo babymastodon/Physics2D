@@ -63,6 +63,10 @@ class PObject{
 		/*
 		 * what other functions should all physics objects have?
 		 */
+	
+		//checks to see if this object is on the edge of a given boundry
+		virtual bool onBound(float xcorner, float ycorner, float xwidth, float yheight)=0;
+	
 	private:
 };
 

@@ -46,6 +46,7 @@ private:
 public:
 	WorldTreeNode(float cx, float cy, float hi, float wi);
 	WorldTreeNode* getChild(int x);
+	bool hasChildren();
 	
 	void add(PObject* addthis);
 	void remove(PObject* removethis);
@@ -55,6 +56,8 @@ public:
 	
 	void setParent(WorldTreeNode* thisisp);
 	WorldTreeNode* getParent();
+	
+	void update();
 };
 
 #endif
