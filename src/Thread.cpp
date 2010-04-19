@@ -1,7 +1,7 @@
 #include "Thread.h"
 
 Thread::Thread(){
-	quit=true;
+	quit_now=true;
 	thread=NULL;
 }
 
@@ -9,13 +9,13 @@ int Thread::threadFunc(void* data){
 	return ((Thread*)data)->mainLoop();
 }
 
-void Thread::stop(){
-	quit=true;
+void Thread::stopThread(){
+	quit_now=true;
 }
 
-void Thread::start(){
+void Thread::startThread(){
 	if (thread==NULL){
-		quit=false;
+		quit_now=false;
 		// Creates a separate thread to run the mainLoop function defined in this class
 		thread = SDL_CreateThread(threadFunc,this);
 	}
@@ -27,5 +27,5 @@ void Thread::waitForStop(){
 }
 
 bool Thread::keepRunning() {
-	return !quit;
+	return !quit_now;
 }

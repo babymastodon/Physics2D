@@ -7,6 +7,8 @@
 #include "SceneGraph.h"
 #include <SDL/SDL.h>
 
+#define EVENT_CHECK_RATE 20///< # checks per second
+
 /*!
  * The EventHandler class recieves SDL events, interprets them, passes them
  * to either the Physics or Grahics objects.
@@ -23,6 +25,7 @@ class EventHandler: public Thread{
 		 * the function for the overriden thread
 		 */
 		int mainLoop();
+		void handleEvents();
 		
 		///not const so that it can modify behavior
 		Physics& physics;

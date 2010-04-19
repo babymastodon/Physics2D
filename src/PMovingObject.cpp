@@ -76,9 +76,14 @@ bool PMovingObject::intersect(float x, float y, float w, float h){
 	return false;
 }
 
+bool PMovingObject::completelyInside(float x, float y, float w, float h){
+	return cornerx>x && cornery>y && cornerx+width<x+w && cornery<y+h;
+}
+
 bool PMovingObject::contains(float x, float y){
 	return x>cornerx && y>cornery && x<cornerx+width && y<cornery+height;
 }
+
 bool PMovingObject::collides(PObject& other){
 	/*
 	 * subclasses should override this function so that it doesn't

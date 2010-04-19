@@ -9,8 +9,7 @@
 
 #include "WorldTreeNode.h"
 
-WorldTreeNode::WorldTreeNode(float cx, float cy, float hi, float wi)
-{
+WorldTreeNode::WorldTreeNode(float cx, float cy, float wi, float hi){
 	cornerx = cx;
 	cornery = cy;
 	height = hi;
@@ -19,16 +18,17 @@ WorldTreeNode::WorldTreeNode(float cx, float cy, float hi, float wi)
 	haschildren = false;
 }
 
-int WorldTreeNode::getNumElements()
-{
-	if (!haschildren)
-	{
-		return numElements;
-	}
-	else
-	{
-		return children[0]->getNumElements() + children[1]->getNumElements() + children[2]->getNumElements() + children[3]->getNumElements();
-	}
+WorldTreeNode::~WorldTreeNode(){
+	//possibly delete child nodes
+}
+
+/*
+ * Changed: if it's recursive, getNumElements() will return a greater
+ * value than the true number of elements. (what if a element is in
+ * more than one of the child nodes)
+ */
+int WorldTreeNode::getNumElements(){
+	return numElements;
 }
 
 WorldTreeNode* WorldTreeNode::getChild(int x)
@@ -40,146 +40,100 @@ bool WorldTreeNode::hasChildren()
 	return haschildren;
 }
 
-void WorldTreeNode::add(PObject* addthis)
-{
-	if (numElements == 9 and !haschildren)
-	{
+void WorldTreeNode::add(PObject* addthis){
+	if (!haschildren && numElements == MAX_ELEMENTS){
+		haschildren = true;
+		//Precalculate for efficiency
+		float halfwidth = width/2;
+		float halfheight = height/2;
+		float midx = cornerx + halfwidth;
+		float midy = cornery + halfheight;
+		
 		elements[numElements] = addthis;
-		children[0] = new WorldTreeNode(cornerx + (width / 2), cornery + (height / 2), height / 2, width / 2);
-		children[1] = new WorldTreeNode(cornerx, cornery + (height / 2), height / 2, width / 2);
-		children[2] = new WorldTreeNode(cornerx, cornery, height / 2, width / 2);
-		children[3] = new WorldTreeNode(cornerx + (width / 2), cornery, height / 2, width / 2);
-		for (int i = 0; i < 4; i++)
-		{
+		children[0] = new WorldTreeNode(midx, midy, halfwidth, halfheight);
+		children[1] = new WorldTreeNode(cornerx, midy, halfwidth, halfheight);
+		children[2] = new WorldTreeNode(cornerx, cornery, halfwidth, halfheight);
+		children[3] = new WorldTreeNode(midx, cornery, halfwidth, halfheight);
+		for (int i = 0; i < 4; i++){
 			children[i]->setParent(this);
 		}
-		haschildren = true;
-		for (int i = 0; i < 11; i++)
-		{
-				if (elements[i]->intersect(cornerx + (width / 2), cornery + (height / 2), height / 2, width / 2))
-				{
-					children[0]->add(elements[i]);
-				}
-				if(elements[i]->intersect(cornerx, cornery + (height / 2), height / 2, width / 2))
-				{
-					children[1]->add(elements[i]);
-				}
-				if(elements[i]->intersect(cornerx, cornery, height / 2, width / 2))
-				{
-					children[2]->add(elements[i]);
-				}
-				if(elements[i]->intersect(cornerx + (width / 2), cornery, height / 2, width / 2))
-				{
-					children[3]->add(elements[i]);
-				}
+		
+		for (int i = 0; i < MAX_ELEMENTS+1; i++){
+			addToChildren(elements[i]);
 		}
 	}
-	if (haschildren)
-	{
-		if (addthis->intersect(cornerx + (width / 2), cornery + (height / 2), height / 2, width / 2))
-		{
-			children[0]->add(addthis);
-		}
-		if(addthis->intersect(cornerx, cornery + (height / 2), height / 2, width / 2))
-		{
-			children[1]->add(addthis);
-		}
-		if(addthis->intersect(cornerx, cornery, height / 2, width / 2))
-		{
-			children[2]->add(addthis);
-		}
-		if(addthis->intersect(cornerx + (width / 2), cornery, height / 2, width / 2))
-		{
-			children[3]->add(addthis);
-		}
+	if (haschildren){
+		addToChildren(addthis);
 	}
-	else
-	{
+	else{
 		elements[numElements] = addthis;
-		numElements++;
+	}
+	numElements++;
+}
+
+void WorldTreeNode::addToChildren(PObject* addThis){
+	for (int j=0; j<4; j++){
+		WorldTreeNode* child = children[j];
+		if (addThis->intersect(child->cornerx, child->cornery, child->width, child->height))
+			child->add(addThis);
 	}
 }
 
-void WorldTreeNode::remove(PObject* removethis)
-{
-	if (haschildren)
-	{
-            if(removethis->intersect(cornerx + (width / 2), cornery + (height / 2), height / 2, width / 2))
-            {
-                children[0]->remove(removethis);
-            }
-            if(removethis->intersect(cornerx, cornery + (height / 2), height / 2, width / 2))
-            {
-                children[1]->remove(removethis);
-            }
-            if(removethis->intersect(cornerx, cornery, height / 2, width / 2))
-            {
-                children[2]->remove(removethis);
-            }
-            if(removethis->intersect(cornerx + (width / 2), cornery, height / 2, width / 2))
-            {
-                children[3]->remove(removethis);
-            }
-		
-			if ((children[0]->getNumElements() + children[1]->getNumElements() + children[2]->getNumElements() + children[3]->getNumElements()) < 10)
-				{
-					int counter = 0;
-					for (int i = 0; i < children[0]->getNumElements(); i++)
-					{
-						elements[i] = children[0]->getElement(i);
-						numElements++;
-						counter++;
-					}
-					for (int i = 0; i < children[1]->getNumElements(); i++)
-					{
-						elements[counter] = children[1]->getElement(i);
-						numElements++;
-						counter++;
-					}
-					for (int i = 0; i < children[2]->getNumElements(); i++)
-					{
-						elements[counter] = children[2]->getElement(i);
-						numElements++;
-						counter++;
-					}
-					for (int i = 0; i < children[3]->getNumElements(); i++)
-					{
-						elements[counter] = children[3]->getElement(i);
-						numElements++;
-						counter++;
-					}
 
-					haschildren = false;
-					for (int i = 0; i < 4; i++)
-					{
-						children[i] = NULL;
+void WorldTreeNode::remove(PObject* removethis){
+	if (haschildren){
+		for (int j=0; j<4; j++){
+			WorldTreeNode* child = children[j];
+			if (removethis->intersect(child->cornerx, child->cornery, child->width, child->height))
+				child->remove(removethis);
+		}
+		/*
+		 * Original implementation ignored the fact that
+		 * elements could be in more than one child node.
+		 */
+		if (numElements<=MAX_ELEMENTS){
+			//collect the PObjects in the children
+			int counter = 0;
+			for (int j=0; j<4; j++){
+				//child nodes are guarenteed to not have any more child nodes
+				WorldTreeNode* child = children[j];
+				for (int i = 0; i < child->numElements; i++){
+					//check for duplicates before collecting
+					bool noDup = true;
+					for (int k=0; k<counter; k++){
+						if (child->elements[i]==elements[j]) noDup = false;
+					}
+					if (noDup){
+						elements[counter] = child->elements[i];
+						counter++;
 					}
 				}
-		
-	}
-	else
-	{
-		for (int i = 0; i < numElements; i++)
-		{
-			if (elements[i] == removethis)
-			{
-				for (int j = i; j < numElements; j++)
-				{
-					elements[j] = elements[i + 1];
-				}
-				numElements--;
+			}
+
+			haschildren = false;
+			for (int i = 0; i < 4; i++){
+				delete children[i]; //remember that c++ doesn't have automatic garbage collection
+				children[i] = NULL;
 			}
 		}
 	}
+	else{
+		for (int i = 0; i < numElements; i++){
+			if (elements[i] == removethis){
+				for (int j = i; j < numElements-1; j++){
+					elements[j] = elements[i + 1];
+				}
+			}
+		}
+	}
+	numElements--;
 }
 
-void WorldTreeNode::setParent(WorldTreeNode* thisisp)
-{
+void WorldTreeNode::setParent(WorldTreeNode* thisisp){
 	parent = thisisp;
 }
 
-WorldTreeNode* WorldTreeNode::getParent()
-{
+WorldTreeNode* WorldTreeNode::getParent(){
 	return parent;
 }
 
@@ -207,3 +161,4 @@ void WorldTreeNode::update()
 		}
 	}
 }
+

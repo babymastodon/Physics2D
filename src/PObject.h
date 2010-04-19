@@ -5,6 +5,9 @@
 #include <math.h>
 #define PI 3.14159265359
 
+#include <iostream>
+using namespace std;
+
 /*
  * Forget about separation of domain and representation. I'm putting
  * the functions for physics and drawing into the same class.
@@ -59,6 +62,14 @@ class PObject{
 		 * been initialized.
 		 */
 		virtual void compileList(){}
+		
+		/**
+		 * Checks if this object's bounding rect lies completely within
+		 * the given rectangle.
+		 * (x,y) represents the BOTTOM left corner of the rectangle.
+		 *	@return True if the object is completely within given rect; false otherwise
+		 */
+		virtual bool completelyInside(float x, float y, float width, float height)=0;
 		
 		/*
 		 * what other functions should all physics objects have?

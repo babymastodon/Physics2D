@@ -17,14 +17,14 @@ int main(int argc, char* argv[])
 	Graphics graphics("Title",800,600,world);
 	EventHandler event_handler(physics,graphics,world);
 	
-	physics.start();
-	graphics.start();
-	event_handler.start();
+	physics.startThread();
+	graphics.startThread();
+	event_handler.startThread();
 	
 	event_handler.waitForStop();
 	
-	graphics.stop();
-	physics.stop();
+	graphics.stopThread();
+	physics.stopThread();
 	graphics.waitForStop();
 	physics.waitForStop();
 	return 0;

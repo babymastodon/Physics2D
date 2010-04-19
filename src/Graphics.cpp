@@ -16,10 +16,16 @@ Graphics::Graphics(const char* n, int w, int h,SceneGraph& world) : Thread(), sc
 	window_name = n;
 	window_width = w;
 	window_height = h;
-	object = new PElipse(40,40,100,50);
+	object = new PRectangle(40,40,100,50);
 	object->set_ay(-150);
 	object->set_vx(100);
 	object->set_vy(400);
+	
+	is_initialized = false;
+}
+
+bool Graphics::isInitialized(){
+	return is_initialized;
 }
 
 /*!
@@ -36,7 +42,7 @@ Graphics::~Graphics(){
  * drawing, and sets up smooth lighting. Also initializes an
  * orthagonal projection.
  */
-void Graphics::init(){
+void Graphics::initWindow(){
 	SDL_Init(SDL_INIT_VIDEO);
 	const SDL_VideoInfo* info = NULL;
 	info = SDL_GetVideoInfo();
@@ -79,10 +85,17 @@ void Graphics::init(){
     
     //compile the display list for all objects in the SceneGraph here
     object->compileList();
+    
+    is_initialized = true;
+}
+
+void Graphics::quitWindow(){
+	is_initialized = false;
+	SDL_Quit();
 }
 
 int Graphics::mainLoop(){
-	init();
+	initWindow();
 	GLuint oldTime = SDL_GetTicks();
 	GLuint newTime;
 	while(keepRunning()){
@@ -101,7 +114,7 @@ int Graphics::mainLoop(){
     	oldTime=newTime;
 	}
 	
-	SDL_Quit();
+	quitWindow();
 	return 0;
 }
 
