@@ -4,6 +4,8 @@
  *
  *  Created by Nicholas Lima on 4/5/10.
  *  Stores and allows for manipulation/traversal of a WorldTree storing SceneGraphNodes as elements
+ * 
+ * !!!!!Contents have migrated to SceneGraph.h
  */
 #include "WorldTreeNode.h"
 #include "SceneGraphNode.h"

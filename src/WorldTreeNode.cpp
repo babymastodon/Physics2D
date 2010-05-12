@@ -137,11 +137,6 @@ WorldTreeNode* WorldTreeNode::getParent(){
 	return parent;
 }
 
-PObject* WorldTreeNode::getElement(int thisone)
-{
-	return elements[thisone];
-}
-
 void WorldTreeNode::update()
 {
 	if (haschildren)

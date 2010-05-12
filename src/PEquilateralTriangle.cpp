@@ -9,13 +9,13 @@
 
 #include "PEquilateralTriangle.h"
 
-PEquilateralTriangle::PEquilateralTriangle(float x, float y, float sidelength) : PMovingObject(x, y, sidelength, sidelength)
+PEquilateralTriangle::PEquilateralTriangle(float x, float y, float sidelength) : PMovingObject(x, y, sidelength, sqrt(3) * sidelength / 2)
 {
 }
 
 void PEquilateralTriangle::compileList()
 {
-	dislplay_list = glGenLists(3);
+	display_list = glGenLists(3);
 	
 	if (display_list != 0) 
 	{
@@ -23,8 +23,8 @@ void PEquilateralTriangle::compileList()
 		glBegin(GL_TRIANGLE_FAN);
 		glNormal3f(0, 0, 1);
 		glVertex2f(0.0, 0.0);
-		glVertex2f(sidelength, 0.0);
-		glVertex2f(sidelength / 2, Sqrt(3) * sidelength / 2)
+		glVertex2f(width, 0.0);
+		glVertex2f(width / 2, height);
 		glEnd();
 		glEndList();
 	}
@@ -33,7 +33,7 @@ void PEquilateralTriangle::compileList()
 void PEquilateralTriangle::draw()
 {
 	glPushMatrix();
-	glTranslatef(x, y, 0);
+	glTranslatef(cornerx, cornery, 0);
 	glCallList(display_list);
 	glPopMatrix();
 }

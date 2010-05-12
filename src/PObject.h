@@ -76,7 +76,8 @@ class PObject{
 		 */
 	
 		//checks to see if this object is on the edge of a given boundry
-		virtual bool onBound(float xcorner, float ycorner, float xwidth, float yheight)=0;
+		//do we still need this?
+		//virtual bool onBound(float xcorner, float ycorner, float xwidth, float yheight)=0;
 	
 	private:
 };

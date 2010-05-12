@@ -1,6 +1,8 @@
 #include "WorldTree.h"
 
 
+//CONTENTS MOVED TO SCENEGRAPH
+
 
 WorldTree::WorldTree(int cx, int cy, int hi, int wi)
 {

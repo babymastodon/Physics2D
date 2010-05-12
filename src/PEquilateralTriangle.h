@@ -10,7 +10,7 @@
 
 #include "PMovingObject.h"
 
-class PEquilateralTriangle:: public PMovingObject
+class PEquilateralTriangle : public PMovingObject
 {
 public: 
 	PEquilateralTriangle(float x, float y, float sidelength);
@@ -19,5 +19,5 @@ public:
 	
 private:
 	GLuint display_list;
-}
+};
 #endif

@@ -12,7 +12,7 @@
 
 int main(int argc, char* argv[])
 {
-	SceneGraph world;
+	SceneGraph world(800,600);
 	Physics physics(world);
 	Graphics graphics("Title",800,600,world);
 	EventHandler event_handler(physics,graphics,world);

@@ -17,7 +17,8 @@ OBJECTS =	main.o\
 			PElipse.o\
 			PMovingObject.o\
 			WorldTreeNode.o\
-			PRectangle.o
+			PRectangle.o\
+			PEquilateralTriangle.o
 
 all: Makefile $(TARGET)
 

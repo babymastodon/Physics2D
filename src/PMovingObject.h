@@ -14,6 +14,7 @@ class PMovingObject: public PObject
 	public:
 		PMovingObject(float x, float y, float width, float height, float dx=0, float dy=0, float ddx=0, float ddy=0);
 		//why are these function virtual when implementation is provided? Subclasses can override normal functions too.
+		//this allows polymorphism to happen
 		virtual void move(GLuint time); ///< Time in milliseconds
 		virtual bool intersect(float x, float y, float w, float h); 
 		virtual bool contains(float x, float y);

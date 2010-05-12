@@ -69,15 +69,14 @@ public:
 	
 	int getNumElements();
 	
+	//what if it's the top level tree node. Parent could == NULL
 	WorldTreeNode* getParent();
 	
-<<<<<<< HEAD
 	void update();
-=======
+	
 private:
 	void setParent(WorldTreeNode* thisisp);
 	void addToChildren(PObject* addthis);
->>>>>>> 34eba545aef39d371ac72b5661a6b82106ab6b4c
 };
 
 #endif
