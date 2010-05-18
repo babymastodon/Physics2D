@@ -15,6 +15,7 @@ WorldTreeNode::WorldTreeNode(float cx, float cy, float wi, float hi){
 	height = hi;
 	width = wi;
 	numElements = 0;
+	parent = NULL;
 	haschildren = false;
 }
 
@@ -137,15 +138,44 @@ WorldTreeNode* WorldTreeNode::getParent(){
 	return parent;
 }
 
+float WorldTreeNode::getcornerx()
+{
+	return cornerx;
+}
+float WorldTreeNode::getcornery()
+{
+	return cornery;
+}
+float WorldTreeNode::getheight()
+{
+	return height;
+}
+float WorldTreeNode::getwidth()
+{
+	return width;
+}
+
 void WorldTreeNode::update()
 {
-	if (haschildren)
+	if (!haschildren)
 	{
 		for (int i = 0; i < numElements; i++)
 		{
-			//this is where it needs to kick the element up to its parent if it is no longer in the node
-			//but what if it intersects with two squares?
-			//we need a border method in pobject to check it its on the boundary
+			//if this works it should keep going up the tree till it finds the correct node to add the element to
+			
+			WorldTreeNode* moveup = parent;
+			if(!(elements[i]->completelyInside(cornerx, cornery, width, height)))
+			{
+				while (parent->getParent() != 0)
+				{
+					if(!(elements[i]->completelyInside(moveup->getcornerx(), moveup->getcornery(), moveup->getwidth(), moveup->getwidth())))
+					{
+						moveup = moveup->getParent();
+					}
+				}
+				remove(elements[i]);
+				moveup->add(elements[i]);
+			}
 		}
 	}
 	else 

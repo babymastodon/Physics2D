@@ -38,3 +38,4 @@ void PEquilateralTriangle::draw()
 	glPopMatrix();
 }
 
+virtual void collides

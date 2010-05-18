@@ -69,6 +69,11 @@ public:
 	
 	int getNumElements();
 	
+	float getcornerx();
+	float getcornery();
+	float getheight();
+	float getwidth();
+	
 	//what if it's the top level tree node. Parent could == NULL
 	WorldTreeNode* getParent();
 	
