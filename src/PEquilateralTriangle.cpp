@@ -38,4 +38,6 @@ void PEquilateralTriangle::draw()
 	glPopMatrix();
 }
 
-virtual void collides
+bool PEquilateralTriangle::collides(PObject& other){
+	return false;
+}

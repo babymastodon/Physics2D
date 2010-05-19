@@ -162,9 +162,12 @@ void WorldTreeNode::update()
 		for (int i = 0; i < numElements; i++)
 		{
 			//if this works it should keep going up the tree till it finds the correct node to add the element to
+			//this will definitely not work
+			//what about when a PObject lies on the border and is "inside" both regions?
+			//I'm thinking of implementing a sorted PObject list within each node to speed up searches required to solve this problem. (to ensure that a PObject isn't added twice to the same parent during a cycle of updates)
 			
 			WorldTreeNode* moveup = parent;
-			if(!(elements[i]->completelyInside(cornerx, cornery, width, height)))
+			if(!(elements[i]->completelyInside(cornerx, cornery, width, height)) && parent!=NULL)
 			{
 				while (parent->getParent() != 0)
 				{

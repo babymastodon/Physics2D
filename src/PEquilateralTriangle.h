@@ -17,7 +17,7 @@ public:
 	virtual void draw();
 	virtual void compileList();
 	
-	virtual void collides(PObject& other);
+	virtual bool collides(PObject& other);
 	
 private:
 	GLuint display_list;

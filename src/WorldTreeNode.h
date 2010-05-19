@@ -60,7 +60,10 @@ public:
 	~WorldTreeNode();
 	WorldTreeNode* getChild(int x);
 	bool hasChildren();
-	
+	/*!
+	 * adds the PObject. if the node has more than (n) elements in it,
+	 * this node will create 4 child nodes and put elements in them
+	 */
 	void add(PObject* addthis);
 	/*
 	 * Precondition: removeThis intersects with this node's bounding rect
