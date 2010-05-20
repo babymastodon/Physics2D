@@ -8,6 +8,10 @@
 #define WORLDTREENODE_H
 
 #include "PObject.h"
+#include <deque>
+#include <algorithm>
+
+using namespace std;
 
 #define MAX_ELEMENTS 9
 #define MIN_ELEMENTS 3
@@ -52,6 +56,9 @@ private:
 	WorldTreeNode* children[4];
 	PObject* elements[MAX_ELEMENTS+1];
 	WorldTreeNode* parent;
+	
+	//PObjects stored in sorted deque for faster searching
+	deque<PObject*> element_deque;
 
 	
 public:
@@ -85,6 +92,10 @@ public:
 private:
 	void setParent(WorldTreeNode* thisisp);
 	void addToChildren(PObject* addthis);
+	//true if successfully added
+	bool addToDeque(PObject* addthis);
+	//true if successfully removed
+	bool removeFromDeque(PObject* removethis);
 };
 
 #endif

@@ -18,3 +18,11 @@ void SceneGraph::addObject(PObject* addthis){
 void SceneGraph::removeObject(PObject* removethis){
 	rootNode->remove(removethis);
 }
+
+void SceneGraph::lock() const{
+	SDL_mutexP(mutex);
+}
+
+void SceneGraph::unlock() const{
+	SDL_mutexV(mutex);
+}
