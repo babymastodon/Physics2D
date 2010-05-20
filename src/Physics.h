@@ -6,7 +6,7 @@
 #include <queue>
 #include "Thread.h"
 
-#define P_REFRESH_TIME 20 //milliseconds per refresh
+#define P_REFRESH_TIME 10 //milliseconds per refresh
 
 using namespace std;
 

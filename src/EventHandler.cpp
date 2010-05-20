@@ -1,5 +1,8 @@
 #include "EventHandler.h"
 
+#include <iostream>
+using namespace std;
+
 EventHandler::EventHandler(Physics& ph, Graphics& gr, SceneGraph& sg) : Thread(), physics(ph), graphics(gr), scene_graph(sg){
 }
 EventHandler::~EventHandler(){}
@@ -15,22 +18,26 @@ EventHandler::~EventHandler(){}
 	 * if quit event, send stop signal to phys and graphics objects and return.
 */
 int EventHandler::mainLoop(){
+	graphics.startThread();
+	while (!graphics.isInitialized()) SDL_Delay(10);
+	physics.startThread();
+	
 	GLuint oldTime = SDL_GetTicks();
 	GLuint newTime;
 	while(keepRunning()){
 		newTime = SDL_GetTicks();
-		if (newTime-oldTime <= 1000/EVENT_CHECK_RATE){
-			SDL_Delay(1000/EVENT_CHECK_RATE-(newTime-oldTime));
+		if (newTime-oldTime <= EVENT_CHECK_TIME){
+			SDL_Delay(EVENT_CHECK_TIME-(newTime-oldTime));
 			newTime=SDL_GetTicks();
 		}
     	if (graphics.isInitialized()) handleEvents();
     	oldTime=newTime;
 	}
 	
-	graphics.stopThread();
 	physics.stopThread();
-	graphics.waitForStop();
 	physics.waitForStop();
+	graphics.stopThread();
+	graphics.waitForStop();
 	
 	return 0;
 }

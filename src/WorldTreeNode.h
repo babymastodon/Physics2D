@@ -54,7 +54,6 @@ private:
  * then the elements array stores the node's elements
  */
 	WorldTreeNode* children[4];
-	PObject* elements[MAX_ELEMENTS+1];
 	WorldTreeNode* parent;
 	
 	//PObjects stored in sorted deque for faster searching

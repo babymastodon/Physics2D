@@ -2,6 +2,9 @@
 #include "Graphics.h"
 #include "EventHandler.h"
 
+#include <iostream>
+using namespace std;
+
 /**
 	@mainpage Physics2D - A project to simulate physical interactions of two dimensional objects
 	@version 1.0 Pre-Alpha Release
@@ -23,11 +26,9 @@ int main(int argc, char* argv[])
 	object->set_vy(400);
 	world.addObject(object);
 	
-	graphics.startThread();
-	while (!graphics.isInitialized()) SDL_Delay(10);
-	physics.startThread();
-	event_handler.startThread();
 	
+	event_handler.startThread();
 	event_handler.waitForStop();
+	
 	return 0;
 }

@@ -113,6 +113,7 @@ int Graphics::mainLoop(){
 	}
 	
 	quitWindow();
+	
 	return 0;
 }
 

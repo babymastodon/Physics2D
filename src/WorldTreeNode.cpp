@@ -9,6 +9,9 @@
 
 #include "WorldTreeNode.h"
 
+#include <iostream>
+using namespace std;
+
 WorldTreeNode::WorldTreeNode(float cx, float cy, float wi, float hi){
 	cornerx = cx;
 	cornery = cy;
@@ -20,7 +23,10 @@ WorldTreeNode::WorldTreeNode(float cx, float cy, float wi, float hi){
 }
 
 WorldTreeNode::~WorldTreeNode(){
-	//possibly delete child nodes
+	//delete child nodes
+	for (int j=0; j<4; j++){
+		delete children[j];
+	}
 }
 
 /*
