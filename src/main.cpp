@@ -17,15 +17,17 @@ int main(int argc, char* argv[])
 	Graphics graphics("Title",800,600,world);
 	EventHandler event_handler(physics,graphics,world);
 	
-	physics.startThread();
+	PMovingObject* object = new PRectangle(40,40,100,50);
+	object->set_ay(-150);
+	object->set_vx(100);
+	object->set_vy(400);
+	world.addObject(object);
+	
 	graphics.startThread();
+	while (!graphics.isInitialized()) SDL_Delay(10);
+	physics.startThread();
 	event_handler.startThread();
 	
 	event_handler.waitForStop();
-	
-	graphics.stopThread();
-	physics.stopThread();
-	graphics.waitForStop();
-	physics.waitForStop();
 	return 0;
 }

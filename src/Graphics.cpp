@@ -1,7 +1,5 @@
 #include "Graphics.h"
 
-#define FPSCAP 60
-
 /**
  * Construct a new Graphics object with a name, width, height, and 
  * an assosciated SceneGraph object. Calls Thread constructor.
@@ -16,10 +14,6 @@ Graphics::Graphics(const char* n, int w, int h,SceneGraph& world) : Thread(), sc
 	window_name = n;
 	window_width = w;
 	window_height = h;
-	object = new PRectangle(40,40,100,50);
-	object->set_ay(-150);
-	object->set_vx(100);
-	object->set_vy(400);
 	
 	is_initialized = false;
 }
@@ -33,7 +27,6 @@ bool Graphics::isInitialized(){
  * No need to free memory: the SceneGraph was declared a reference
  */
 Graphics::~Graphics(){
-	delete object;
 }
 
 /*!
@@ -82,11 +75,20 @@ void Graphics::initWindow(){
     glOrtho(0,window_width,0,window_height,-1,1);
     glMatrixMode(GL_MODELVIEW);
     
-    
-    //compile the display list for all objects in the SceneGraph here
-    object->compileList();
+    compileLists();
     
     is_initialized = true;
+}
+
+void Graphics::compileLists(){
+	//compile the display list for all objects in the SceneGraph here
+    //future objects must have their lists compiled before use however
+    scene_graph.lock();
+    const deque<PObject*>& pobjects = scene_graph.getPObjects();
+    for (deque<PObject*>::const_iterator it = pobjects.begin(); it != pobjects.end(); it++){
+		(*it)->compileList();
+	}
+    scene_graph.unlock();
 }
 
 void Graphics::quitWindow(){
@@ -96,21 +98,17 @@ void Graphics::quitWindow(){
 
 int Graphics::mainLoop(){
 	initWindow();
+	compileLists();
 	GLuint oldTime = SDL_GetTicks();
 	GLuint newTime;
 	while(keepRunning()){
 		newTime = SDL_GetTicks();
-		if (newTime-oldTime <= 1000/FPSCAP){
-			SDL_Delay(1000/FPSCAP-(newTime-oldTime));
+		if (newTime-oldTime <= G_REFRESH_TIME){
+			SDL_Delay(G_REFRESH_TIME-(newTime-oldTime));
 			newTime=SDL_GetTicks();
 		}
-		/*
-		 * movement is for testing only. Will be implemented in Physics
-		 * thread once progress on SceneGraph has been made.
-		 */
-		object->move(newTime-oldTime);
+		
     	display();
-    	
     	oldTime=newTime;
 	}
 	
@@ -134,7 +132,13 @@ void Graphics::display(){
     glTranslatef(-viewport_x,-viewport_y,0);
     
     //draw stuff
-    object->draw();
+    
+    scene_graph.lock();
+    const deque<PObject*>& pobjects = scene_graph.getPObjects();
+    for (deque<PObject*>::const_iterator it = pobjects.begin(); it != pobjects.end(); it++){
+		(*it)->draw();
+	}
+    scene_graph.unlock();
     
     SDL_GL_SwapBuffers();
 }

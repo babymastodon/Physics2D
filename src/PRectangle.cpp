@@ -7,7 +7,7 @@ PRectangle::PRectangle(float x, float y, float w, float h) : PMovingObject(x,y,w
 void PRectangle::compileList()
 {
 	
-	display_list = glGenLists(2);
+	display_list = glGenLists(1);
 	
 	if (display_list!=0){
 		glNewList(display_list,GL_COMPILE);

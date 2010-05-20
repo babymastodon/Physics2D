@@ -5,6 +5,12 @@
 #include "Thread.h"
 
 #include "PRectangle.h"
+#include <deque>
+#include <algorithm>
+
+#define G_REFRESH_TIME 20 //milliseconds per refresh
+
+using namespace std;
 
 /*!
  * The Graphics class is responsible for keeping track of the SceneGraphNodes
@@ -40,6 +46,7 @@ class Graphics: public Thread{
 		void display();
 		void initWindow();
 		void quitWindow();
+		void compileLists();
 		
 		const char* window_name;
 		int window_width;
@@ -49,8 +56,6 @@ class Graphics: public Thread{
 		float viewport_y; ///< y coordinate of the bottom left corner of the viewport
 		
 		SceneGraph& scene_graph; ///< Contains all of the SceneGraphNodes that are present in the program.
-		
-		PMovingObject* object;///< This is only a sample object to debug object initialization and drawing.
 		
 		bool is_initialized;///< true if SDL opengl are initialized.
 };

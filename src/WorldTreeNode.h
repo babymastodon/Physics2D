@@ -89,6 +89,8 @@ public:
 	
 	void update();
 	
+	const deque<PObject*>& getElements() const;
+	
 private:
 	void setParent(WorldTreeNode* thisisp);
 	void addToChildren(PObject* addthis);

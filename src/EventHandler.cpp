@@ -26,6 +26,12 @@ int EventHandler::mainLoop(){
     	if (graphics.isInitialized()) handleEvents();
     	oldTime=newTime;
 	}
+	
+	graphics.stopThread();
+	physics.stopThread();
+	graphics.waitForStop();
+	physics.waitForStop();
+	
 	return 0;
 }
 

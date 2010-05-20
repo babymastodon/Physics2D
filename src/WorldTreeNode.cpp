@@ -203,3 +203,6 @@ bool WorldTreeNode::removeFromDeque(PObject* removethis){
 	return false;
 }
 
+const deque<PObject*>& WorldTreeNode::getElements() const{
+	return element_deque;
+}

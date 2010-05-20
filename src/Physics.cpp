@@ -1,5 +1,6 @@
 #include "Physics.h"
 
+
 Physics::Physics(SceneGraph& world):Thread(),scene_graph(world){
 }
 Physics::~Physics(){}
@@ -10,14 +11,20 @@ int Physics::mainLoop(){
 	GLuint newTime;
 	while(keepRunning()){
 		newTime = SDL_GetTicks();
-		if (newTime-oldTime <= 1000/P_REFRESH_RATE){
-			SDL_Delay(1000/P_REFRESH_RATE-(newTime-oldTime));
+		if (newTime-oldTime <= P_REFRESH_TIME){
+			SDL_Delay(P_REFRESH_TIME-(newTime-oldTime));
 			newTime=SDL_GetTicks();
 		}
-    	//GLuint delta_time = newTime-oldTime;
-    	
-    	//lock and update the scene graph
-    	
+		
+		//lock graph and move objects
+		scene_graph.lock();
+		const deque<PObject*>& pobjects = scene_graph.getPObjects();
+		for (deque<PObject*>::const_iterator it = pobjects.begin(); it != pobjects.end(); it++){
+			(*it)->move(newTime-oldTime);
+		}
+		scene_graph.updateTree();
+		scene_graph.unlock();
+		
     	oldTime=newTime;
 	}
 	return 0;

@@ -6,7 +6,7 @@
 #include <queue>
 #include "Thread.h"
 
-#define P_REFRESH_RATE 100 //frequency of the physics engine;
+#define P_REFRESH_TIME 20 //milliseconds per refresh
 
 using namespace std;
 

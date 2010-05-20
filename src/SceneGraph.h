@@ -68,11 +68,20 @@ class SceneGraph{
 		 *  subtree under a certain number
 		 */
 		void removeObject(PObject*);
+		
+		/*!
+		 * @return a deque with all the elements contained in the top lever WorldTreeNode
+		 */
+		const deque<PObject*>& getPObjects() const;
+		
+		/*!
+		 * moves the PObjects to the correct positions in the tree
+		 */
+		void updateTree();
 	
 	private:
 	
 		SDL_mutex* mutex;
-		deque<PObject*> pobj_list;
 		
 		
 		float worldWidth; ///< Width of the SceneGraph - Can be larger than window
@@ -81,7 +90,7 @@ class SceneGraph{
 		/*
 		 *  Stores the root of the WorldTree, which encompasses the whole world
 		 */
-		WorldTreeNode* rootNode;
+		WorldTreeNode* root_node;
 };
 
 
