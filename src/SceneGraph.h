@@ -93,6 +93,8 @@ class SceneGraph{
 		 *  Stores the root of the WorldTree, which encompasses the whole world
 		 */
 		WorldTreeNode* root_node;
+		
+		int update_cycle;
 };
 
 

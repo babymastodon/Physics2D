@@ -87,7 +87,7 @@ public:
 	//what if it's the top level tree node. Parent could == NULL
 	WorldTreeNode* getParent();
 	
-	void update();
+	void update(int cycle);
 	
 	const deque<PObject*>& getElements() const;
 	

@@ -6,6 +6,7 @@ SceneGraph::SceneGraph(int width, int height){
 	mutex = SDL_CreateMutex();
 	
 	root_node = new WorldTreeNode::WorldTreeNode(0,0, width, height);
+	update_cycle=0;
 }
 SceneGraph::~SceneGraph(){
 	SDL_DestroyMutex(mutex);
@@ -33,7 +34,7 @@ const deque<PObject*>& SceneGraph::getPObjects() const{
 }
 
 void SceneGraph::updateTree(){
-	root_node->update();
+	root_node->update(++update_cycle);
 }
 
 void SceneGraph::drawTree(){

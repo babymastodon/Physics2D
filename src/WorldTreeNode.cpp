@@ -163,7 +163,7 @@ float WorldTreeNode::getwidth()
 	return width;
 }
 
-void WorldTreeNode::update()
+void WorldTreeNode::update(int cycle)
 {
 	deque<PObject*>::iterator it = element_deque.begin();
 	while (it != element_deque.end()){
@@ -171,15 +171,15 @@ void WorldTreeNode::update()
 		if(!(*it)->completelyInside(cornerx, cornery, width, height) && parent!=NULL){
 			//how will we prevent redundant "move ups"? currently, it will attempt to move up anything that intersects with the border of any child, even if of of the sibling nodes "moved it up" in the same cycle of updates.
 			//have pobject keep track of cycle numbers and only move up if cycle number is outdated
-			cout << "moving up" << endl;
-			WorldTreeNode* moveup = parent;
-			while ((moveup->getParent() != 0) && (!(*it)->completelyInside(moveup->cornerx, moveup->cornery, moveup->width, moveup->height))){
-				cout << "move up loop, box: " << moveup->cornerx << " " << moveup->cornery << " " << moveup->width << " " << moveup->height << endl;
-				moveup = moveup->getParent();
+			if (cycle!=(*it)->getLastCycle()){
+				cout << "moving up" << endl;
+				WorldTreeNode* moveup = parent;
+				while ((moveup->getParent() != 0) && (!(*it)->completelyInside(moveup->cornerx, moveup->cornery, moveup->width, moveup->height))){
+					moveup = moveup->getParent();
+				}
+				moveup->addToChildren(*it);
+				(*it)->setLastCycle(cycle);
 			}
-			cout << "adding to children" << endl;
-			moveup->addToChildren(*it);
-			cout << "added to children" << endl;
 			//remove elements that are no longer in box
 			if (!(*it)->intersect(cornerx, cornery, width, height)){
 				cout << "no longer in box" << endl;
@@ -201,9 +201,8 @@ void WorldTreeNode::update()
 			deleteChildren();
 		}
 		else{
-			cout << "updating children" << endl;
 			for (int i = 0; i < 4; i++){
-				children[i]->update();
+				children[i]->update(cycle);
 			}
 		}
 	}
