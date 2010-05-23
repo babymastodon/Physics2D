@@ -24,8 +24,10 @@ WorldTreeNode::WorldTreeNode(float cx, float cy, float wi, float hi){
 
 WorldTreeNode::~WorldTreeNode(){
 	//delete child nodes
-	for (int j=0; j<4; j++){
-		delete children[j];
+	if (haschildren){
+		for (int j=0; j<4; j++){
+			delete children[j];
+		}
 	}
 }
 
@@ -50,7 +52,6 @@ bool WorldTreeNode::hasChildren()
 void WorldTreeNode::add(PObject* addthis){
 	bool successfully_added = addToDeque(addthis);
 	if (successfully_added){
-		cout << "successfully added object" << endl;
 		numElements++;
 		if (!haschildren && numElements >= MAX_ELEMENTS && width>MIN_NODE_DIMENSION && height>MIN_NODE_DIMENSION){
 			cout << "split node into children, width " << width << " height " << height << endl;
@@ -103,12 +104,8 @@ void WorldTreeNode::remove(PObject* removethis){
 				if (removethis->intersect(child->cornerx, child->cornery, child->width, child->height))
 					child->remove(removethis);
 			}
-			if (numElements<=MAX_ELEMENTS){
-				haschildren = false;
-				for (int i = 0; i < 4; i++){
-					delete children[i]; //remember that c++ doesn't have automatic garbage collection
-					children[i] = NULL;
-				}
+			if (numElements<MAX_ELEMENTS){
+				deleteChildren();
 				//no longer needed if deques are used
 				//collect the PObjects in the children
 				/*int counter = 0;
@@ -181,6 +178,7 @@ void WorldTreeNode::update()
 			//remove elements that are no longer in box
 			if (!(*it)->intersect(cornerx, cornery, width, height)){
 				it = element_deque.erase(it);
+				numElements--;
 			}
 			else{
 				it++;
@@ -191,8 +189,15 @@ void WorldTreeNode::update()
 		}
 	}
 	if (haschildren){
-		for (int i = 0; i < 4; i++){
-			children[i]->update();
+		if (numElements<MAX_ELEMENTS){
+			cout << "deleting children" << endl;
+			deleteChildren();
+		}
+		else{
+			cout << "updating children" << endl;
+			for (int i = 0; i < 4; i++){
+				children[i]->update();
+			}
 		}
 	}
 }
@@ -233,5 +238,13 @@ void WorldTreeNode::draw(){
 			glVertex2f(cornerx+width, cornery+height);
 			glVertex2f(cornerx, cornery+height);
 		glEnd();
+	}
+}
+
+void WorldTreeNode::deleteChildren(){
+	haschildren = false;
+	for (int i = 0; i < 4; i++){
+		delete children[i]; //remember that c++ doesn't have automatic garbage collection
+		children[i] = NULL;
 	}
 }

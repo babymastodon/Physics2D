@@ -100,6 +100,7 @@ private:
 	bool addToDeque(PObject* addthis);
 	//true if successfully removed
 	bool removeFromDeque(PObject* removethis);
+	void deleteChildren();
 };
 
 #endif
