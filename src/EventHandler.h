@@ -26,6 +26,7 @@ class EventHandler: public Thread{
 		 */
 		int mainLoop();
 		void handleEvents();
+		void addRandomPMovingObject(int x, int y);
 		
 		///not const so that it can modify behavior
 		Physics& physics;

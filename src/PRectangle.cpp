@@ -3,6 +3,7 @@
 
 PRectangle::PRectangle(float x, float y, float w, float h) : PMovingObject(x,y,w,h) 
 {
+	display_list = 0;
 }
 void PRectangle::compileList()
 {
@@ -25,6 +26,7 @@ void PRectangle::compileList()
 
 void PRectangle::draw()
 {
+	if (display_list==0) compileList();
 	glPushMatrix();
 		glTranslatef(cornerx,cornery,0);
 		glCallList(display_list);
@@ -32,4 +34,7 @@ void PRectangle::draw()
 	//std::cout << "drew rect at " << cornerx << " " << cornery << std::endl;
 }
 
+void PRectangle::resetGraphics(){
+	display_list = 0;
+}
 

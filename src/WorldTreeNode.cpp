@@ -52,8 +52,9 @@ bool WorldTreeNode::hasChildren()
 void WorldTreeNode::add(PObject* addthis){
 	bool successfully_added = addToDeque(addthis);
 	if (successfully_added){
+		cout << "successfully added" << endl;
 		numElements++;
-		if (!haschildren && numElements >= MAX_ELEMENTS && width>MIN_NODE_DIMENSION && height>MIN_NODE_DIMENSION){
+		if (!haschildren && numElements > MAX_ELEMENTS && width>MIN_NODE_DIMENSION && height>MIN_NODE_DIMENSION){
 			cout << "split node into children, width " << width << " height " << height << endl;
 			haschildren = true;
 			//Precalculate for efficiency
@@ -76,7 +77,6 @@ void WorldTreeNode::add(PObject* addthis){
 			}
 		}
 		else if (haschildren){
-			cout << "added to children" << endl;
 			addToChildren(addthis);
 		}
 	}
@@ -92,13 +92,10 @@ void WorldTreeNode::addToChildren(PObject* addThis){
 
 
 void WorldTreeNode::remove(PObject* removethis){
-	cout << "removing" << endl;
 	bool successfully_removed = removeFromDeque(removethis);
 	if (successfully_removed){
-		cout << "successfully removed object" << endl;
 		numElements--;
 		if (haschildren){
-			cout << "removing children" << endl;
 			for (int j=0; j<4; j++){
 				WorldTreeNode* child = children[j];
 				if (removethis->intersect(child->cornerx, child->cornery, child->width, child->height))
@@ -172,7 +169,6 @@ void WorldTreeNode::update(int cycle)
 			//how will we prevent redundant "move ups"? currently, it will attempt to move up anything that intersects with the border of any child, even if of of the sibling nodes "moved it up" in the same cycle of updates.
 			//have pobject keep track of cycle numbers and only move up if cycle number is outdated
 			if (cycle!=(*it)->getLastCycle()){
-				cout << "moving up" << endl;
 				WorldTreeNode* moveup = parent;
 				while ((moveup->getParent() != 0) && (!(*it)->completelyInside(moveup->cornerx, moveup->cornery, moveup->width, moveup->height))){
 					moveup = moveup->getParent();
@@ -182,12 +178,10 @@ void WorldTreeNode::update(int cycle)
 			}
 			//remove elements that are no longer in box
 			if (!(*it)->intersect(cornerx, cornery, width, height)){
-				cout << "no longer in box" << endl;
 				it = element_deque.erase(it);
 				numElements--;
-			} 
+			}
 			else{
-				cout << "still in box" << endl;
 				it++;
 			}
 		}
@@ -196,8 +190,7 @@ void WorldTreeNode::update(int cycle)
 		}
 	}
 	if (haschildren){
-		if (numElements<MAX_ELEMENTS){
-			cout << "deleting children" << endl;
+		if (numElements<MIN_ELEMENTS){
 			deleteChildren();
 		}
 		else{

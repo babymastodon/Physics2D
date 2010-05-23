@@ -86,7 +86,7 @@ void Graphics::compileLists(){
     scene_graph.lock();
     const deque<PObject*>& pobjects = scene_graph.getPObjects();
     for (deque<PObject*>::const_iterator it = pobjects.begin(); it != pobjects.end(); it++){
-		(*it)->compileList();
+		(*it)->resetGraphics();
 	}
     scene_graph.unlock();
 }
@@ -145,4 +145,15 @@ void Graphics::display(){
     scene_graph.unlock();
     
     SDL_GL_SwapBuffers();
+}
+
+const char* Graphics::getWindowName(){
+	return window_name;
+}
+
+int Graphics::getWindowHeight(){
+	return window_height;
+}
+int Graphics::getWindowWidth(){
+	return window_width;
 }

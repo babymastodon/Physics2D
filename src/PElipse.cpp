@@ -3,6 +3,7 @@
 
 PElipse::PElipse(float x, float y, float w, float h,int ed) : PMovingObject(x,y,w,h) {
 	edges = ed;
+	display_list = 0;
 }
 
 void PElipse::compileList(){
@@ -24,10 +25,13 @@ void PElipse::compileList(){
 }
 
 void PElipse::draw(){
+	if (display_list == 0) compileList();
 	glPushMatrix();
 		glTranslatef(cornerx+width/2,cornery+height/2,0);
 		glCallList(display_list);
 	glPopMatrix();
 }
 
-
+void PElipse::resetGraphics(){
+	display_list=0;
+}

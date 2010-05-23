@@ -49,13 +49,46 @@ void EventHandler::handleEvents(){
 			case SDL_QUIT: stopThread(); break;
 			case SDL_KEYDOWN:
 				switch(event.key.keysym.sym){
-					case SDLK_p: physics.togglePause(); break;
-					default: break;
+					case SDLK_p:
+						physics.togglePause();
+						break;
+					default:
+						break;
 				}break;
 			case SDL_KEYUP:
 				switch(event.key.keysym.sym){
+					default:
+						break;
+				}
+				break;
+			case SDL_MOUSEBUTTONDOWN:
+				switch(event.button.button){
+					case SDL_BUTTON_LEFT:
+						cout << "adding: " << event.button.x << " " << graphics.getWindowHeight()-event.button.y << endl;
+						addRandomPMovingObject(event.button.x, graphics.getWindowHeight()-event.button.y);
+						break;
 					default: break;
-				}break;
+				}
+				break;
+			case SDL_MOUSEBUTTONUP:
+				switch(event.button.button){
+					case SDL_BUTTON_LEFT:
+						break;
+					default:
+						break;
+				}
+				break;
 		}
 	}
+}
+
+void EventHandler::addRandomPMovingObject(int x, int y){
+	PMovingObject* object = new PRectangle(x,y,10,10);
+	object->set_ay(-150);
+	object->set_vx(10);
+	object->set_vy(400);
+	scene_graph.lock();
+	scene_graph.addObject(object);
+	cout << "added object" << endl;
+	scene_graph.unlock();
 }

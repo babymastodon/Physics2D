@@ -14,7 +14,7 @@
 using namespace std;
 
 #define MAX_ELEMENTS 9
-#define MIN_ELEMENTS 3
+#define MIN_ELEMENTS 4
 #define MIN_NODE_DIMENSION 10.0
 
 /*

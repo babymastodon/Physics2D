@@ -37,6 +37,10 @@ class Graphics: public Thread{
 		 * whole world is not necessarily displayed on the screen)
 		 */
 		
+		const char* getWindowName();
+		int getWindowHeight();
+		int getWindowWidth();
+		
 	private:
 		/*!
 		 * the function for the overriden thread

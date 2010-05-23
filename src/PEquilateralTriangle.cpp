@@ -32,6 +32,7 @@ void PEquilateralTriangle::compileList()
 
 void PEquilateralTriangle::draw()
 {
+	if (display_list==0) compileList();
 	glPushMatrix();
 	glTranslatef(cornerx, cornery, 0);
 	glCallList(display_list);
@@ -40,4 +41,8 @@ void PEquilateralTriangle::draw()
 
 bool PEquilateralTriangle::collides(PObject& other){
 	return false;
+}
+
+void PEquilateralTriangle::resetGraphics(){
+	display_list=0;
 }

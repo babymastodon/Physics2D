@@ -13,10 +13,11 @@ class PRectangle: public PMovingObject
 	public:
 		PRectangle(float x, float y, float width, float height);
 		virtual void draw();
-		virtual void compileList();
+		virtual void resetGraphics();
 			
 	private:
 		GLuint display_list;
+		void compileList();
 };
 
 #endif

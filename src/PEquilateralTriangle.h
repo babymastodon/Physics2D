@@ -15,11 +15,12 @@ class PEquilateralTriangle : public PMovingObject
 public: 
 	PEquilateralTriangle(float x, float y, float sidelength);
 	virtual void draw();
-	virtual void compileList();
+	virtual void resetGraphics();
 	
 	virtual bool collides(PObject& other);
 	
 private:
 	GLuint display_list;
+	void compileList();
 };
 #endif

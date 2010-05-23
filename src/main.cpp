@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
 	}
 	
 	
-	event_handler.startThread();
+	event_handler.startThread();	
 	event_handler.waitForStop();
 	
 	return 0;

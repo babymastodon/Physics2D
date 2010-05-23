@@ -59,11 +59,12 @@ class PObject{
 		//virtual bool collides(PObject& sgn)=0;
 		
 		/*!
-		 * Compiles the display lists displaying this object in the
-		 * OpenGL context. Should only be called after openGl has 
-		 * been initialized.
+		 * This function is called when the openGL context is initialized
+		 * or re-initialized. All subclass that use openGL resources
+		 * (such as display lists or texture objects) should reset these
+		 * resources when this function is called
 		 */
-		virtual void compileList(){}
+		virtual void resetGraphics(){}
 		
 		/**
 		 * Checks if this object's bounding rect lies completely within
