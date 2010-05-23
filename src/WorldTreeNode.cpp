@@ -52,10 +52,9 @@ bool WorldTreeNode::hasChildren()
 void WorldTreeNode::add(PObject* addthis){
 	bool successfully_added = addToDeque(addthis);
 	if (successfully_added){
-		cout << "successfully added" << endl;
 		numElements++;
 		if (!haschildren && numElements > MAX_ELEMENTS && width>MIN_NODE_DIMENSION && height>MIN_NODE_DIMENSION){
-			cout << "split node into children, width " << width << " height " << height << endl;
+			//cout << "split node into children, width " << width << " height " << height << endl;
 			haschildren = true;
 			//Precalculate for efficiency
 			float halfwidth = width/2;
@@ -90,7 +89,10 @@ void WorldTreeNode::addToChildren(PObject* addThis){
 	}
 }
 
-
+/*
+ * Don't use!!
+ * This function still must be reviewed and tested before use
+ */
 void WorldTreeNode::remove(PObject* removethis){
 	bool successfully_removed = removeFromDeque(removethis);
 	if (successfully_removed){
@@ -98,10 +100,10 @@ void WorldTreeNode::remove(PObject* removethis){
 		if (haschildren){
 			for (int j=0; j<4; j++){
 				WorldTreeNode* child = children[j];
-				if (removethis->intersect(child->cornerx, child->cornery, child->width, child->height))
+				/*if (removethis->intersect(child->cornerx, child->cornery, child->width, child->height))*/
 					child->remove(removethis);
 			}
-			if (numElements<MAX_ELEMENTS){
+			if (numElements<MIN_ELEMENTS){
 				deleteChildren();
 				//no longer needed if deques are used
 				//collect the PObjects in the children
@@ -165,21 +167,31 @@ void WorldTreeNode::update(int cycle)
 	deque<PObject*>::iterator it = element_deque.begin();
 	while (it != element_deque.end()){
 		//cout << "update tree" << endl;
-		if(!(*it)->completelyInside(cornerx, cornery, width, height) && parent!=NULL){
-			//how will we prevent redundant "move ups"? currently, it will attempt to move up anything that intersects with the border of any child, even if of of the sibling nodes "moved it up" in the same cycle of updates.
+		if(!(*it)->completelyInside(cornerx, cornery, width, height)){
+			//how will we prevent redundant "move ups"? originally, it would attempt to move up anything that intersected with the border of any child, even if of of the sibling nodes "moved it up" in the same cycle of updates.
 			//have pobject keep track of cycle numbers and only move up if cycle number is outdated
-			if (cycle!=(*it)->getLastCycle()){
+			if (parent!=NULL){
 				WorldTreeNode* moveup = parent;
-				while ((moveup->getParent() != 0) && (!(*it)->completelyInside(moveup->cornerx, moveup->cornery, moveup->width, moveup->height))){
-					moveup = moveup->getParent();
+				if (cycle!=(*it)->getLastCycle()){
+					while ((moveup->getParent() != 0) && (!(*it)->completelyInside(moveup->cornerx, moveup->cornery, moveup->width, moveup->height))){
+						moveup = moveup->getParent();
+					}
+					moveup->addToChildren(*it);
+					(*it)->setLastCycle(cycle);
 				}
-				moveup->addToChildren(*it);
-				(*it)->setLastCycle(cycle);
 			}
 			//remove elements that are no longer in box
+			//beware, PObjects that exist completely outside the root node will get deleted
 			if (!(*it)->intersect(cornerx, cornery, width, height)){
 				it = element_deque.erase(it);
 				numElements--;
+				//delete from all the children also???
+				/*if(haschildren){
+					for (int i = 0; i < 4; i++){
+						cout << "remove from children" << endl;
+						children[i]->remove((*it));
+					}
+				}*/
 			}
 			else{
 				it++;

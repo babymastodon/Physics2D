@@ -46,11 +46,16 @@ void EventHandler::handleEvents(){
 	SDL_Event event;
 	while(SDL_PollEvent(&event) && keepRunning()){
 		switch(event.type){
-			case SDL_QUIT: stopThread(); break;
+			case SDL_QUIT:
+				stopThread();
+				break;
 			case SDL_KEYDOWN:
 				switch(event.key.keysym.sym){
 					case SDLK_p:
 						physics.togglePause();
+						break;
+					case SDLK_q:
+						stopThread();
 						break;
 					default:
 						break;
@@ -64,7 +69,6 @@ void EventHandler::handleEvents(){
 			case SDL_MOUSEBUTTONDOWN:
 				switch(event.button.button){
 					case SDL_BUTTON_LEFT:
-						cout << "adding: " << event.button.x << " " << graphics.getWindowHeight()-event.button.y << endl;
 						addRandomPMovingObject(event.button.x, graphics.getWindowHeight()-event.button.y);
 						break;
 					default: break;
@@ -89,6 +93,5 @@ void EventHandler::addRandomPMovingObject(int x, int y){
 	object->set_vy(400);
 	scene_graph.lock();
 	scene_graph.addObject(object);
-	cout << "added object" << endl;
 	scene_graph.unlock();
 }

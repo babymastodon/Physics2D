@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
 	for (int i=0; i<15; i++){
 		PMovingObject* object = new PRectangle(200+30*i,40,10,10);
 		object->set_ay(-150);
-		object->set_vx(10-5*i);
+		object->set_vx(10-7*i);
 		object->set_vy(400);
 		world.addObject(object);
 	}
