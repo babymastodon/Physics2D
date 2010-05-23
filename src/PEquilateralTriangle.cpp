@@ -11,6 +11,11 @@
 
 PEquilateralTriangle::PEquilateralTriangle(float x, float y, float sidelength) : PMovingObject(x, y, sidelength, sqrt(3) * sidelength / 2)
 {
+	num_vertices = 3;
+	vertices = new Point[num_vertices];
+	vertices[0] = new Point(x, y);
+	vertices[1] = new Point(x + sidelength, y);
+	vertices[2] = new Point(x + sidelength / 2, y + height);
 }
 
 void PEquilateralTriangle::compileList()

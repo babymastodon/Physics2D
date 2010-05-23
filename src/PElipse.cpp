@@ -4,6 +4,12 @@
 PElipse::PElipse(float x, float y, float w, float h,int ed) : PMovingObject(x,y,w,h) {
 	edges = ed;
 	display_list = 0;
+	num_vertices = edges;
+	vertices = new Point[num_vertices];
+	for (int i = 0; i < edges; i++)
+	{
+		vertices[i] = new Point(x + xaxis*cos(2*PI*i/edges),y - yaxis*sin(2*PI*i/edges));
+	}
 }
 
 void PElipse::compileList(){

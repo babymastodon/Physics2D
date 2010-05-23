@@ -4,6 +4,12 @@
 PRectangle::PRectangle(float x, float y, float w, float h) : PMovingObject(x,y,w,h) 
 {
 	display_list = 0;
+	num_vertices = 4;
+	vertices = new Point[num_vertices];
+	vertices[0] = new Point(x, y);
+	vertices[1] = new Point(x + w, y);
+	vertices[2] = new Point(x + w, y + h);
+	vertices[4] = new Point(x, y + h);
 }
 void PRectangle::compileList()
 {
