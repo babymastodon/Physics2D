@@ -170,17 +170,24 @@ void WorldTreeNode::update()
 		//cout << "update tree" << endl;
 		if(!(*it)->completelyInside(cornerx, cornery, width, height) && parent!=NULL){
 			//how will we prevent redundant "move ups"? currently, it will attempt to move up anything that intersects with the border of any child, even if of of the sibling nodes "moved it up" in the same cycle of updates.
+			//have pobject keep track of cycle numbers and only move up if cycle number is outdated
+			cout << "moving up" << endl;
 			WorldTreeNode* moveup = parent;
-			while ((parent->getParent() != NULL) && (!(*it)->completelyInside(moveup->cornerx, moveup->cornery, moveup->width, moveup->height))){
+			while ((moveup->getParent() != 0) && (!(*it)->completelyInside(moveup->cornerx, moveup->cornery, moveup->width, moveup->height))){
+				cout << "move up loop, box: " << moveup->cornerx << " " << moveup->cornery << " " << moveup->width << " " << moveup->height << endl;
 				moveup = moveup->getParent();
 			}
+			cout << "adding to children" << endl;
 			moveup->addToChildren(*it);
+			cout << "added to children" << endl;
 			//remove elements that are no longer in box
 			if (!(*it)->intersect(cornerx, cornery, width, height)){
+				cout << "no longer in box" << endl;
 				it = element_deque.erase(it);
 				numElements--;
-			}
+			} 
 			else{
+				cout << "still in box" << endl;
 				it++;
 			}
 		}
