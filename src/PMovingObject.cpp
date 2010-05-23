@@ -52,7 +52,7 @@ void PMovingObject::move(GLuint time){
 	cornery += vy*time_scale;
 	vx +=dvx;
 	vy += dvy;
-	cout << "moved to " << cornerx << " " << cornery << endl;
+	//cout << "moved to " << cornerx << " " << cornery << endl;
 }
 
 

@@ -20,11 +20,13 @@ int main(int argc, char* argv[])
 	Graphics graphics("Title",800,600,world);
 	EventHandler event_handler(physics,graphics,world);
 	
-	PMovingObject* object = new PRectangle(40,40,100,50);
-	object->set_ay(-150);
-	object->set_vx(100);
-	object->set_vy(400);
-	world.addObject(object);
+	for (int i=0; i<15; i++){
+		PMovingObject* object = new PRectangle(200+30*i,40,10,10);
+		object->set_ay(-150);
+		object->set_vx(10-5*i);
+		object->set_vy(400);
+		world.addObject(object);
+	}
 	
 	
 	event_handler.startThread();

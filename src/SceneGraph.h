@@ -78,6 +78,8 @@ class SceneGraph{
 		 * moves the PObjects to the correct positions in the tree
 		 */
 		void updateTree();
+		
+		void drawTree();
 	
 	private:
 	

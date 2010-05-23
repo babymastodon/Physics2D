@@ -3,10 +3,12 @@
 
 #include <SDL/SDL_opengl.h>
 #include <math.h>
-#define PI 3.14159265359
+#include "Point.h"
+
 
 #include <iostream>
 using namespace std;
+
 
 /*
  * Forget about separation of domain and representation. I'm putting
@@ -46,7 +48,7 @@ class PObject{
 		 *  @param y The y coordinate of the point in question
 		 *  @return True if (x,y) lies inside the current object, False otherwise
 		 */
-		virtual bool contains(float x, float y)=0;
+		//virtual bool contains(float x, float y)=0;
 		
 		/*!
 		 *  Slow check for collisions between this PObject and the one passed
@@ -54,7 +56,7 @@ class PObject{
 		 *  @param sgn A reference to the second PObject used for collision checking
 		 *  @return True if the two objects intersect; false otherwise. 
 		 */
-		virtual bool collides(PObject& sgn)=0;
+		//virtual bool collides(PObject& sgn)=0;
 		
 		/*!
 		 * Compiles the display lists displaying this object in the
@@ -78,8 +80,13 @@ class PObject{
 		//checks to see if this object is on the edge of a given boundry
 		//do we still need this?
 		//virtual bool onBound(float xcorner, float ycorner, float xwidth, float yheight)=0;
-	
+		
+		const Point* getVertices() const;
+		int getNumVertices() const;
+		
 	private:
+		Point* vertices;
+		int num_vertices;
 };
 
 /*

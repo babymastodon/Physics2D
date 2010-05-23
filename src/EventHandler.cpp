@@ -49,6 +49,7 @@ void EventHandler::handleEvents(){
 			case SDL_QUIT: stopThread(); break;
 			case SDL_KEYDOWN:
 				switch(event.key.keysym.sym){
+					case SDLK_p: physics.togglePause(); break;
 					default: break;
 				}break;
 			case SDL_KEYUP:

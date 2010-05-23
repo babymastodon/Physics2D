@@ -50,8 +50,10 @@ bool WorldTreeNode::hasChildren()
 void WorldTreeNode::add(PObject* addthis){
 	bool successfully_added = addToDeque(addthis);
 	if (successfully_added){
+		cout << "successfully added object" << endl;
 		numElements++;
-		if (!haschildren && numElements >= MAX_ELEMENTS){
+		if (!haschildren && numElements >= MAX_ELEMENTS && width>MIN_NODE_DIMENSION && height>MIN_NODE_DIMENSION){
+			cout << "split node into children, width " << width << " height " << height << endl;
 			haschildren = true;
 			//Precalculate for efficiency
 			float halfwidth = width/2;
@@ -73,6 +75,7 @@ void WorldTreeNode::add(PObject* addthis){
 			}
 		}
 		else if (haschildren){
+			cout << "added to children" << endl;
 			addToChildren(addthis);
 		}
 	}
@@ -88,10 +91,13 @@ void WorldTreeNode::addToChildren(PObject* addThis){
 
 
 void WorldTreeNode::remove(PObject* removethis){
+	cout << "removing" << endl;
 	bool successfully_removed = removeFromDeque(removethis);
 	if (successfully_removed){
+		cout << "successfully removed object" << endl;
 		numElements--;
 		if (haschildren){
+			cout << "removing children" << endl;
 			for (int j=0; j<4; j++){
 				WorldTreeNode* child = children[j];
 				if (removethis->intersect(child->cornerx, child->cornery, child->width, child->height))
@@ -164,6 +170,7 @@ void WorldTreeNode::update()
 {
 	deque<PObject*>::iterator it = element_deque.begin();
 	while (it != element_deque.end()){
+		//cout << "update tree" << endl;
 		if(!(*it)->completelyInside(cornerx, cornery, width, height) && parent!=NULL){
 			//how will we prevent redundant "move ups"? currently, it will attempt to move up anything that intersects with the border of any child, even if of of the sibling nodes "moved it up" in the same cycle of updates.
 			WorldTreeNode* moveup = parent;
@@ -211,4 +218,20 @@ bool WorldTreeNode::removeFromDeque(PObject* removethis){
 
 const deque<PObject*>& WorldTreeNode::getElements() const{
 	return element_deque;
+}
+
+void WorldTreeNode::draw(){
+	if(haschildren){
+		for (int i=0; i<4; i++){
+			children[i]->draw();
+		}
+	}
+	else{
+		glBegin(GL_QUADS);
+			glVertex2f(cornerx, cornery);
+			glVertex2f(cornerx+width, cornery);
+			glVertex2f(cornerx+width, cornery+height);
+			glVertex2f(cornerx, cornery+height);
+		glEnd();
+	}
 }

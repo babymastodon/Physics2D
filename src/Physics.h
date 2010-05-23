@@ -23,7 +23,10 @@ class Physics: public Thread{
 	
 		
 		/// @todo need functions that will modify the behavior of physics
-
+		
+		void pause();
+		void unpause();
+		void togglePause();
 		
 	private:
 		/*!
@@ -41,7 +44,8 @@ class Physics: public Thread{
 		void lockQueue(); ///< internal wrapper for the SDL mutex P and V functions
 		void unlockQueue(); ///< internal wrapper for the SDL mutex P and V functions*/
 		
-		SceneGraph& scene_graph; 
+		SceneGraph& scene_graph;
+		bool pause_flag;
 };
 
 #endif

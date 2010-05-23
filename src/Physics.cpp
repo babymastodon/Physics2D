@@ -2,6 +2,7 @@
 
 
 Physics::Physics(SceneGraph& world):Thread(),scene_graph(world){
+	pause_flag = false;
 }
 Physics::~Physics(){}
 
@@ -17,29 +18,27 @@ int Physics::mainLoop(){
 		}
 		
 		//lock graph and move objects
-		scene_graph.lock();
-		const deque<PObject*>& pobjects = scene_graph.getPObjects();
-		for (deque<PObject*>::const_iterator it = pobjects.begin(); it != pobjects.end(); it++){
-			(*it)->move(newTime-oldTime);
+		if (!pause_flag){
+			scene_graph.lock();
+			const deque<PObject*>& pobjects = scene_graph.getPObjects();
+			for (deque<PObject*>::const_iterator it = pobjects.begin(); it != pobjects.end(); it++){
+				(*it)->move(newTime-oldTime);
+			}
+			scene_graph.updateTree();
+			scene_graph.unlock();
 		}
-		scene_graph.updateTree();
-		scene_graph.unlock();
 		
     	oldTime=newTime;
 	}
 	return 0;
 }
-/*
-void Physics::LockQueue(){
-	scene_graph.lock();
-	}
-	
-void Physics::UnlockQueue(){
-	scene_graph.unlock();
-	}
-	
-bool Physics::isQueueLocked(){
-	/// @todo Implement SceneGraph lock, unlock and isLocked functions.
-	
-	// return scene_graph.isLocked();
-	}*/
+
+void Physics::pause(){
+	pause_flag = true;
+}
+void Physics::unpause(){
+	pause_flag = false;
+}
+void Physics::togglePause(){
+	pause_flag = !pause_flag;
+}

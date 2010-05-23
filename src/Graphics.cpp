@@ -139,6 +139,9 @@ void Graphics::display(){
     for (deque<PObject*>::const_iterator it = pobjects.begin(); it != pobjects.end(); it++){
 		(*it)->draw();
 	}
+	glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
+	scene_graph.drawTree();
+	glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
     scene_graph.unlock();
     
     SDL_GL_SwapBuffers();

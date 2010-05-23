@@ -35,3 +35,7 @@ const deque<PObject*>& SceneGraph::getPObjects() const{
 void SceneGraph::updateTree(){
 	root_node->update();
 }
+
+void SceneGraph::drawTree(){
+	root_node->draw();
+}

@@ -15,6 +15,7 @@ using namespace std;
 
 #define MAX_ELEMENTS 9
 #define MIN_ELEMENTS 3
+#define MIN_NODE_DIMENSION 10.0
 
 /*
  * Represents a section of the world and stores the objects within that section
@@ -89,6 +90,8 @@ public:
 	void update();
 	
 	const deque<PObject*>& getElements() const;
+	
+	void draw();
 	
 private:
 	void setParent(WorldTreeNode* thisisp);

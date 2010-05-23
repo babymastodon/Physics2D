@@ -29,7 +29,7 @@ void PRectangle::draw()
 		glTranslatef(cornerx,cornery,0);
 		glCallList(display_list);
 	glPopMatrix();
-	std::cout << "drew rect at " << cornerx << " " << cornery << std::endl;
+	//std::cout << "drew rect at " << cornerx << " " << cornery << std::endl;
 }
 
 
