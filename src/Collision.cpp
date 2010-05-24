@@ -6,35 +6,26 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 	objects[0] = obj1;
 	objects[1] = obj2;
 	
-	Point* obj1vertices = objects[0]->getVertices();
-	Point* obj2vertices = objects[1]->getVertices();
+	const Point* obj1vertices = objects[0]->getVertices();
+	const Point* obj2vertices = objects[1]->getVertices();
 	
 	float x;
 	float y;
 	
-	for (int i = 0; i < objects[0]->getnumvertices() - 1; i++)
+	for (int i = 0; i < objects[0]->getNumVertices(); i++)
 	{
-		for (int j = 0; j < objects[1]->getnumvertices() - 1; i++)
+		for (int j = 0; j < objects[1]->getNumVertices(); i++)
 		{
-			if ((obj1vertices[i].x < object2vertices[j].x && obj1vertices[i + 1].x > object2vertices[j].x) || (obj1vertices[i].x > object2vertices[j].x && obj1vertices[i + 1].x < object2vertices[j].x))
+			if ((obj1vertices[i].x < obj2vertices[j].x && obj1vertices[(i + 1) % (objects[0]->getNumVertices())].x > obj2vertices[j].x) || (obj1vertices[i].x > obj2vertices[j].x && obj1vertices[(i + 1) % (objects[0]->getNumVertices())].x < obj2vertices[j].x))
 			{
 				
 			}
-			if ((obj1vertices[i].y < object2vertices[j].y && obj1vertices[i + 1].y > object2vertices[j].y) || (obj1vertices[i].y > object2vertices[j].y && obj1vertices[i + 1].y < object2vertices[j].y))
+			if ((obj1vertices[i].y < obj2vertices[j].y && obj1vertices[(i + 1) % (objects[0]->getNumVertices())].y > obj2vertices[j].y) || (obj1vertices[i].y > obj2vertices[j].y && obj1vertices[(i + 1) % (objects[0]->getNumVertices())].y < obj2vertices[j].y))
 			{
 			
 			}
 		}
 	}
-	if ((obj1vertices[objects[0]->getnumVertices() - 1].x < object2vertices[j].x && obj1vertices[0].x > object2vertices[j].x) || (obj1vertices[i].x > object2vertices[j].x && obj1vertices[i + 1].x < object2vertices[j].x))
-	{
-		
-	}
-	if ((obj1vertices[i].y < object2vertices[j].y && obj1vertices[i + 1].y > object2vertices[j].y) || (obj1vertices[i].y > object2vertices[j].y && obj1vertices[i + 1].y < object2vertices[j].y))
-	{
-		
-	}
-	
 	intersection = new Point(x, y);
 }
 
