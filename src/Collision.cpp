@@ -15,15 +15,16 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 	const Point* obj1vertices = objects[0]->getVertices();
 	const Point* obj2vertices = objects[1]->getVertices();
 	
-	float x;
-	float y;
+	float sumx=0;
+	float sumy=0;
+	int numPoints=0;
 	float parametric;
 	float parametric2;
 	float denominator;
 	
 	float vec1x;
 	float vec1y;
-	float vec1deltax;
+	float vec1deltax;//between this point and the next one in the shape (going counterclockwise)
 	float vec1deltay;
 	
 	float vec2x;
@@ -31,17 +32,18 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 	float vec2deltax;
 	float vec2deltay;
 	
-	bool loopFlag = true;
+	float deltax, deltay; //between the two points on different shapes
 	
-	for (int i = 0; i < objects[0]->getNumVertices() && loopFlag; i++)
+	for (int i = 0; i < objects[0]->getNumVertices(); i++)
 	{
+		
 		vec1x = obj1vertices[i].x;
 		vec1y = obj1vertices[i].y;
 		
 		vec1deltax = obj1vertices[(i + 1) % objects[0]->getNumVertices()].x - vec1x;
 		vec1deltay = obj1vertices[(i + 1) % objects[0]->getNumVertices()].y - vec1y;
 		
-		for (int j = 0; j < objects[1]->getNumVertices() && loopFlag; j++)
+		for (int j = 0; j < objects[1]->getNumVertices(); j++)
 		{
 			vec2x = obj2vertices[j].x;
 			vec2y = obj2vertices[j].y;
@@ -53,24 +55,27 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 			
 			if (denominator != 0)
 			{
-			
-				parametric = ((vec2deltax * (vec1y - vec2y)) - (vec2deltay * (vec1x - vec2x))) / ((vec1deltax * vec2deltay) - (vec2deltax * vec1deltay));
-				parametric2 = ((vec1deltax * (vec1y - vec2y)) - (vec1deltay * (vec1x - vec2x))) / ((vec1deltax * vec2deltay) - (vec2deltax * vec1deltay));
+				deltax = vec1x-vec2x;
+				deltay = vec1y-vec2y;
+				
+				parametric = ((vec2deltax * (deltay)) - vec2deltay * (deltax)) / (denominator);
+				parametric2 = ((vec1deltax * (deltay)) - vec1deltay * (deltax)) / (denominator);
 
 				if (parametric <= 1 && parametric >= 0 && parametric2 <= 1 && parametric2 >= 0)
 				{
-					x = vec1x + (parametric * vec1deltax);
-					y = vec1y + (parametric * vec1deltay);
-					cout << "collision at " << x << " " << y << endl;
+					sumx += vec1x + (parametric * vec1deltax);
+					sumy += vec1y + (parametric * vec1deltay);
+					numPoints++;
 					trueCollision = true;
-					loopFlag=false;
 				}
 			}
 		}
 	}
-	
-	intersection.x = x;
-	intersection.y = y;
+	if (trueCollision){
+		intersection.x = sumx/numPoints;
+		intersection.y = sumy/numPoints;
+		cout << "collision at " << intersection.x << " " << intersection.x << endl;
+	}
 }
 
 Collision::~Collision(){}
