@@ -41,11 +41,8 @@ void SceneGraph::drawTree(){
 	root_node->draw();
 }
 
-Collision* SceneGraph::getCollisions()
-{
-	Collision* collisions[] = new Collision[//how do we know how many collisions there will be to innitialize this?];
-	
-	//simple collision detection should take place here
-    //initializing the collision object will find the exact point of collision once a deffinite collision has been detected
-	// so we need some sort of tree traversal in here...
+list<Collision*> & SceneGraph::possibleCollisions(){
+	list<Collision*> *collisions = new list<Collision*>();
+	root_node->addPossibleCollisions(*collisions);
+	return *collisions;
 }

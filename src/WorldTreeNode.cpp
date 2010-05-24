@@ -259,3 +259,22 @@ void WorldTreeNode::deleteChildren(){
 		children[i] = NULL;
 	}
 }
+
+void WorldTreeNode::addPossibleCollisions(list<Collision*> & addToThis){
+	if (haschildren){
+		for (int i=0; i<4; i++){
+			children[i]->addPossibleCollisions(addToThis);
+		}
+	}
+	else{
+		for (deque<PObject*>::iterator it = element_deque.begin(); it!=element_deque.end(); it++){
+			deque<PObject*>::iterator it2 = it;
+			it2++;
+			for (; it2!=element_deque.end(); it2++){
+				if ((*it)->intersect(*it2)){
+					addToThis.push_back(new Collision((*it),(*it2)));
+				}
+			}
+		}
+	}
+}

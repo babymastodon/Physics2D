@@ -87,7 +87,7 @@ void EventHandler::handleEvents(){
 }
 
 void EventHandler::addRandomPMovingObject(int x, int y){
-	PMovingObject* object = new PRectangle(x,y,10,10);
+	PMovingObject* object = new PRectangle(x-5,y-5,10,10);
 	object->set_ay(-150);
 	object->set_vx(10);
 	object->set_vy(400);

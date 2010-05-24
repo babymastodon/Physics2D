@@ -16,12 +16,8 @@ class PMovingObject: public PObject
 		//why are these function virtual when implementation is provided? Subclasses can override normal functions too.
 		//this allows polymorphism to happen
 		virtual void move(GLuint time); ///< Time in milliseconds
-		virtual bool intersect(float x, float y, float w, float h); 
-		virtual bool contains(float x, float y);
 		virtual bool collides(PObject& other);
-	
-
-		virtual bool completelyInside(float x, float y, float w, float h);
+		virtual bool contains(float x, float y);
 
 		
 		// Acceleration and velocity getter and setter functions
@@ -40,10 +36,7 @@ class PMovingObject: public PObject
 		float vy;///< y velocity given in pixels per second
 		float ax;///< x acceleration given in pixels per second^2
 		float ay;///< y acceleration given in pixels per second^2
-		float cornerx; ///< x coordinate of bottom left corner
-		float cornery; ///< y coordinate of bottom left corner
-		float width; ///< width of bounding rectangle
-		float height; ///< height of bounding rectangle
+		
 };
 
 #endif /* PMOVINGOBJECT_H */ 

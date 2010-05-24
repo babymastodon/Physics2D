@@ -19,7 +19,8 @@ OBJECTS =	main.o\
 			WorldTreeNode.o\
 			PRectangle.o\
 			PEquilateralTriangle.o\
-			Point.o
+			Point.o\
+			Collision.o
 
 all: Makefile $(TARGET)
 

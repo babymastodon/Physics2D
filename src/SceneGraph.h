@@ -4,6 +4,7 @@
 #include <SDL/SDL.h>
 #include <SDL/SDL_opengl.h>
 #include <deque>
+#include <list>
 #include "PObject.h"
 #include "WorldTreeNode.h"
 #include "Collision.h"
@@ -79,10 +80,16 @@ class SceneGraph{
 		 * moves the PObjects to the correct positions in the tree
 		 */
 		void updateTree();
-		
+		/*!
+		 * draws rectangles visualizing the tree divisions via openGl
+		 */
 		void drawTree();
-	
-		Collision* getCollisions();
+		
+		/*!
+		 * @return a list of all pairs of PObjects with intersecting
+		 * bounding boxes
+		 */
+		list<Collision*> & possibleCollisions();
 	
 	
 	private:

@@ -2,7 +2,7 @@
 
 Collision::Collision(PObject* obj1, PObject* obj2)
 {
-	objects = new PObject[2];
+	objects = new PObject*[2];
 	objects[0] = obj1;
 	objects[1] = obj2;
 	
@@ -40,7 +40,7 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 
 Collision::~Collision(){}
 
-PObject* Collision::get_objects()
+PObject** Collision::get_objects()
 {
 	return objects;
 }
