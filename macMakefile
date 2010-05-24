@@ -20,7 +20,8 @@ OBJECTS =	main.o\
 			SDLMain.o\
 			WorldTreeNode.o\
 			PRectangle.o\
-			PEquilateralTriangle.o
+			PEquilateralTriangle.o\
+			Point.o
 
 all: Makefile $(TARGET)
 
