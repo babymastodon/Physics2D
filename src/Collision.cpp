@@ -26,7 +26,9 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 			}
 		}
 	}
-	intersection = new Point(x, y);
+
+	intersection.x = x;
+	intersection.y = y;
 }
 
 Collision::~Collision(){}
@@ -36,7 +38,7 @@ PObject** Collision::get_objects()
 	return objects;
 }
 
-Point* Collision::get_pointOf()
+Point Collision::get_pointOf()
 {
 	return intersection;
 }

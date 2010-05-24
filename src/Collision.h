@@ -9,11 +9,11 @@ public:
 	Collision(PObject* obj1, PObject* obj2);
 	~Collision();
 	
-	Point* get_pointOf();
+	Point get_pointOf();
 	PObject** get_objects();
 	
 private:
-	Point* intersection;
+	Point intersection;
 	PObject** objects;
 };
 
