@@ -86,10 +86,12 @@ class PObject{
 		int getNumVertices() const;
 		int getLastCycle();
 		void setLastCycle(int cycle);
-		
-	private:
+
+	protected:
 		Point* vertices;
 		int num_vertices;
+		
+	private:
 		int last_cycle;
 };
 

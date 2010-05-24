@@ -4,6 +4,15 @@
 PElipse::PElipse(float x, float y, float w, float h,int ed) : PMovingObject(x,y,w,h) {
 	edges = ed;
 	display_list = 0;
+	num_vertices = edges;
+	float xaxis = width/2;
+	float yaxis = height/2;
+	vertices = new Point[num_vertices];
+	for (int i = 0; i < edges; i++)
+	{
+		vertices[i].x=xaxis*cos(2*PI*i/edges);
+		vertices[i].y=-yaxis*sin(2*PI*i/edges);
+	}
 }
 
 void PElipse::compileList(){
