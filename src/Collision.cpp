@@ -17,7 +17,7 @@ PObject** Collision::get_objects()
 	return objects;
 }
 
-Point* Collision::get_pointOf()
+Point Collision::get_pointOf()
 {
 	return intersection;
 }
