@@ -13,9 +13,12 @@ PEquilateralTriangle::PEquilateralTriangle(float x, float y, float sidelength) :
 {
 	num_vertices = 3;
 	vertices = new Point[num_vertices];
-	vertices[0] = new Point(x, y);
-	vertices[1] = new Point(x + sidelength, y);
-	vertices[2] = new Point(x + sidelength / 2, y + height);
+	vertices[0].x=-sidelength/2;
+	vertices[0].y= -1/3*height;
+	vertices[1].x=sidelength/2;
+	vertices[1].y= -1/3*height;
+	vertices[2].x= 0;
+	vertices[2].y = 2/3*height;
 }
 
 void PEquilateralTriangle::compileList()
@@ -25,12 +28,12 @@ void PEquilateralTriangle::compileList()
 	if (display_list != 0) 
 	{
 		glNewList(display_list, GL_COMPILE);
-		glBegin(GL_TRIANGLE_FAN);
-		glNormal3f(0, 0, 1);
-		glVertex2f(0.0, 0.0);
-		glVertex2f(width, 0.0);
-		glVertex2f(width / 2, height);
-		glEnd();
+			glBegin(GL_TRIANGLES);
+			glNormal3f(0, 0, 1);
+				for (int i=0; i<3; i++){
+					glVertex2f(vertices[i].x, vertices[i].y);
+				}
+			glEnd();
 		glEndList();
 	}
 }

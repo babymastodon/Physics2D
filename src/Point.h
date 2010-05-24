@@ -6,13 +6,13 @@
 class Point
 {
 public:
-	Point(float setx, float sety);
+	Point(float setx=0, float sety=0);
 	~Point();
 	
 	float x;
 	float y;
 	
-	viod translate(Point p, float dx, float dy);
-}
+	void translate(Point p, float dx, float dy);
+};
 
 #endif

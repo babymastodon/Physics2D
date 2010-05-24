@@ -6,6 +6,8 @@ Point::Point(float setx, float sety)
 	y = sety;
 }
 
+Point::~Point(){}
+
 void Point:: translate(Point p, float dx, float dy)
 {
 	p.x += dx;
