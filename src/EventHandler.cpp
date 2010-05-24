@@ -94,7 +94,7 @@ void EventHandler::addRandomPMovingObject(int x, int y){
 	
 	if (randomness <=3)
 	{	
-		PMovingObject* object = new PRectangle(x-5,y-5,10,10);
+		PMovingObject* object = new PRectangle(x-5,y-5,30,50);
 		object->set_ay(-150);
 		object->set_vx(10);
 		object->set_vy(400);
@@ -104,7 +104,7 @@ void EventHandler::addRandomPMovingObject(int x, int y){
 	}
 	else if (randomness > 3 && randomness <= 6)
 	{
-		PMovingObject* object = new PEquilateralTriangle(x-5,y-5,10);
+		PMovingObject* object = new PEquilateralTriangle(x-5,y-5,40);
 		object->set_ay(-150);
 		object->set_vx(10);
 		object->set_vy(400);
@@ -114,7 +114,7 @@ void EventHandler::addRandomPMovingObject(int x, int y){
 	}
 	else if (randomness > 6)
 	{
-		PMovingObject* object = new PElipse(x-5,y-5,10, 20, 10);
+		PMovingObject* object = new PElipse(x-5,y-5,40, 60, 10);
 		object->set_ay(-150);
 		object->set_vx(10);
 		object->set_vy(400);
