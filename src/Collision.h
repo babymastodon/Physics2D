@@ -11,10 +11,12 @@ public:
 	
 	Point get_pointOf();
 	PObject** get_objects();
+	bool isTrueCollision();
 	
 private:
 	Point intersection;
 	PObject** objects;
+	bool trueCollision;
 };
 
 #endif
