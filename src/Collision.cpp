@@ -12,18 +12,35 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 	float x;
 	float y;
 	
+	float vec1x;
+	float vec1y;
+	float vec1deltax;
+	float vec1deltay;
+	
+	float vec2x;
+	float vec2y;
+	float vec2deltax;
+	float vec2deltay;
+	
+	
+	
 	for (int i = 0; i < objects[0]->getNumVertices(); i++)
 	{
+		vec1x = obj1vertices[i].x;
+		vec1y = obj1vertices[i].y;
+		
+		vec1deltax = obj1vertices[(i + 1) % objects[0]->getNumVertices()].x - vec1x;
+		vec1deltay = obj1vertices[(i + 1) % objects[0]->getNumVertices()].y - vec1y;
+		
 		for (int j = 0; j < objects[1]->getNumVertices(); i++)
 		{
-			if ((obj1vertices[i].x < obj2vertices[j].x && obj1vertices[(i + 1) % (objects[0]->getNumVertices())].x > obj2vertices[j].x) || (obj1vertices[i].x > obj2vertices[j].x && obj1vertices[(i + 1) % (objects[0]->getNumVertices())].x < obj2vertices[j].x))
-			{
-				
-			}
-			if ((obj1vertices[i].y < obj2vertices[j].y && obj1vertices[(i + 1) % (objects[0]->getNumVertices())].y > obj2vertices[j].y) || (obj1vertices[i].y > obj2vertices[j].y && obj1vertices[(i + 1) % (objects[0]->getNumVertices())].y < obj2vertices[j].y))
-			{
+			vec2x = obj2vertices[j].x;
+			vec2y = obj2vertices[j].y;
 			
-			}
+			vec2deltax = obj2vertices[(j + 1) % objects[1]->getNumVertices()].x - vec2x;
+			vec2deltay = obj2vertices[(j + 1) % objects[1]->getNumVertices()].y - vec2y;
+			
+			
 		}
 	}
 
