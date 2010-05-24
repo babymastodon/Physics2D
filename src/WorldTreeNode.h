@@ -10,6 +10,7 @@
 #include "PObject.h"
 #include <deque>
 #include <algorithm>
+#include <list>
 
 using namespace std;
 
@@ -92,6 +93,8 @@ public:
 	const deque<PObject*>& getElements() const;
 	
 	void draw();
+	
+	void addPossibleCollisions(list<pair<PObject*,PObject*> > & addToThis);
 	
 private:
 	void setParent(WorldTreeNode* thisisp);
