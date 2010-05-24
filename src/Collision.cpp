@@ -14,6 +14,7 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 	float x;
 	float y;
 	float parametric;
+	float parametric2;
 	
 	float vec1x;
 	float vec1y;
@@ -44,7 +45,8 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 			vec2deltay = obj2vertices[(j + 1) % objects[1]->getNumVertices()].y - vec2y;
 			
 			
-			parametric = (vec2x - vec1x) / (vec1deltax - vec2deltax);
+			parametric = ((vec2deltax * (vec1y - vec2y)) - (vec2deltay * (vec1x - vec2y))) / ((vec1deltax * vec2deltay) - (vec2deltax * vec1deltay));
+			parametric2 = ((vec1deltax * (vex1y - vec2y)) - (vec1deltay * (vec1x - vec2x))) / ((vec1deltax * vec2deltay) - (vec2deltax * vec1deltay));
 			
 			if (parametric <= 1 && parametric >= 0)
 			{
