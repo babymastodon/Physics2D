@@ -87,11 +87,38 @@ void EventHandler::handleEvents(){
 }
 
 void EventHandler::addRandomPMovingObject(int x, int y){
-	PMovingObject* object = new PRectangle(x-5,y-5,10,10);
-	object->set_ay(-150);
-	object->set_vx(10);
-	object->set_vy(400);
-	scene_graph.lock();
-	scene_graph.addObject(object);
-	scene_graph.unlock();
+	
+	srand(static_cast<const int>(time(0)));
+	double randomness = rand() % 9;
+	
+	if (randomness >=3)
+	{	
+		PMovingObject* object = new PRectangle(x-5,y-5,10,10);
+		object->set_ay(-150);
+		object->set_vx(10);
+		object->set_vy(400);
+		scene_graph.lock();
+		scene_graph.addObject(object);
+		scene_graph.unlock();
+	}
+	if (randomness < 3 && randomness >= 6)
+	{
+		PMovingObject* object = new PEquilateralTriangle(x-5,y-5,10);
+		object->set_ay(-150);
+		object->set_vx(10);
+		object->set_vy(400);
+		scene_graph.lock();
+		scene_graph.addObject(object);
+		scene_graph.unlock();
+	}
+	if (randomness > 6)
+	{
+		PMovingObject* object = new PElipse(x-5,y-5,10, 20, 10);
+		object->set_ay(-150);
+		object->set_vx(10);
+		object->set_vy(400);
+		scene_graph.lock();
+		scene_graph.addObject(object);
+		scene_graph.unlock();
+	}
 }

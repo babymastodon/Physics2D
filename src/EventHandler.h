@@ -1,6 +1,8 @@
 #ifndef EVENTHANDLER_H
 #define EVENTHANDLER_H
 
+#include "math.h"
+#include "PObject.h"
 #include "Physics.h"
 #include "Graphics.h"
 #include "Thread.h"
