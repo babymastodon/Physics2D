@@ -8,8 +8,8 @@ Point::Point(float setx, float sety)
 
 Point::~Point(){}
 
-void Point:: translate(Point p, float dx, float dy)
+void Point:: translate(float dx, float dy)
 {
-	p.x += dx;
-	p.y += dy;
+	x += dx;
+	y += dy;
 }

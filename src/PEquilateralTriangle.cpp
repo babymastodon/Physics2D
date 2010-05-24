@@ -13,12 +13,14 @@ PEquilateralTriangle::PEquilateralTriangle(float x, float y, float sidelength) :
 {
 	num_vertices = 3;
 	vertices = new Point[num_vertices];
-	vertices[0].x=-sidelength/2;
-	vertices[0].y= -1/3*height;
-	vertices[1].x=sidelength/2;
-	vertices[1].y= -1/3*height;
-	vertices[2].x= 0;
-	vertices[2].y = 2/3*height;
+	vertices[0].x=0;
+	vertices[0].y=0;
+	vertices[1].x=sidelength;
+	vertices[1].y=0;
+	vertices[2].x= sidelength/2;
+	vertices[2].y = height;
+	
+	display_list = 0;
 }
 
 void PEquilateralTriangle::compileList()

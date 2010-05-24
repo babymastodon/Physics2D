@@ -4,7 +4,6 @@
 #include "SceneGraph.h"
 #include "Thread.h"
 
-#include "PRectangle.h"
 #include <deque>
 #include <algorithm>
 

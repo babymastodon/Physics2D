@@ -12,7 +12,7 @@ public:
 	float x;
 	float y;
 	
-	void translate(Point p, float dx, float dy);
+	void translate(float dx, float dy);
 };
 
 #endif

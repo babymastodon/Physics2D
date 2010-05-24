@@ -47,3 +47,14 @@ void PRectangle::resetGraphics(){
 	display_list = 0;
 }
 
+const Point* PRectangle::getVertices(){
+	return returnVertices;
+}
+
+/*void PRectangle::move(GLuint time){
+	((PMovingObject*)this)->move(time);
+	memcpy(returnVertices,vertices,4*sizeof(Point));
+	for (int i=0; i<4; i++){
+		returnVertices[i].translate(cornerx, cornery);
+	}
+}*/

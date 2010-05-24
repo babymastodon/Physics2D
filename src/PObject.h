@@ -4,6 +4,7 @@
 #include <SDL/SDL_opengl.h>
 #include <math.h>
 #include "Point.h"
+#include <cstring>
 
 
 #include <iostream>
@@ -89,7 +90,11 @@ class PObject{
 		//do we still need this?
 		//virtual bool onBound(float xcorner, float ycorner, float xwidth, float yheight)=0;
 		
-		const Point* getVertices() const;
+		/**
+		 * should be overridden to allow vertex transformations to occur.
+		 * PObject implementation merely returns the shape of the object.
+		 */
+		virtual const Point* getVertices() const;
 		int getNumVertices() const;
 		int getLastCycle();
 		void setLastCycle(int cycle);

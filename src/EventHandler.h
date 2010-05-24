@@ -7,6 +7,9 @@
 #include "Graphics.h"
 #include "Thread.h"
 #include "SceneGraph.h"
+#include "PRectangle.h"
+#include "PEquilateralTriangle.h"
+#include "PElipse.h"
 #include <SDL/SDL.h>
 
 #define EVENT_CHECK_TIME 100///< delay between event checks in milliseconds
