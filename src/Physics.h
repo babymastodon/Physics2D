@@ -4,6 +4,7 @@
 #include "SceneGraph.h"
 #include <SDL/SDL.h>
 #include <queue>
+#include <list>
 #include "Thread.h"
 
 #define P_REFRESH_TIME 10 //milliseconds per refresh

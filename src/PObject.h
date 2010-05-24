@@ -94,7 +94,7 @@ class PObject{
 		 * should be overridden to allow vertex transformations to occur.
 		 * PObject implementation merely returns the shape of the object.
 		 */
-		virtual const Point* getVertices() const;
+		virtual const Point* getVertices();
 		int getNumVertices() const;
 		int getLastCycle();
 		void setLastCycle(int cycle);

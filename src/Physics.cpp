@@ -25,6 +25,7 @@ int Physics::mainLoop(){
 				(*it)->move(newTime-oldTime);
 			}
 			scene_graph.updateTree();
+			list<Collision*>& collisions = scene_graph.possibleCollisions();
 			scene_graph.unlock();
 		}
 		

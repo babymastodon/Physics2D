@@ -8,6 +8,7 @@ PElipse::PElipse(float x, float y, float w, float h,int ed) : PMovingObject(x,y,
 	float xaxis = width/2;
 	float yaxis = height/2;
 	vertices = new Point[num_vertices];
+	returnVertices = new Point[num_vertices];
 	for (int i = 0; i < edges; i++)
 	{
 		vertices[i].x=xaxis*cos(2*PI*i/edges);
@@ -43,4 +44,12 @@ void PElipse::draw(){
 
 void PElipse::resetGraphics(){
 	display_list=0;
+}
+
+const Point* PElipse::getVertices(){
+	memcpy(returnVertices,vertices,num_vertices*sizeof(Point));
+	for (int i=0; i<num_vertices; i++){
+		returnVertices[i].translate(cornerx, cornery);
+	}
+	return returnVertices;
 }

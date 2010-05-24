@@ -56,3 +56,11 @@ bool PEquilateralTriangle::collides(PObject& other){
 void PEquilateralTriangle::resetGraphics(){
 	display_list=0;
 }
+
+const Point* PEquilateralTriangle::getVertices(){
+	memcpy(returnVertices,vertices,3*sizeof(Point));
+	for (int i=0; i<3; i++){
+		returnVertices[i].translate(cornerx, cornery);
+	}
+	return returnVertices;
+}

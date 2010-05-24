@@ -1,7 +1,11 @@
 #include "Collision.h"
+#include <iostream>
+
+using namespace std;
 
 Collision::Collision(PObject* obj1, PObject* obj2)
 {
+	cout << "new collision" << endl;
 	trueCollision = false;
 	
 	objects = new PObject*[2];
@@ -26,9 +30,9 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 	float vec2deltax;
 	float vec2deltay;
 	
+	bool loopFlag = true;
 	
-	
-	for (int i = 0; i < objects[0]->getNumVertices(); i++)
+	for (int i = 0; i < objects[0]->getNumVertices() && loopFlag; i++)
 	{
 		vec1x = obj1vertices[i].x;
 		vec1y = obj1vertices[i].y;
@@ -36,7 +40,7 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 		vec1deltax = obj1vertices[(i + 1) % objects[0]->getNumVertices()].x - vec1x;
 		vec1deltay = obj1vertices[(i + 1) % objects[0]->getNumVertices()].y - vec1y;
 		
-		for (int j = 0; j < objects[1]->getNumVertices(); i++)
+		for (int j = 0; j < objects[1]->getNumVertices() && loopFlag; j++)
 		{
 			vec2x = obj2vertices[j].x;
 			vec2y = obj2vertices[j].y;
@@ -52,8 +56,9 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 			{
 				x = vec1x + (parametric * vec1deltax);
 				y = vec1y + (parametric * vec1deltay);
+				cout << "collision at " << x << " " << y << endl;
 				trueCollision = true;
-				break;
+				loopFlag=false;
 			}
 		}
 	}

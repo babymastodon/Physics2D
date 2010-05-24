@@ -48,6 +48,10 @@ void PRectangle::resetGraphics(){
 }
 
 const Point* PRectangle::getVertices(){
+	memcpy(returnVertices,vertices,4*sizeof(Point));
+	for (int i=0; i<4; i++){
+		returnVertices[i].translate(cornerx, cornery);
+	}
 	return returnVertices;
 }
 

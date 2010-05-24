@@ -2,6 +2,10 @@
 #include "Graphics.h"
 #include "EventHandler.h"
 
+#include "PRectangle.h"
+#include "PElipse.h"
+#include "PEquilateralTriangle.h"
+
 #include <iostream>
 using namespace std;
 
@@ -20,13 +24,18 @@ int main(int argc, char* argv[])
 	Graphics graphics("Title",800,600,world);
 	EventHandler event_handler(physics,graphics,world);
 	
-	for (int i=0; i<15; i++){
-		PMovingObject* object = new PRectangle(200+30*i,40,10,10);
-		object->set_ay(-150);
-		object->set_vx(10-7*i);
-		object->set_vy(400);
-		world.addObject(object);
-	}
+	PMovingObject* object = new PElipse(100,300,50,50);
+	object->set_ay(0);
+	object->set_vx(50);
+	object->set_vy(0);
+	world.addObject(object);
+	
+	object = new PEquilateralTriangle(400,300,50);
+	object->set_ay(0);
+	object->set_vx(-50);
+	object->set_vy(0);
+	world.addObject(object);
+	
 	
 	
 	event_handler.startThread();	

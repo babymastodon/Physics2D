@@ -13,7 +13,7 @@ int PObject::getNumVertices() const{
 	return num_vertices;
 }
 
-const Point* PObject::getVertices() const{
+const Point* PObject::getVertices(){
 	return vertices;
 }
 

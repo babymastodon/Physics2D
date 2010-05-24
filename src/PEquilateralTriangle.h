@@ -16,11 +16,13 @@ public:
 	PEquilateralTriangle(float x, float y, float sidelength);
 	virtual void draw();
 	virtual void resetGraphics();
+	virtual const Point* getVertices();
 	
 	virtual bool collides(PObject& other);
 	
 private:
 	GLuint display_list;
+	Point returnVertices[3];
 	void compileList();
 };
 #endif
