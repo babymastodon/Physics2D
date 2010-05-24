@@ -260,7 +260,7 @@ void WorldTreeNode::deleteChildren(){
 	}
 }
 
-void WorldTreeNode::addPossibleCollisions(list<pair<PObject*,PObject*> > & addToThis){
+void WorldTreeNode::addPossibleCollisions(list<Collision*> & addToThis){
 	if (haschildren){
 		for (int i=0; i<4; i++){
 			children[i]->addPossibleCollisions(addToThis);
@@ -271,9 +271,9 @@ void WorldTreeNode::addPossibleCollisions(list<pair<PObject*,PObject*> > & addTo
 			deque<PObject*>::iterator it2 = it;
 			it2++;
 			for (; it2!=element_deque.end(); it2++){
-				//if((*it).intersect){
-					addToThis.push_back(make_pair((*it),(*it2)));
-				//}
+				if ((*it)->intersect(*it2)){
+					addToThis.push_back(new Collision((*it),(*it2)));
+				}
 			}
 		}
 	}

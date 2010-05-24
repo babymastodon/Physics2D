@@ -41,8 +41,8 @@ void SceneGraph::drawTree(){
 	root_node->draw();
 }
 
-list<pair<PObject*,PObject*> > & SceneGraph::possibleCollisions(){
-	list<pair<PObject*,PObject*> > *collisions = new list<pair<PObject*,PObject*> >();
-	
+list<Collision*> & SceneGraph::possibleCollisions(){
+	list<Collision*> *collisions = new list<Collision*>();
+	root_node->addPossibleCollisions(*collisions);
 	return *collisions;
 }

@@ -8,6 +8,7 @@
 #define WORLDTREENODE_H
 
 #include "PObject.h"
+#include "Collision.h"
 #include <deque>
 #include <algorithm>
 #include <list>
@@ -94,7 +95,7 @@ public:
 	
 	void draw();
 	
-	void addPossibleCollisions(list<pair<PObject*,PObject*> > & addToThis);
+	void addPossibleCollisions(list<Collision*> & addToThis);
 	
 private:
 	void setParent(WorldTreeNode* thisisp);

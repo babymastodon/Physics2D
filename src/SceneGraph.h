@@ -7,6 +7,7 @@
 #include <list>
 #include "PObject.h"
 #include "WorldTreeNode.h"
+#include "Collision.h"
 
 using namespace std;
 
@@ -88,7 +89,8 @@ class SceneGraph{
 		 * @return a list of all pairs of PObjects with intersecting
 		 * bounding boxes
 		 */
-		list<pair<PObject*,PObject*> > & possibleCollisions();
+		list<Collision*> & possibleCollisions();
+	
 	
 	private:
 	

@@ -4,14 +4,10 @@
 using namespace std;
 
 
-PMovingObject::PMovingObject(float x, float y, float w, float h, float dx, float dy, float ddx, float ddy) : PObject()
+PMovingObject::PMovingObject(float x, float y, float w, float h, float dx, float dy, float ddx, float ddy) : PObject(x,y,w,h)
 {
-	cornerx=x;
-	cornery=y;
 	vx=dx;
 	vy=dy;
-	width=w;
-	height=h;
 	ax=ddx;
 	ay=ddy;
 }
@@ -55,39 +51,14 @@ void PMovingObject::move(GLuint time){
 	//cout << "moved to " << cornerx << " " << cornery << endl;
 }
 
-
-bool PMovingObject::intersect(float x, float y, float w, float h){
-	if (cornerx>x){
-		if (cornerx-x<w){
-			if (cornery>y)
-				return cornery-y<h;
-			else
-				return y-cornery<height;
-		}
-	}
-	else{
-		if (x-cornerx<width){
-			if (cornery>y)
-				return cornery-y<h;
-			else
-				return y-cornery<height;
-		}
-	}
-	return false;
-}
-
-bool PMovingObject::completelyInside(float x, float y, float w, float h){
-	return cornerx>x && cornery>y && cornerx+width<x+w && cornery<y+h;
-}
-
-bool PMovingObject::contains(float x, float y){
-	return x>cornerx && y>cornery && x<cornerx+width && y<cornery+height;
-}
-
 bool PMovingObject::collides(PObject& other){
 	/*
 	 * subclasses should override this function so that it doesn't
 	 * merely check the bounding rectangles.
 	 */
 	return other.intersect(cornerx,cornery,width,height);
+}
+
+bool PMovingObject::contains(float x, float y){
+	return x>cornerx && y>cornery && x<cornerx+width && y<cornery+height;
 }

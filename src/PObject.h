@@ -23,7 +23,7 @@ using namespace std;
 
 class PObject{
 	public:
-		PObject();
+		PObject(float x=0, float y=0, float width=0, float heght=0);
 		~PObject();
 		
 		/**
@@ -34,13 +34,13 @@ class PObject{
 		virtual void draw() =0;  
 		virtual void move(GLuint time) =0;
 		
-		/**
-		 * Checks for a collision between the bounding rectangle of
-		 * this PObject and the rectangle defined by the parameters.
-		 * (x,y) represents the BOTTOM left corner of the rectangle.
-		 *	@return True if the two rectangles intersect; false otherwise
+		/*!
+		 * This function is called when the openGL context is initialized
+		 * or re-initialized. All subclass that use openGL resources
+		 * (such as display lists or texture objects) should reset these
+		 * resources when this function is called
 		 */
-		virtual bool intersect(float x, float y, float width, float height)=0;
+		virtual void resetGraphics(){}
 		
 		/*!
 		 *  Determines if point (x,y) lies within the current object.
@@ -48,7 +48,22 @@ class PObject{
 		 *  @param y The y coordinate of the point in question
 		 *  @return True if (x,y) lies inside the current object, False otherwise
 		 */
-		//virtual bool contains(float x, float y)=0;
+		virtual bool contains(float x, float y)=0;
+		
+		/**
+		 * Checks for a collision between the bounding rectangle of
+		 * this PObject and the rectangle defined by the parameters.
+		 * (x,y) represents the BOTTOM left corner of the rectangle.
+		 *	@return True if the two rectangles intersect; false otherwise
+		 */
+		bool intersect(float x, float y, float width, float height);
+		
+		/**
+		 * Checks for a collision between the bounding rectangle of
+		 * this PObject and the other PObject
+		 *	@return True if the two objects intersect; false otherwise
+		 */
+		bool intersect(PObject* other);
 		
 		/*!
 		 *  Slow check for collisions between this PObject and the one passed
@@ -58,21 +73,13 @@ class PObject{
 		 */
 		//virtual bool collides(PObject& sgn)=0;
 		
-		/*!
-		 * This function is called when the openGL context is initialized
-		 * or re-initialized. All subclass that use openGL resources
-		 * (such as display lists or texture objects) should reset these
-		 * resources when this function is called
-		 */
-		virtual void resetGraphics(){}
-		
 		/**
 		 * Checks if this object's bounding rect lies completely within
 		 * the given rectangle.
 		 * (x,y) represents the BOTTOM left corner of the rectangle.
 		 *	@return True if the object is completely within given rect; false otherwise
 		 */
-		virtual bool completelyInside(float x, float y, float width, float height)=0;
+		bool completelyInside(float x, float y, float width, float height);
 		
 		/*
 		 * what other functions should all physics objects have?
@@ -90,6 +97,11 @@ class PObject{
 	protected:
 		Point* vertices;
 		int num_vertices;
+		
+		float cornerx; ///< x coordinate of bottom left corner
+		float cornery; ///< y coordinate of bottom left corner
+		float width; ///< width of bounding rectangle
+		float height; ///< height of bounding rectangle
 		
 	private:
 		int last_cycle;
