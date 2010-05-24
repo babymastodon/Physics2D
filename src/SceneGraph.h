@@ -6,6 +6,7 @@
 #include <deque>
 #include "PObject.h"
 #include "WorldTreeNode.h"
+#include "Collision.h"
 
 using namespace std;
 
@@ -80,6 +81,8 @@ class SceneGraph{
 		void updateTree();
 		
 		void drawTree();
+	
+		Collision* getCollisions();
 	
 	
 	private:
