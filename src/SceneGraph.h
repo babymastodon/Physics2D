@@ -81,6 +81,7 @@ class SceneGraph{
 		
 		void drawTree();
 	
+	
 	private:
 	
 		SDL_mutex* mutex;
