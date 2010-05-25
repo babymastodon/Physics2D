@@ -2,7 +2,7 @@
 #define POBJECT_H
 
 #include <SDL/SDL_opengl.h>
-#include <math.h>
+#include <cmath>
 #include "Point.h"
 #include <cstring>
 
@@ -98,6 +98,8 @@ class PObject{
 		int getNumVertices() const;
 		int getLastCycle();
 		void setLastCycle(int cycle);
+		float getMass();
+		void setMass(float m);
 
 	protected:
 		Point* vertices;
@@ -107,6 +109,7 @@ class PObject{
 		float cornery; ///< y coordinate of bottom left corner
 		float width; ///< width of bounding rectangle
 		float height; ///< height of bounding rectangle
+		float mass;///<the mass of the PObject
 		
 	private:
 		int last_cycle;

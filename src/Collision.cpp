@@ -66,6 +66,22 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 					sumx += vec1x + (parametric * vec1deltax);
 					sumy += vec1y + (parametric * vec1deltay);
 					numPoints++;
+					//uses the normal vector of the first collision
+					if (!trueCollision){
+						//figure out which one collided on the corner
+						if (abs(parametric2-.5) < abs(parametric-.5)){
+							//vector1's point of collision was closer to the corner
+							normx=vec2deltay;
+							normx= -vec2deltax;
+						}
+						else{
+							normx=vec2deltax;
+							normy= -vec2deltay;
+						}
+						float mag = sqrt(normx*normx + normy*normy);
+						normx/=mag;
+						normy/=mag;
+					}
 					trueCollision = true;
 				}
 			}
@@ -74,6 +90,8 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 	if (trueCollision){
 		intersection.x = sumx/numPoints;
 		intersection.y = sumy/numPoints;
+		//calculate impulse here
+		
 		cout << "collision at " << intersection.x << " " << intersection.x << endl;
 	}
 }
@@ -97,3 +115,9 @@ bool Collision::isTrueCollision()
 	return trueCollision;
 }
 
+float Collision::getnormx(){
+	return normx;
+}
+float Collision::getnormy(){
+	return normy;
+}

@@ -51,3 +51,10 @@ bool PObject::completelyInside(float x, float y, float w, float h){
 bool PObject::intersect(PObject* other){
 	return intersect(other->cornerx, other->cornery, other->width, other->height);
 }
+
+float PObject::getMass(){
+	return mass;
+}
+void PObject::setMass(float m){
+	mass= m;
+}
