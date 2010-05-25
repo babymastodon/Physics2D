@@ -10,13 +10,15 @@ public:
 	~Collision();
 	
 	Point get_pointOf();
-	PObject** get_objects();
+	PObject* get_object1();
+	PObject* get_object2();
 	bool isTrueCollision();
 	
 private:
 	Point intersection;
 	PObject** objects;
 	bool trueCollision;
+	//impulse vector?
 };
 
 #endif

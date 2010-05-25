@@ -80,13 +80,15 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 
 Collision::~Collision(){}
 
-PObject** Collision::get_objects()
-{
-	return objects;
+PObject* Collision::get_object1(){
+	return objects[0];
 }
 
-Point Collision::get_pointOf()
-{
+PObject* Collision::get_object2(){
+	return objects[1];
+}
+
+Point Collision::get_pointOf(){
 	return intersection;
 }
 

@@ -14,13 +14,10 @@ class PRectangle: public PMovingObject
 		PRectangle(float x, float y, float width, float height);
 		virtual void draw();
 		virtual void resetGraphics();
-		virtual const Point* getVertices();
-		//virtual void move(GLuint time);
 			
 	private:
 		GLuint display_list;
 		void compileList();
-		Point returnVertices[4];
 };
 
 #endif

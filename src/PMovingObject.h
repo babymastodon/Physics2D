@@ -12,12 +12,11 @@
 class PMovingObject: public PObject
 {
 	public:
-		PMovingObject(float x, float y, float width, float height, float dx=0, float dy=0, float ddx=0, float ddy=0);
-		//why are these function virtual when implementation is provided? Subclasses can override normal functions too.
-		//this allows polymorphism to happen
+		PMovingObject(float x, float y, float width, float height, float th=0, float dx=0, float dy=0, float dth=0, float ddx=0, float ddy=0);
 		virtual void move(GLuint time); ///< Time in milliseconds
 		virtual bool collides(PObject& other);
 		virtual bool contains(float x, float y);
+		virtual const Point* getVertices();
 
 		
 		// Acceleration and velocity getter and setter functions
@@ -36,7 +35,13 @@ class PMovingObject: public PObject
 		float vy;///< y velocity given in pixels per second
 		float ax;///< x acceleration given in pixels per second^2
 		float ay;///< y acceleration given in pixels per second^2
-		
+		float theta;
+		float dtheta;
+		float centerx;
+		float centery;
+		Point *returnVertices;
+	private:
+		bool recalculateVertices;
 };
 
 #endif /* PMOVINGOBJECT_H */ 

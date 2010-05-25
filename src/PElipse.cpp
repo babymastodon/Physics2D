@@ -37,19 +37,12 @@ void PElipse::compileList(){
 void PElipse::draw(){
 	if (display_list == 0) compileList();
 	glPushMatrix();
-		glTranslatef(cornerx+width/2,cornery+height/2,0);
+		glTranslatef(centerx,centery,0);
+		glRotatef(theta,0,0,1);
 		glCallList(display_list);
 	glPopMatrix();
 }
 
 void PElipse::resetGraphics(){
 	display_list=0;
-}
-
-const Point* PElipse::getVertices(){
-	memcpy(returnVertices,vertices,num_vertices*sizeof(Point));
-	for (int i=0; i<num_vertices; i++){
-		returnVertices[i].translate(cornerx, cornery);
-	}
-	return returnVertices;
 }

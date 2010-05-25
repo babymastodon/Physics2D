@@ -6,18 +6,19 @@ PRectangle::PRectangle(float x, float y, float w, float h) : PMovingObject(x,y,w
 	display_list = 0;
 	num_vertices = 4;
 	vertices = new Point[num_vertices];
-	vertices[0].x = 0;
-	vertices[0].y = 0;
-	vertices[1].x = width;
-	vertices[1].y = 0;
-	vertices[2].x = width;
-	vertices[2].y = height;
-	vertices[3].x = 0;
-	vertices[3].y = height;
+	returnVertices = new Point[num_vertices];
+	float w2 = width/2;
+	float h2 = height/2;
+	vertices[0].x = -w2;
+	vertices[0].y = -h2;
+	vertices[1].x = w2;
+	vertices[1].y = -h2;
+	vertices[2].x = w2;
+	vertices[2].y = h2;
+	vertices[3].x = -w2;
+	vertices[3].y = h2;
 }
-void PRectangle::compileList()
-{
-	
+void PRectangle::compileList(){
 	display_list = glGenLists(1);
 	
 	if (display_list!=0){
@@ -37,7 +38,8 @@ void PRectangle::draw()
 {
 	if (display_list==0) compileList();
 	glPushMatrix();
-		glTranslatef(cornerx,cornery,0);
+		glTranslatef(centerx,centery,0);
+		glRotatef(theta,0,0,1);
 		glCallList(display_list);
 	glPopMatrix();
 	//std::cout << "drew rect at " << cornerx << " " << cornery << std::endl;
@@ -45,14 +47,6 @@ void PRectangle::draw()
 
 void PRectangle::resetGraphics(){
 	display_list = 0;
-}
-
-const Point* PRectangle::getVertices(){
-	memcpy(returnVertices,vertices,4*sizeof(Point));
-	for (int i=0; i<4; i++){
-		returnVertices[i].translate(cornerx, cornery);
-	}
-	return returnVertices;
 }
 
 /*void PRectangle::move(GLuint time){
