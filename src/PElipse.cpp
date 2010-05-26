@@ -17,7 +17,7 @@ PElipse::PElipse(float x, float y, float w, float h,int ed,float m) : PMovingObj
 	}
 	mass = m;
 	//again, probably didn't do the integral correctly
-	momentInertia = mass*(3*pow(xaxis,4.0)+2*pow(xaxis,2)*pow(yaxis,2)+3*pow(yaxis,4))/(16*xaxis*yaxis);
+	momentInertia = mass*(3*pow(xaxis,4)+2*pow(xaxis,2)*pow(yaxis,2)+3*pow(yaxis,4))/(16*xaxis*yaxis);
 }
 
 void PElipse::compileList()
