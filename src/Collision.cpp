@@ -102,7 +102,12 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 		Vect2D vap(objects[0]->get_vx()-objects[0]->get_dtheta()*r1.y, objects[0]->get_vy()+objects[0]->get_dtheta()*r1.x);
 		Vect2D vbp(objects[1]->get_vx()-objects[1]->get_dtheta()*r2.y, objects[1]->get_vy()+objects[1]->get_dtheta()*r2.x);
 		Vect2D& vabp = vap-vbp;
-		//float j=
+		float ran = r1.cross(norm);
+		float rbn = r2.cross(norm);
+		float j= (-(1+e)*vabp.dot(norm))/(1/objects[0]->get_mass() + 1/objects[1]->get_mass() + ran*ran/objects[0]->get_momentInertia() + rbn*rbn/objects[1]->get_momentInertia());
+		
+		impulse.set(norm);
+		impulse.scale(j);
 		
 		cout << "collision at " << intersection.x << " " << intersection.x << endl;
 	}

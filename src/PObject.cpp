@@ -39,6 +39,9 @@ float PObject::get_height() const{
 float PObject::get_mass() const{
 	return mass;
 }
+float PObject::get_momentInertia() const{
+	return momentInertia;
+}
 float PObject::get_elasticity() const{
 	return elasticity;
 }
