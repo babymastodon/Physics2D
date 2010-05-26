@@ -4,7 +4,7 @@
 using namespace std;
 
 
-PMovingObject::PMovingObject(float x, float y, float w, float h, float th, float dx, float dy, float dth, float ddx, float ddy) : PObject(x-w/2,y-h/2,w,h){
+PMovingObject::PMovingObject(float x, float y, float w, float h, float th, float dx, float dy, float dth, float ddx, float ddy) : PObject(){
 	vx=dx;
 	vy=dy;
 	ax=ddx;
@@ -13,6 +13,10 @@ PMovingObject::PMovingObject(float x, float y, float w, float h, float th, float
 	centery = y;
 	theta = th;
 	dtheta = dth;
+	cornerx = x-w/2;
+	cornery = y-h/2;
+	width = w;
+	height = h;
 	recalculateVertices = true;
 }
 
@@ -49,11 +53,11 @@ bool PMovingObject::contains(float x, float y) const{
 
 const Point* PMovingObject::getVertices() const{
 	if (recalculateVertices){
-		float cost = cos(theta*PI/180);
-		float sint = sin(theta*PI/180);
+		float cost = cos(theta);
+		float sint = sin(theta);
 		for (int i=0; i<num_vertices; i++){
-			returnVertices[i].x = vertices[i].x*cost+centerx;
-			returnVertices[i].y = vertices[i].y*sint+centery;
+			returnVertices[i].x = vertices[i].x*cost-vertices[i].y*sint+centerx;
+			returnVertices[i].y = vertices[i].y*sint+vertices[i].y*cost+centery;
 		}
 		recalculateVertices = false;
 	}

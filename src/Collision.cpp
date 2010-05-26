@@ -42,7 +42,6 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 	
 	for (int i = 0; i < objects[0]->getNumVertices(); i++)
 	{
-		
 		vec1x = obj1vertices[i].x;
 		vec1y = obj1vertices[i].y;
 		
@@ -58,7 +57,6 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 			vec2deltay = obj2vertices[(j + 1) % objects[1]->getNumVertices()].y - vec2y;
 			
 			denominator = (vec1deltax * vec2deltay) - (vec2deltax * vec1deltay);
-			
 			if (denominator != 0)
 			{
 				deltax = vec1x-vec2x;
@@ -74,6 +72,7 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 					numPoints++;
 					//uses the normal vector of the first collision
 					if (!trueCollision){
+						/* old way of finding
 						//figure out which one collided on the corner
 						if (abs(parametric2-.5) < abs(parametric-.5)){
 							//vector1's point of collision was closer to the corner
@@ -82,7 +81,9 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 						else
 						{
 							norm.set(vec2deltax,-vec2deltay);
-						}
+						}*/
+						//VERY crude approximation for normal vector at collision point
+						norm.set(objects[1]->get_centerx()-objects[0]->get_centerx(), objects[1]->get_centery()-objects[0]->get_centery());
 						norm.normalize();
 					}
 					trueCollision = true;
@@ -95,12 +96,25 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 		intersection.x = sumx/numPoints;
 		intersection.y = sumy/numPoints;
 		//calculate impulse here
-		float e = objects[0]->getelasticity()*objects[1]->getelasticity();
-		Vect2D r1(intersection.x-objects[0]->getcenterx(), intersection.y-objects[0]->getcentery());
-		Vect2D r2(intersection.x-objects[1]->getcenterx(), intersection.y-objects[1]->getcentery());
-		//Vect2D relative_velocity(
+		float e = objects[0]->get_elasticity()*objects[1]->get_elasticity();
+		Vect2D r1(intersection.x-objects[0]->get_centerx(), intersection.y-objects[0]->get_centery());
+		Vect2D r2(intersection.x-objects[1]->get_centerx(), intersection.y-objects[1]->get_centery());
+		//vap = vcenter + w x r1 where w is angular velocity vector that points into screen
+		//vap = velocity of point of collision on each object
+		Vect2D vap(objects[0]->get_vx()-objects[0]->get_dtheta()*r1.y, objects[0]->get_vy()+objects[0]->get_dtheta()*r1.x);
+		Vect2D vbp(objects[1]->get_vx()-objects[1]->get_dtheta()*r2.y, objects[1]->get_vy()+objects[1]->get_dtheta()*r2.x);
+		Vect2D& vabp = vap-vbp;
+		float ran = r1.cross(norm);
+		float rbn = r2.cross(norm);
+		//source: http://www.myphysicslab.com/collision.html
+		float j= (-(1+e)*vabp.dot(norm))/(1/objects[0]->get_mass() + 1/objects[1]->get_mass() + ran*ran/objects[0]->get_momentInertia() + rbn*rbn/objects[1]->get_momentInertia());
+		
+		impulse.set(norm);
+		impulse.scale(j);
 		
 		cout << "collision at " << intersection.x << " " << intersection.x << endl;
+		cout << j << endl;
+		cout << "impulse = " << impulse.x << " " << impulse.y << endl;
 	}
 }
 
@@ -126,7 +140,7 @@ bool Collision::isTrueCollision() const
 	return trueCollision;
 }
 
-const Vect2D& Collision::getimpulse() const
+const Vect2D& Collision::get_impulse() const
 {
 	return impulse;
 }

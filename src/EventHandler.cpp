@@ -94,10 +94,10 @@ void EventHandler::addRandomPMovingObject(int x, int y){
 	
 	if (randomness <=3)
 	{	
-		PMovingObject* object = new PRectangle(x-5,y-5,30,50);
+		PMovingObject* object = new PRectangle(x-5,y-5,30,80);
 		object->set_ay(-150);
-		object->set_vx(10);
-		object->set_vy(400);
+		object->set_vx(20);
+		object->set_vy(300);
 		scene_graph.lock();
 		scene_graph.addObject(object);
 		scene_graph.unlock();
@@ -106,8 +106,8 @@ void EventHandler::addRandomPMovingObject(int x, int y){
 	{
 		PMovingObject* object = new PEquilateralTriangle(x-5,y-5,40);
 		object->set_ay(-150);
-		object->set_vx(10);
-		object->set_vy(400);
+		object->set_vx(20);
+		object->set_vy(300);
 		scene_graph.lock();
 		scene_graph.addObject(object);
 		scene_graph.unlock();
@@ -116,8 +116,8 @@ void EventHandler::addRandomPMovingObject(int x, int y){
 	{
 		PMovingObject* object = new PElipse(x-5,y-5,40, 60, 10);
 		object->set_ay(-150);
-		object->set_vx(10);
-		object->set_vy(400);
+		object->set_vx(20);
+		object->set_vy(300);
 		scene_graph.lock();
 		scene_graph.addObject(object);
 		scene_graph.unlock();

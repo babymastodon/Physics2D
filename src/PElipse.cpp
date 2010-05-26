@@ -1,7 +1,7 @@
 
 #include "PElipse.h"
 
-PElipse::PElipse(float x, float y, float w, float h,int ed) : PMovingObject(x,y,w,h) 
+PElipse::PElipse(float x, float y, float w, float h,int ed,float m) : PMovingObject(x,y,w,h) 
 {
 	edges = ed;
 	display_list = 0;
@@ -15,6 +15,9 @@ PElipse::PElipse(float x, float y, float w, float h,int ed) : PMovingObject(x,y,
 		vertices[i].x=xaxis*cos(2*PI*i/edges);
 		vertices[i].y=-yaxis*sin(2*PI*i/edges);
 	}
+	mass = m;
+	//again, probably didn't do the integral correctly
+	momentInertia = mass*(3*pow(xaxis,4)+2*pow(xaxis,2)*pow(yaxis,2)+3*pow(yaxis,4))/(16*xaxis*yaxis);
 }
 
 void PElipse::compileList()
@@ -43,7 +46,7 @@ void PElipse::draw()
 	if (display_list == 0) compileList();
 	glPushMatrix();
 	glTranslatef(centerx,centery,0);
-	glRotatef(theta,0,0,1);
+	glRotatef(theta*180/PI,0,0,1);
 	glCallList(display_list);
 	glPopMatrix();
 }

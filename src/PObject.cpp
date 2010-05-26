@@ -1,13 +1,26 @@
 #include "PObject.h"
 
-PObject::PObject(float x, float y, float w, float h){
-	cornerx=x;
-	cornery=y;
-	width=w;
-	height=h;
+PObject::PObject(){
+	cornerx = 0;
+	cornery = 0;
+	width = 0;
+	height = 0;
+	mass = 1;
+	momentInertia = 1;
+	elasticity = 1;
+	theta = 0;
+	centerx = 0;
+	centery = 0;
+	vx = 0;
+	vy = 0;
+	dtheta = 0;
 	last_cycle=0;
+	num_vertices = 0;
 }
-PObject::~PObject(){}
+PObject::~PObject(){
+	//Forgot how to delete a block of memory?
+	delete[] vertices;
+}
 
 int PObject::getNumVertices() const{
 	return num_vertices;
@@ -24,31 +37,34 @@ void PObject::setLastCycle(int cycle){
 	last_cycle = cycle;
 }
 
-float PObject::getcornerx() const{
+float PObject::get_cornerx() const{
 	return cornerx;
 }
-float PObject::getcornery() const{
+float PObject::get_cornery() const{
 	return cornery;
 }
-float PObject::getwidth() const{
+float PObject::get_width() const{
 	return width;
 }
-float PObject::getheight() const{
+float PObject::get_height() const{
 	return height;
 }
-float PObject::getmass() const{
+float PObject::get_mass() const{
 	return mass;
 }
-float PObject::getelasticity() const{
+float PObject::get_momentInertia() const{
+	return momentInertia;
+}
+float PObject::get_elasticity() const{
 	return elasticity;
 }
-float PObject::gettheta() const{
+float PObject::get_theta() const{
 	return theta;
 }
-float PObject::getcenterx() const{
+float PObject::get_centerx() const{
 	return centerx;
 }
-float PObject::getcentery() const{
+float PObject::get_centery() const{
 	return centery;
 }
 float PObject::get_vx() const{
@@ -57,35 +73,38 @@ float PObject::get_vx() const{
 float PObject::get_vy() const{
 	return vy;
 }
+float PObject::get_dtheta() const{
+	return dtheta;
+}
 
-void PObject::setcornerx(float n){
+void PObject::set_cornerx(float n){
 	cornerx=n;
 }
-void PObject::setcornery(float n){
+void PObject::set_cornery(float n){
 	cornery=n;
 }
-void PObject::setwidth(float n){
+void PObject::set_width(float n){
 	width=n;
 }
-void PObject::setheight(float n){
+void PObject::set_height(float n){
 	height=n;
 }
-void PObject::setmass(float n){
+void PObject::set_mass(float n){
 	mass=n;
 }
-void PObject::setmomentInertia(float n){
+void PObject::set_momentInertia(float n){
 	momentInertia=n;
 }
-void PObject::setelasticity(float n){
+void PObject::set_elasticity(float n){
 	elasticity=n;
 }
-void PObject::settheta(float n){
+void PObject::set_theta(float n){
 	theta=n;
 }
-void PObject::setcenterx(float n){
+void PObject::set_centerx(float n){
 	centerx=n;
 }
-void PObject::setcentery(float n){
+void PObject::set_centery(float n){
 	centery=n;
 }
 void PObject::set_vx(float n){
@@ -93,6 +112,9 @@ void PObject::set_vx(float n){
 }
 void PObject::set_vy(float n){
 	vy=n;
+}
+void PObject::set_dtheta(float n){
+	dtheta=n;
 }
 
 bool PObject::intersect(float x, float y, float w, float h) const{
@@ -121,4 +143,13 @@ bool PObject::completelyInside(float x, float y, float w, float h) const{
 
 bool PObject::intersect(const PObject* other) const{
 	return intersect(other->cornerx, other->cornery, other->width, other->height);
+}
+
+void PObject::move(GLuint time){}
+
+void PObject::applyImpulse(const Point& point, const Vect2D& impulse){
+	Vect2D r(point.x-centerx, point.y-centery);
+	dtheta += r.cross(impulse)/momentInertia;
+	vx += impulse.x/mass;
+	vy += impulse.y/mass;
 }

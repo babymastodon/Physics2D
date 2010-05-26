@@ -4,6 +4,7 @@
 #include <SDL/SDL_opengl.h>
 #include <cmath>
 #include "Point.h"
+#include "Vect2D.h"
 #include <cstring>
 
 
@@ -24,7 +25,11 @@ using namespace std;
 
 class PObject{
 	public:
-		PObject(float x=0, float y=0, float width=0, float heght=0);
+		/*!
+		 * Default constructor sets all internal variable to 0 or 1. It is the
+		 * subclass's job to reassign all necessary variables.
+		 */
+		PObject();
 		~PObject();
 		
 		/**
@@ -33,7 +38,7 @@ class PObject{
 		 * PObject knows its own position in the window.
 		 */
 		virtual void draw()=0;  
-		virtual void move(GLuint time) =0;
+		virtual void move(GLuint time);
 		
 		/*!
 		 * This function is called when the openGL context is initialized
@@ -79,35 +84,38 @@ class PObject{
 		 * PObject implementation merely returns the shape of the object.
 		 */
 		virtual const Point* getVertices() const;
+		virtual void applyImpulse(const Point& point, const Vect2D& impulse);
 		int getNumVertices() const;
 		int getLastCycle() const;
 		void setLastCycle(int cycle);
 		
-		float getcornerx() const;
-		float getcornery() const;
-		float getwidth() const;
-		float getheight() const;
-		float getmass() const;
-		float getmomentInertia() const;
-		float getelasticity() const;
-		float gettheta() const;
-		float getcenterx() const;
-		float getcentery() const;
+		float get_cornerx() const;
+		float get_cornery() const;
+		float get_width() const;
+		float get_height() const;
+		float get_mass() const;
+		float get_momentInertia() const;
+		float get_elasticity() const;
+		float get_theta() const;
+		float get_centerx() const;
+		float get_centery() const;
 		float get_vx() const;
 		float get_vy() const;
+		float get_dtheta() const;
 		
-		void setcornerx(float n);
-		void setcornery(float n);
-		void setwidth(float n);
-		void setheight(float n);
-		void setmass(float n);
-		void setelasticity(float n);
-		void setmomentInertia(float n);
-		void settheta(float n);
-		void setcenterx(float n);
-		void setcentery(float n);
+		void set_cornerx(float n);
+		void set_cornery(float n);
+		void set_width(float n);
+		void set_height(float n);
+		void set_mass(float n);
+		void set_elasticity(float n);
+		void set_momentInertia(float n);
+		void set_theta(float n);
+		void set_centerx(float n);
+		void set_centery(float n);
 		void set_vx(float n);
 		void set_vy(float n);
+		void set_dtheta(float n);
 
 	protected:
 		Point* vertices;

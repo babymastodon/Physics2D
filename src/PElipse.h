@@ -20,7 +20,7 @@ class PElipse: public PMovingObject
 		 *	major and minor axis.  The number of edges in the elipse
 		 *	is set automatically.  
 		 */
-		PElipse(float x, float y, float width, float height,int ed=20);
+		PElipse(float x, float y, float width, float height,int ed=20,float mass=1);
 	
 		/*!
 		 *	The draw method sets the graphics neccessary to dislpay

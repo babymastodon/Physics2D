@@ -1,5 +1,6 @@
 #include "Physics.h"
-
+#include <iostream>
+using namespace std;
 
 Physics::Physics(SceneGraph& world):Thread(),scene_graph(world){
 	pause_flag = false;
@@ -26,6 +27,16 @@ int Physics::mainLoop(){
 			}
 			scene_graph.updateTree();
 			list<Collision*>& collisions = scene_graph.possibleCollisions();
+			for (list<Collision*>::iterator it = collisions.begin(); it != collisions.end(); it++){
+				Collision& coll = *(*it);
+				if (coll.isTrueCollision()){
+					const Vect2D& impulse = coll.get_impulse();
+					Vect2D rev_impulse(-impulse.x, -impulse.y);
+					cout << "colliding " << coll.get_object1() << " " << coll.get_object2() << endl;
+					coll.get_object1()->applyImpulse(coll.get_pointOf(),impulse);
+					coll.get_object2()->applyImpulse(coll.get_pointOf(),rev_impulse);
+				}
+			}
 			scene_graph.unlock();
 		}
 		

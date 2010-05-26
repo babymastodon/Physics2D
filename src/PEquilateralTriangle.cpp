@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-PEquilateralTriangle::PEquilateralTriangle(float x, float y, float sidelength) : PMovingObject(x, y, sidelength, sqrt(3) * sidelength / 2)
+PEquilateralTriangle::PEquilateralTriangle(float x, float y, float sidelength, float m) : PMovingObject(x, y, sidelength, sqrt(3) * sidelength / 2)
 {
 	num_vertices = 3;
 	vertices = new Point[num_vertices];
@@ -16,6 +16,9 @@ PEquilateralTriangle::PEquilateralTriangle(float x, float y, float sidelength) :
 	vertices[2].y = 2.0/3*height;
 	
 	display_list = 0;
+	mass = m;
+	//someone check the math, I might have messed up the integral
+	momentInertia = mass*sidelength*sidelength/8;
 }
 
 void PEquilateralTriangle::compileList()
@@ -41,7 +44,7 @@ void PEquilateralTriangle::draw()
 	if (display_list==0) compileList();
 	glPushMatrix();
 	glTranslatef(centerx, centery, 0);
-	glRotatef(theta,0,0,1);
+	glRotatef(theta*180/PI,0,0,1);
 	glCallList(display_list);
 	glPopMatrix();
 }
