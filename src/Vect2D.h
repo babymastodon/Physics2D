@@ -5,8 +5,20 @@
 #include <cmath>
 #include "Point.h"
 
+/*!
+ *	The Vect2D class represents a vector
+ *	in 2D space.  
+ */
 class Vect2D{
 public:
+	
+	/*!
+	 *	The Vect2D constructors can either take the change-in-x
+	 *	and change-in-y values of the vector, or two points that 
+	 *	the vector is to be in between (the firstpoint is the 
+	 *	endpoint of the vector, the second is the head) or another 
+	 *	vector that the new vector should be equal to.
+	 */
 	Vect2D(float setx=0, float sety=0);
 	Vect2D(const Point& p1, const Point& p2);
 	Vect2D(const Vect2D& other);
