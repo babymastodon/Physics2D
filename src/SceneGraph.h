@@ -11,7 +11,7 @@
 
 using namespace std;
 
-/**
+/*!
  * The SceneGraph class contains a vector of PObjects, and serves
  * as a container for all of the objects in the world. It's different from the 
  * Graphics object in that it's not limited to the boundaries of the window.
@@ -19,18 +19,21 @@ using namespace std;
 
 class SceneGraph{
 	public:
+	
 		/*!
 		 * SceneGraph constructor:
 		 * 1) Populate pobj_list with PObject pointers
 		 * 2) Generate the mutex for further use
 		 */
 		SceneGraph(int width, int height);
+	
 		/*!
 		 * The SceneGraph destructor empties the p_object vector
 		 * of any remaining PObjects (free the memory to avoid a memory leak)
 		 * It also destroys the private mutex that it instantiated in the constructor
 		 */
 		~SceneGraph();
+	
 		/*!
 		 * Wrappers for the SDL mutex P and V function
 		 * Will lock and unlock the private mutex
@@ -42,69 +45,96 @@ class SceneGraph{
 		 * method is called.
 		 * This is to allow the physics and graphics threads to complete
 		 * processing before handing off the SceneGraph to each other.
-		 * for more info, wikipedia: counting semaphore
+		 * for more info, wikipedia: counting semaphore.
 		 */
 		void lock() const;
 		void unlock() const;
 		
 		/*!
 		 * All of the accessor functions are declared const so
-		 * that the graphics class can access them
+		 * that the graphics class can access them.
 		 */
-		float getWorldWidth() const; ///< @return worldWidth A float representing the width of the SceneGraph
-		float getWorldHeight() const; ///< @return worldWidth A float representing the width of the SceneGraph
+	
+		/*!
+		 *	The getWorldWidth and getWorldHeight methods return 
+		 *	the width and height of the world.
+		 */
+		float getWorldWidth() const; 
+		float getWorldHeight() const; 
 		
 		/*!
-		 *	returns a pointer to the root of the WorldTree
+		 *	The getRoot method a pointer to the root of the WorldTree.
 		 */
 		WorldTreeNode* getRoot();
 		
 		/*!
-		 *  adds a pointer to a PObject to its proper WorldTreeNode
+		 *  The addObject method adds a pointer to a PObject to its 
+		 *	proper WorldTreeNode.
 		 */
 		void addObject(PObject*);
 		
 		/*!
-		 *  removes a SceneGraphNode from its WorldTreeNode, colapses the WorldTreeNode and its siblings
-		 *  back into its parent if the removal of this node drops the number of elements contained in that
-		 *  subtree under a certain number
+		 *  The removeObject method removes a SceneGraphNode from its 
+		 *	WorldTreeNode, collapses the WorldTreeNode and its siblings
+		 *  back into its parent if the removal of this node drops the 
+		 *	number of elements contained in that subtree under a certain 
+		 *	number.
 		 */
 		void removeObject(PObject*);
 		
 		/*!
-		 * @return a deque with all the elements contained in the top lever WorldTreeNode
+		 *	The method getPObjects returns a deque with 
+		 *	all the elements contained in the top level 
+		 *	WorldTreeNode.
 		 */
 		const deque<PObject*>& getPObjects() const;
 		
 		/*!
-		 * moves the PObjects to the correct positions in the tree
+		 *	The updateTree method moves the PObjects 
+		 *	to their correct positions in the tree.
 		 */
 		void updateTree();
+	
 		/*!
-		 * draws rectangles visualizing the tree divisions via openGl
+		 *	The drawTree method displays the world tree 
+		 *	on the screen allowing a visual representation
+		 *	of how the tree devides the world at the present
+		 *	time.		 
 		 */
 		void drawTree();
 		
 		/*!
-		 * @return a list of all pairs of PObjects with intersecting
-		 * bounding boxes
+		 *	The possibleCollisions method return a list of Collision
+		 *	objects.  The method creates a new collision object out of 
+		 *	any two PObjects whose bounding boxes collide.  The Collision
+		 *	class then calculates whether of not 
 		 */
 		list<Collision*> & possibleCollisions();
 	
 	
 	private:
 	
+		/*!
+		 *	mutex stores the SDL_mutex for the world.
+		 */
 		SDL_mutex* mutex;
 		
-		
-		float worldWidth; ///< Width of the SceneGraph - Can be larger than window
-		float worldHeight; ///< Height of the SceneGraph - Can be larger than window
-		
-		/*
-		 *  Stores the root of the WorldTree, which encompasses the whole world
+		/*!
+		 *	The floats wordWidth and worldHeight store the x and y dimensions
+		 *	of the world.
+		 */
+		float worldWidth; 
+		float worldHeight;
+	
+		/*!
+		 *  root_node stores the root of the WorldTree, which encompasses the whole 
+		 *	world.
 		 */
 		WorldTreeNode* root_node;
 		
+		/*!
+		 *	The update_cycle variable stores the current cycle of the world.
+		 */
 		int update_cycle;
 };
 
