@@ -25,6 +25,7 @@ public:
 	float dot(const Vect2D& other) const;
 	//since it is 2D, it merely takes the determinant |[[this],[other]]| (the z coordinate of the cross product)
 	float cross(const Vect2D& other) const;
+	float mag() const;
 	
 	
 	float x;

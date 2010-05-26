@@ -62,4 +62,7 @@ void Vect2D::scale(float n){
 	x/=n;
 	y/=n;
 }
+float Vect2D::mag() const{
+	return sqrt(x*x+y*y);
+}
 Vect2D::~Vect2D(){}

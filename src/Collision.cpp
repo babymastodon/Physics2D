@@ -92,10 +92,14 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 		intersection.x = sumx/numPoints;
 		intersection.y = sumy/numPoints;
 		//calculate impulse here
-		float e = objects[0]->getelasticity()*objects[1]->getelasticity();
-		Vect2D r1(intersection.x-objects[0]->getcenterx(), intersection.y-objects[0]->getcentery());
-		Vect2D r2(intersection.x-objects[1]->getcenterx(), intersection.y-objects[1]->getcentery());
-		//Vect2D relative_velocity(
+		float e = objects[0]->get_elasticity()*objects[1]->get_elasticity();
+		Vect2D r1(intersection.x-objects[0]->get_centerx(), intersection.y-objects[0]->get_centery());
+		Vect2D r2(intersection.x-objects[1]->get_centerx(), intersection.y-objects[1]->get_centery());
+		//vap = vcenter + w x r1 where w is angular velocity vector that points into screen
+		Vect2D vap(objects[0]->get_vx()-objects[0]->get_dtheta()*r1.y, objects[0]->get_vy()+objects[0]->get_dtheta()*r1.x);
+		Vect2D vbp(objects[1]->get_vx()-objects[1]->get_dtheta()*r2.y, objects[1]->get_vy()+objects[1]->get_dtheta()*r2.x);
+		Vect2D& vabp = vap-vbp;
+		//float j=
 		
 		cout << "collision at " << intersection.x << " " << intersection.x << endl;
 	}
