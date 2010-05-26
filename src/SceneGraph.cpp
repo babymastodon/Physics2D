@@ -7,6 +7,9 @@ SceneGraph::SceneGraph(int width, int height){
 	
 	root_node = new WorldTreeNode::WorldTreeNode(0,0, width, height);
 	update_cycle=0;
+	
+	last.x=0;
+	last.y=0;
 }
 SceneGraph::~SceneGraph(){
 	SDL_DestroyMutex(mutex);

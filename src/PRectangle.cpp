@@ -30,6 +30,7 @@ void PRectangle::compileList()
 		glNewList(display_list,GL_COMPILE);
 		glBegin(GL_TRIANGLE_FAN);
 			glNormal3f(0,0,1);
+			glColor3f(1,.7,.2);
 			for (int i=0; i<4; i++)
 			{
 				glVertex2f(vertices[i].x, vertices[i].y);

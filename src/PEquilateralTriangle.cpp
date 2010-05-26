@@ -30,6 +30,7 @@ void PEquilateralTriangle::compileList()
 		glNewList(display_list, GL_COMPILE);
 			glBegin(GL_TRIANGLES);
 			glNormal3f(0, 0, 1);
+			glColor3f(.9,.3,.5);
 				for (int i=0; i<3; i++)
 				{
 					glVertex2f(vertices[i].x, vertices[i].y);

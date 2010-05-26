@@ -25,13 +25,13 @@ int main(int argc, char* argv[])
 	Graphics graphics("Fun with Shapes",800,600,world);
 	EventHandler event_handler(physics,graphics,world);
 	
-	PMovingObject* object = new PRectangle(100,320,50,50);
+	PMovingObject* object = new PRectangle(100,280,50,80);
 	object->set_ay(0);
 	object->set_vx(50);
 	object->set_vy(0);
 	world.addObject(object);
 	
-	object = new PRectangle(400,300,50,50);
+	object = new PEquilateralTriangle(400,300,50);
 	object->set_ay(0);
 	object->set_vx(-50);
 	object->set_vy(0);

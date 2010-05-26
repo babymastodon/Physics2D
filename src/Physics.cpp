@@ -35,6 +35,8 @@ int Physics::mainLoop(){
 					cout << "colliding " << coll.get_object1() << " " << coll.get_object2() << endl;
 					coll.get_object1()->applyImpulse(coll.get_pointOf(),impulse);
 					coll.get_object2()->applyImpulse(coll.get_pointOf(),rev_impulse);
+					scene_graph.last.x=coll.get_pointOf().x;
+					scene_graph.last.y=coll.get_pointOf().y;
 				}
 			}
 			scene_graph.unlock();

@@ -13,7 +13,7 @@ PElipse::PElipse(float x, float y, float w, float h,int ed,float m) : PMovingObj
 	for (int i = 0; i < edges; i++)
 	{
 		vertices[i].x=xaxis*cos(2*PI*i/edges);
-		vertices[i].y=-yaxis*sin(2*PI*i/edges);
+		vertices[i].y=yaxis*sin(2*PI*i/edges);
 	}
 	mass = m;
 	//again, probably didn't do the integral correctly
@@ -31,10 +31,11 @@ void PElipse::compileList()
 		glNewList(display_list,GL_COMPILE);
 			glBegin(GL_TRIANGLE_FAN);
 				glNormal3f(0,0,1);
+				glColor3f(.4,.6,.8);
 				glVertex2f(0.0,0.0);
 				for (int i=0; i<=edges; i++)
 				{
-					glVertex2f(xaxis*cos(2*PI*i/edges),-yaxis*sin(2*PI*i/edges));
+					glVertex2f(xaxis*cos(2*PI*i/edges),yaxis*sin(2*PI*i/edges));
 				}
 			glEnd();
 		glEndList();

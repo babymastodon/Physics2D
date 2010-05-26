@@ -52,10 +52,11 @@ void Graphics::initWindow(){
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_SMOOTH);
     
-    GLfloat specColor0[] = {1,1,1,0};
-    GLfloat diffColor0[] = {.5,.5,1,0};
-    GLfloat lightPos0[] = {1,1,1,0};
-    GLfloat ambientColor[] = {0,0,0,1};
+    //no need for lighting
+    /*GLfloat specColor0[] = {1,1,1,0};
+    GLfloat diffColor0[] = {.8,.8,.8,0};
+    GLfloat lightPos0[] = {0,0,1,0};
+    GLfloat ambientColor[] = {.1,.1,.1,1};
     
     glLightfv(GL_LIGHT0, GL_SPECULAR, specColor0);
     glLightfv(GL_LIGHT0, GL_DIFFUSE, diffColor0);
@@ -63,8 +64,8 @@ void Graphics::initWindow(){
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientColor);
     glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
     glEnable(GL_LIGHTING);
-	 glEnable(GL_LIGHT0);
-	 glClearColor(1,.6,.5,1);
+	glEnable(GL_LIGHT0);*/
+	glClearColor(.2,.2,.2,1);
     glColor3f(1,1,1);
     
     //Should we do an orthagonal or 3D projection?   
@@ -124,10 +125,11 @@ int Graphics::mainLoop(){
  */
 void Graphics::display(){
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    GLfloat lightPos0[] = {0,0,0,1};
+    //GLfloat lightPos0[] = {0,0,1,0};
+	//glColorMaterial(GL_FRONT_AND_BACK,GL_AMBIENT_AND_DIFFUSE);
     
     glLoadIdentity();
-    glLightfv(GL_LIGHT0,GL_POSITION,lightPos0);
+    //glLightfv(GL_LIGHT0,GL_POSITION,lightPos0);
     
     //move the viewport
     glTranslatef(-viewport_x,-viewport_y,0);
@@ -141,6 +143,13 @@ void Graphics::display(){
 	}
 	glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
 	scene_graph.drawTree();
+	glPolygonMode(GL_FRONT_AND_BACK,GL_POINT);
+	glPointSize(5);
+	glPushAttrib(GL_CURRENT_BIT);
+	glBegin(GL_POINTS);
+		glVertex2f(scene_graph.last.x,scene_graph.last.y);
+	glEnd();
+	glPopAttrib();
 	glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
     scene_graph.unlock();
     
