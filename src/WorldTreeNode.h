@@ -99,7 +99,7 @@ class WorldTreeNode
 		 */
 		void remove(PObject* removethis);
 	
-	`	/*!
+		/*!
 		 *	The getNumElements method returns the number of elements
 		 *	in the node.
 		 */
