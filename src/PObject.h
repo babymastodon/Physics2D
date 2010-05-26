@@ -4,6 +4,7 @@
 #include <SDL/SDL_opengl.h>
 #include <cmath>
 #include "Point.h"
+#include "Vect2D.h"
 #include <cstring>
 
 
@@ -37,7 +38,7 @@ class PObject{
 		 * PObject knows its own position in the window.
 		 */
 		virtual void draw()=0;  
-		virtual void move(GLuint time) =0;
+		virtual void move(GLuint time);
 		
 		/*!
 		 * This function is called when the openGL context is initialized
@@ -83,6 +84,7 @@ class PObject{
 		 * PObject implementation merely returns the shape of the object.
 		 */
 		virtual const Point* getVertices() const;
+		virtual void applyImpulse(const Point& point, const Vect2D& impulse);
 		int getNumVertices() const;
 		int getLastCycle() const;
 		void setLastCycle(int cycle);
