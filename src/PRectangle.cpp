@@ -1,7 +1,7 @@
 
 #include "PRectangle.h"
 
-PRectangle::PRectangle(float x, float y, float w, float h) : PMovingObject(x,y,w,h) 
+PRectangle::PRectangle(float x, float y, float w, float h, float m) : PMovingObject(x,y,w,h) 
 {
 	display_list = 0;
 	num_vertices = 4;
@@ -17,6 +17,8 @@ PRectangle::PRectangle(float x, float y, float w, float h) : PMovingObject(x,y,w
 	vertices[2].y = h2;
 	vertices[3].x = -w2;
 	vertices[3].y = h2;
+	mass = m;
+	momentInertia = mass*(width*width+height*height)/12;
 }
 
 void PRectangle::compileList()

@@ -19,7 +19,7 @@ class PRectangle: public PMovingObject
 		 *	the bottom left corner of the rectangle and its 
 		 *	height and width.
 		 */
-		PRectangle(float x, float y, float width, float height);
+		PRectangle(float x, float y, float width, float height, float mass=1);
 	
 		/*!
 		 *	The draw method sets the graphics neccessary to dislpay

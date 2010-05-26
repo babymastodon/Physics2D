@@ -22,10 +22,10 @@ int main(int argc, char* argv[])
 	
 	SceneGraph world(800,600);
 	Physics physics(world);
-	Graphics graphics("Title",800,600,world);
+	Graphics graphics("Fun with Shapes",800,600,world);
 	EventHandler event_handler(physics,graphics,world);
 	
-	PMovingObject* object = new PRectangle(100,300,50,50);
+	PMovingObject* object = new PRectangle(100,320,50,50);
 	object->set_ay(0);
 	object->set_vx(50);
 	object->set_vy(0);

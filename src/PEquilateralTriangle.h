@@ -20,7 +20,7 @@ class PEquilateralTriangle : public PMovingObject
 		 *	of the bottow left corner of the triangle and the length
 		 *	of the triangle's sides
 		 */
-		PEquilateralTriangle(float x, float y, float sidelength);
+		PEquilateralTriangle(float x, float y, float sidelength, float mass=1);
 	
 		/*!
 		 *	The draw method sets the graphics neccessary to dislpay
