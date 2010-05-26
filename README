@@ -3,13 +3,14 @@ To download and compile the source code on ubuntu:
 make sure that you have git, g++, opengl, and sdl developmet libraries
 installed:
 
-sudo apt-get install build-essential libsdl1.2-dev git
+sudo apt-get install build-essential libsdl1.2-dev git-core
 
-in the command prompt, type:
+If you are using git:
+	git clone http://csserver.exeter.edu/~hogbait/git/physics.git
 
-git clone http://csserver.exeter.edu/~hogbait/git/physics.git
-cd physics
-make
+otherwise, extract compressed physics folder and type:
+	cd physics
+	make
 
 Hopefully, it will compile. If it doesn't, you are probably missing some
 dependant libraries.
