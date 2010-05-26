@@ -3,6 +3,7 @@
 
 #include "Point.h"
 #include "PObject.h"
+#include "Vect2D.h"
 
 /*!
  * The purpose of this class is to calculat the point of collison between
@@ -16,23 +17,18 @@ public:
 	Collision(PObject* obj1, PObject* obj2);
 	~Collision();
 	
-	Point get_pointOf();
-	PObject* get_object1();
-	PObject* get_object2();
-	bool isTrueCollision();
-	float getnormx();//not necessary
-	float getnormy();
+	const Point& get_pointOf() const;
+	PObject* get_object1() const;
+	PObject* get_object2() const;
+	bool isTrueCollision() const;
+	const Vect2D& getimpulse() const;
 	
 private:
 	Point intersection;
 	PObject** objects;
 	bool trueCollision;
-	//maybe remove this
-	float normx;
-	float normy;
 	//impulse vector
-	float impulsex;
-	float impulsey;
+	Vect2D impulse;
 };
 
 #endif

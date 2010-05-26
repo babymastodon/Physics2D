@@ -22,23 +22,11 @@ void PMovingObject::set_ax(float n){
 void PMovingObject::set_ay(float n){
 	ay=n;
 }
-void PMovingObject::set_vx(float n){
-	vx=n;
-}
-void PMovingObject::set_vy(float n){
-	vy=n;
-}
 float PMovingObject::get_ax() const{
 	return ax;
 }
 float PMovingObject::get_ay() const{
 	return ay;
-}
-float PMovingObject::get_vx() const{
-	return vx;
-}
-float PMovingObject::get_vy() const{
-	return vy;
 }
 
 void PMovingObject::move(GLuint time){
@@ -55,19 +43,11 @@ void PMovingObject::move(GLuint time){
 	recalculateVertices = true;
 }
 
-bool PMovingObject::collides(PObject& other){
-	/*
-	 * subclasses should override this function so that it doesn't
-	 * merely check the bounding rectangles.
-	 */
-	return other.intersect(cornerx,cornery,width,height);
-}
-
-bool PMovingObject::contains(float x, float y){
+bool PMovingObject::contains(float x, float y) const{
 	return x>cornerx && y>cornery && x<cornerx+width && y<cornery+height;
 }
 
-const Point* PMovingObject::getVertices(){
+const Point* PMovingObject::getVertices() const{
 	if (recalculateVertices){
 		float cost = cos(theta*PI/180);
 		float sint = sin(theta*PI/180);

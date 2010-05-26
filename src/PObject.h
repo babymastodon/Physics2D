@@ -32,7 +32,7 @@ class PObject{
 		 * Assumes that the center of the current perspective is at the origin of the window.
 		 * PObject knows its own position in the window.
 		 */
-		virtual void draw() =0;  
+		virtual void draw()=0;  
 		virtual void move(GLuint time) =0;
 		
 		/*!
@@ -49,7 +49,7 @@ class PObject{
 		 *  @param y The y coordinate of the point in question
 		 *  @return True if (x,y) lies inside the current object, False otherwise
 		 */
-		virtual bool contains(float x, float y)=0;
+		virtual bool contains(float x, float y) const =0;
 		
 		/**
 		 * Checks for a collision between the bounding rectangle of
@@ -57,22 +57,14 @@ class PObject{
 		 * (x,y) represents the BOTTOM left corner of the rectangle.
 		 *	@return True if the two rectangles intersect; false otherwise
 		 */
-		bool intersect(float x, float y, float width, float height);
+		bool intersect(float x, float y, float width, float height) const;
 		
 		/**
 		 * Checks for a collision between the bounding rectangle of
 		 * this PObject and the other PObject
 		 *	@return True if the two objects intersect; false otherwise
 		 */
-		bool intersect(PObject* other);
-		
-		/*!
-		 *  Slow check for collisions between this PObject and the one passed
-		 *  as a parameter. Uses the contains function to check for collisions.
-		 *  @param sgn A reference to the second PObject used for collision checking
-		 *  @return True if the two objects intersect; false otherwise. 
-		 */
-		//virtual bool collides(PObject& sgn)=0;
+		bool intersect(const PObject* other) const;
 		
 		/**
 		 * Checks if this object's bounding rect lies completely within
@@ -80,26 +72,42 @@ class PObject{
 		 * (x,y) represents the BOTTOM left corner of the rectangle.
 		 *	@return True if the object is completely within given rect; false otherwise
 		 */
-		bool completelyInside(float x, float y, float width, float height);
-		
-		/*
-		 * what other functions should all physics objects have?
-		 */
-	
-		//checks to see if this object is on the edge of a given boundry
-		//do we still need this?
-		//virtual bool onBound(float xcorner, float ycorner, float xwidth, float yheight)=0;
+		bool completelyInside(float x, float y, float width, float height) const;
 		
 		/**
 		 * should be overridden to allow vertex transformations to occur.
 		 * PObject implementation merely returns the shape of the object.
 		 */
-		virtual const Point* getVertices();
+		virtual const Point* getVertices() const;
 		int getNumVertices() const;
-		int getLastCycle();
+		int getLastCycle() const;
 		void setLastCycle(int cycle);
-		float getMass();
-		void setMass(float m);
+		
+		float getcornerx() const;
+		float getcornery() const;
+		float getwidth() const;
+		float getheight() const;
+		float getmass() const;
+		float getmomentInertia() const;
+		float getelasticity() const;
+		float gettheta() const;
+		float getcenterx() const;
+		float getcentery() const;
+		float get_vx() const;
+		float get_vy() const;
+		
+		void setcornerx(float n);
+		void setcornery(float n);
+		void setwidth(float n);
+		void setheight(float n);
+		void setmass(float n);
+		void setelasticity(float n);
+		void setmomentInertia(float n);
+		void settheta(float n);
+		void setcenterx(float n);
+		void setcentery(float n);
+		void set_vx(float n);
+		void set_vy(float n);
 
 	protected:
 		Point* vertices;
@@ -110,6 +118,14 @@ class PObject{
 		float width; ///< width of bounding rectangle
 		float height; ///< height of bounding rectangle
 		float mass;///<the mass of the PObject
+		float momentInertia;
+		float elasticity;
+		float theta;
+		float centerx;
+		float centery;
+		float vx;///< x velocity given in pixels per second
+		float vy;///< y velocity given in pixels per second
+		float dtheta;
 		
 	private:
 		int last_cycle;
