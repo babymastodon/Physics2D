@@ -1,13 +1,26 @@
 #include "PObject.h"
 
-PObject::PObject(float x, float y, float w, float h){
-	cornerx=x;
-	cornery=y;
-	width=w;
-	height=h;
+PObject::PObject(){
+	cornerx = 0;
+	cornery = 0;
+	width = 0;
+	height = 0;
+	mass = 1;
+	momentInertia = 1;
+	elasticity = 1;
+	theta = 0;
+	centerx = 0;
+	centery = 0;
+	vx = 0;
+	vy = 0;
+	dtheta = 0;
 	last_cycle=0;
+	num_vertices = 0;
 }
-PObject::~PObject(){}
+PObject::~PObject(){
+	//Forgot how to delete a block of memory?
+	delete[] vertices;
+}
 
 int PObject::getNumVertices() const{
 	return num_vertices;

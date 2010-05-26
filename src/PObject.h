@@ -24,7 +24,11 @@ using namespace std;
 
 class PObject{
 	public:
-		PObject(float x=0, float y=0, float width=0, float heght=0);
+		/*!
+		 * Default constructor sets all internal variable to 0 or 1. It is the
+		 * subclass's job to reassign all necessary variables.
+		 */
+		PObject();
 		~PObject();
 		
 		/**

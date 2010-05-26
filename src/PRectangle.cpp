@@ -42,7 +42,7 @@ void PRectangle::draw()
 	if (display_list==0) compileList();
 	glPushMatrix();
 	glTranslatef(centerx,centery,0);
-	glRotatef(theta,0,0,1);
+	glRotatef(theta*180/PI,0,0,1);
 	glCallList(display_list);
 	glPopMatrix();
 }

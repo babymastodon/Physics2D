@@ -52,7 +52,7 @@ class Collision
 		 *	The mehtod getimpulse returns the impulse object created using
 		 *	the calculations in the constructor of the Collision object
 		 */
-		const Vect2D& getimpulse() const;
+		const Vect2D& get_impulse() const;
 	
 	private:
 	

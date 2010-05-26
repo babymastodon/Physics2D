@@ -42,7 +42,6 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 	
 	for (int i = 0; i < objects[0]->getNumVertices(); i++)
 	{
-		
 		vec1x = obj1vertices[i].x;
 		vec1y = obj1vertices[i].y;
 		
@@ -58,7 +57,6 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 			vec2deltay = obj2vertices[(j + 1) % objects[1]->getNumVertices()].y - vec2y;
 			
 			denominator = (vec1deltax * vec2deltay) - (vec2deltax * vec1deltay);
-			
 			if (denominator != 0)
 			{
 				deltax = vec1x-vec2x;
@@ -110,6 +108,8 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 		impulse.scale(j);
 		
 		cout << "collision at " << intersection.x << " " << intersection.x << endl;
+		cout << "debug " << norm.y << endl;
+		cout << "impulse = " << impulse.x << " " << impulse.y << endl;
 	}
 }
 
@@ -135,7 +135,7 @@ bool Collision::isTrueCollision() const
 	return trueCollision;
 }
 
-const Vect2D& Collision::getimpulse() const
+const Vect2D& Collision::get_impulse() const
 {
 	return impulse;
 }
