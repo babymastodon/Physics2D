@@ -20,7 +20,8 @@ OBJECTS =	main.o\
 			PRectangle.o\
 			PEquilateralTriangle.o\
 			Point.o\
-			Collision.o
+			Collision.o\
+			Vect2D.o
 
 all: Makefile $(TARGET)
 

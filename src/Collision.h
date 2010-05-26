@@ -3,6 +3,7 @@
 
 #include "Point.h"
 #include "PObject.h"
+#include "Vect2D.h"
 
 /*!
  * The purpose of this class is to calculate the point of collison between
@@ -24,32 +25,34 @@ class Collision
 		 */
 		Collision(PObject* obj1, PObject* obj2);
 		~Collision();
-	
+
 		/*!
-		 *	The get_pointOf method returns the average point of collision.
+		 *	The get_pointOf method returns the average point of collision
 		 */
-		Point get_pointOf();
+		const Point& get_pointOf() const;
 	
 		/*!
 		 *	The get_object1 and get_object2 methods return pointers to the
 		 *	PObjects contained in the collision, allowing for easy translation
-		 *	and/or rotation using the values calculated by the collision.
+		 *	and/or rotation using the values calculated by the Collision
 		 */
-		PObject* get_object1();
-		PObject* get_object2();
+		PObject* get_object1() const;
+		PObject* get_object2() const;
 	
 		/*!
-		 *	The isTrueCollision method returns true if the two PObjects
-		 *	contained in the collision actually do collide, it returns 
-		 *	false if only the bounding boxes of the PObjects collided. 
-		 *	The boolean trueCollision is set in the constructor after
-		 *	the collision's calculations have been completed.
+		 *	Returns true if the two PObjects contained in the collision 
+		 *	actually do collide, returns false if only the bounding
+		 *	boxes of the PObjects collided, the boolean trueCollision
+		 *	is set in the constructor after the collision's calculations
+		 *	have been completed
 		 */
-		bool isTrueCollision();
+		bool isTrueCollision() const;
 	
-	
-		float getnormx();//not necessary
-		float getnormy();
+		/*! 
+		 *	The mehtod getimpulse returns the impulse object created using
+		 *	the calculations in the constructor of the Collision object
+		 */
+		const Vect2D& getimpulse() const;
 	
 	private:
 	
@@ -62,7 +65,7 @@ class Collision
 	
 		/*!
 		 *	objects holds an array containing the two PObjects passed to the 
-		 *  collision object in the constructor.
+		 *  Collision object in the constructor.
 		 */
 		PObject** objects;
 	
@@ -71,19 +74,13 @@ class Collision
 		 *	only their bounding boxes collide (set in constructor)
 		 */
 		bool trueCollision;
-	
+
 		/*!
-		 *	The float variables impulsex and impulsey store the x and y 
-		 *	impulse acting on the first object as a result of the collision. 
-		 *	The impulse on the second object is simply equal and opposite.
+		 *	Stores the x and y impulse acting on the first object as
+		 *	a result of the collision (the impulse on the second object
+		 *	is simply equal and opposite)	
 		 */
-		float impulsex;
-		float impulsey;
-	
-		//maybe remove this
-		float normx;
-		float normy;
-	
+		Vect2D impulse;
 };
 
 #endif

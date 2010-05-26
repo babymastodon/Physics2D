@@ -16,6 +16,10 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 	const Point* obj1vertices = objects[0]->getVertices();
 	const Point* obj2vertices = objects[1]->getVertices();
 	
+	/*
+	 * the following was written before the Vect2D class was written
+	 * (and that's why it's so messy)
+	 */
 	float sumx=0;
 	float sumy=0;
 	int numPoints=0;
@@ -34,6 +38,7 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 	float vec2deltay;
 	
 	float deltax, deltay; //between the two points on different shapes
+	Vect2D norm;
 	
 	for (int i = 0; i < objects[0]->getNumVertices(); i++)
 	{
@@ -72,17 +77,13 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 						//figure out which one collided on the corner
 						if (abs(parametric2-.5) < abs(parametric-.5)){
 							//vector1's point of collision was closer to the corner
-							normx=vec2deltay;
-							normx= -vec2deltax;
+							norm.set(vec2deltay,-vec2deltax);
 						}
 						else
 						{
-							normx=vec2deltax;
-							normy= -vec2deltay;
+							norm.set(vec2deltax,-vec2deltay);
 						}
-						float mag = sqrt(normx*normx + normy*normy);
-						normx/=mag;
-						normy/=mag;
+						norm.normalize();
 					}
 					trueCollision = true;
 				}
@@ -94,6 +95,10 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 		intersection.x = sumx/numPoints;
 		intersection.y = sumy/numPoints;
 		//calculate impulse here
+		float e = objects[0]->getelasticity()*objects[1]->getelasticity();
+		Vect2D r1(intersection.x-objects[0]->getcenterx(), intersection.y-objects[0]->getcentery());
+		Vect2D r2(intersection.x-objects[1]->getcenterx(), intersection.y-objects[1]->getcentery());
+		//Vect2D relative_velocity(
 		
 		cout << "collision at " << intersection.x << " " << intersection.x << endl;
 	}
@@ -101,32 +106,27 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 
 Collision::~Collision(){}
 
-PObject* Collision::get_object1()
+PObject* Collision::get_object1() const
 {
 	return objects[0];
 }
 
-PObject* Collision::get_object2()
+PObject* Collision::get_object2() const
 {
 	return objects[1];
 }
 
-Point Collision::get_pointOf()
+const Point& Collision::get_pointOf() const
 {
 	return intersection;
 }
 
-bool Collision::isTrueCollision()
+bool Collision::isTrueCollision() const
 {
 	return trueCollision;
 }
 
-float Collision::getnormx()
+const Vect2D& Collision::getimpulse() const
 {
-	return normx;
-}
-
-float Collision::getnormy()
-{
-	return normy;
+	return impulse;
 }
