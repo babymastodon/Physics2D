@@ -3,7 +3,8 @@
 #include <iostream>
 using namespace std;
 
-EventHandler::EventHandler(Physics& ph, Graphics& gr, SceneGraph& sg) : Thread(), physics(ph), graphics(gr), scene_graph(sg){
+EventHandler::EventHandler(Physics& ph, Graphics& gr, SceneGraph& sg) : Thread(), physics(ph), graphics(gr), scene_graph(sg)
+{
 	srand(static_cast<const int>(time(0)));
 }
 EventHandler::~EventHandler(){}
@@ -18,7 +19,8 @@ EventHandler::~EventHandler(){}
 	 * 
 	 * if quit event, send stop signal to phys and graphics objects and return.
 */
-int EventHandler::mainLoop(){
+int EventHandler::mainLoop()
+{
 	graphics.startThread();
 	while (!graphics.isInitialized()) SDL_Delay(10);
 	physics.startThread();
@@ -27,7 +29,8 @@ int EventHandler::mainLoop(){
 	GLuint newTime;
 	while(keepRunning()){
 		newTime = SDL_GetTicks();
-		if (newTime-oldTime <= EVENT_CHECK_TIME){
+		if (newTime-oldTime <= EVENT_CHECK_TIME)
+		{
 			SDL_Delay(EVENT_CHECK_TIME-(newTime-oldTime));
 			newTime=SDL_GetTicks();
 		}
@@ -43,15 +46,19 @@ int EventHandler::mainLoop(){
 	return 0;
 }
 
-void EventHandler::handleEvents(){
+void EventHandler::handleEvents()
+{
 	SDL_Event event;
-	while(SDL_PollEvent(&event) && keepRunning()){
-		switch(event.type){
+	while(SDL_PollEvent(&event) && keepRunning())
+	{
+		switch(event.type)
+		{
 			case SDL_QUIT:
 				stopThread();
 				break;
 			case SDL_KEYDOWN:
-				switch(event.key.keysym.sym){
+				switch(event.key.keysym.sym)
+			{
 					case SDLK_p:
 						physics.togglePause();
 						break;
@@ -62,13 +69,15 @@ void EventHandler::handleEvents(){
 						break;
 				}break;
 			case SDL_KEYUP:
-				switch(event.key.keysym.sym){
+				switch(event.key.keysym.sym)
+			{
 					default:
 						break;
 				}
 				break;
 			case SDL_MOUSEBUTTONDOWN:
-				switch(event.button.button){
+				switch(event.button.button)
+			{
 					case SDL_BUTTON_LEFT:
 						addRandomPMovingObject(event.button.x, graphics.getWindowHeight()-event.button.y);
 						break;
@@ -76,7 +85,8 @@ void EventHandler::handleEvents(){
 				}
 				break;
 			case SDL_MOUSEBUTTONUP:
-				switch(event.button.button){
+				switch(event.button.button)
+			{
 					case SDL_BUTTON_LEFT:
 						break;
 					default:
@@ -87,7 +97,8 @@ void EventHandler::handleEvents(){
 	}
 }
 
-void EventHandler::addRandomPMovingObject(int x, int y){
+void EventHandler::addRandomPMovingObject(int x, int y)
+{
 	
 	
 	double randomness = rand() % 9;

@@ -10,7 +10,8 @@
  * @param world A scenegraph reference that contains all of the PObjects in this world
  * 
  */
-Graphics::Graphics(const char* n, int w, int h,SceneGraph& world) : Thread(), scene_graph(world){
+Graphics::Graphics(const char* n, int w, int h,SceneGraph& world) : Thread(), scene_graph(world)
+{
 	window_name = n;
 	window_width = w;
 	window_height = h;
@@ -18,7 +19,8 @@ Graphics::Graphics(const char* n, int w, int h,SceneGraph& world) : Thread(), sc
 	is_initialized = false;
 }
 
-bool Graphics::isInitialized(){
+bool Graphics::isInitialized()
+{
 	return is_initialized;
 }
 
@@ -26,7 +28,8 @@ bool Graphics::isInitialized(){
  * Default Graphics Destructor;
  * No need to free memory: the SceneGraph was declared a reference
  */
-Graphics::~Graphics(){
+Graphics::~Graphics()
+{
 }
 
 /*!
@@ -35,7 +38,8 @@ Graphics::~Graphics(){
  * drawing, and sets up smooth lighting. Also initializes an
  * orthagonal projection.
  */
-void Graphics::initWindow(){
+void Graphics::initWindow()
+{
 	SDL_Init(SDL_INIT_VIDEO);
 	const SDL_VideoInfo* info = NULL;
 	info = SDL_GetVideoInfo();
@@ -67,7 +71,6 @@ void Graphics::initWindow(){
 	 glClearColor(1,.6,.5,1);
     glColor3f(1,1,1);
     
-    //Should we do an orthagonal or 3D projection?   
     glViewport(0,0,window_width,window_height); 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -80,30 +83,35 @@ void Graphics::initWindow(){
     is_initialized = true;
 }
 
-void Graphics::compileLists(){
+void Graphics::compileLists()
+{
 	//compile the display list for all objects in the SceneGraph here
     //future objects must have their lists compiled before use however
     scene_graph.lock();
     const deque<PObject*>& pobjects = scene_graph.getPObjects();
-    for (deque<PObject*>::const_iterator it = pobjects.begin(); it != pobjects.end(); it++){
+    for (deque<PObject*>::const_iterator it = pobjects.begin(); it != pobjects.end(); it++)
+	{
 		(*it)->resetGraphics();
 	}
     scene_graph.unlock();
 }
 
-void Graphics::quitWindow(){
+void Graphics::quitWindow()
+{
 	is_initialized = false;
 	SDL_Quit();
 }
 
-int Graphics::mainLoop(){
+int Graphics::mainLoop()
+{
 	initWindow();
 	compileLists();
 	GLuint oldTime = SDL_GetTicks();
 	GLuint newTime;
 	while(keepRunning()){
 		newTime = SDL_GetTicks();
-		if (newTime-oldTime <= G_REFRESH_TIME){
+		if (newTime-oldTime <= G_REFRESH_TIME)
+		{
 			SDL_Delay(G_REFRESH_TIME-(newTime-oldTime));
 			newTime=SDL_GetTicks();
 		}
@@ -136,7 +144,8 @@ void Graphics::display(){
     
     scene_graph.lock();
     const deque<PObject*>& pobjects = scene_graph.getPObjects();
-    for (deque<PObject*>::const_iterator it = pobjects.begin(); it != pobjects.end(); it++){
+    for (deque<PObject*>::const_iterator it = pobjects.begin(); it != pobjects.end(); it++)
+	{
 		(*it)->draw();
 	}
 	glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
@@ -147,13 +156,16 @@ void Graphics::display(){
     SDL_GL_SwapBuffers();
 }
 
-const char* Graphics::getWindowName(){
+const char* Graphics::getWindowName()
+{
 	return window_name;
 }
 
-int Graphics::getWindowHeight(){
+int Graphics::getWindowHeight()
+{
 	return window_height;
 }
-int Graphics::getWindowWidth(){
+int Graphics::getWindowWidth()
+{
 	return window_width;
 }

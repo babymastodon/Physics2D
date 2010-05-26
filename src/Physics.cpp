@@ -2,34 +2,42 @@
 #include <iostream>
 using namespace std;
 
-Physics::Physics(SceneGraph& world):Thread(),scene_graph(world){
+Physics::Physics(SceneGraph& world):Thread(),scene_graph(world)
+{
 	pause_flag = false;
 }
+
 Physics::~Physics(){}
 
-
-int Physics::mainLoop(){
+int Physics::mainLoop()
+{
 	GLuint oldTime = SDL_GetTicks();
 	GLuint newTime;
-	while(keepRunning()){
+	while(keepRunning())
+	{
 		newTime = SDL_GetTicks();
-		if (newTime-oldTime <= P_REFRESH_TIME){
+		if (newTime-oldTime <= P_REFRESH_TIME)
+		{
 			SDL_Delay(P_REFRESH_TIME-(newTime-oldTime));
 			newTime=SDL_GetTicks();
 		}
 		
 		//lock graph and move objects
-		if (!pause_flag){
+		if (!pause_flag)
+		{
 			scene_graph.lock();
 			const deque<PObject*>& pobjects = scene_graph.getPObjects();
-			for (deque<PObject*>::const_iterator it = pobjects.begin(); it != pobjects.end(); it++){
+			for (deque<PObject*>::const_iterator it = pobjects.begin(); it != pobjects.end(); it++)
+			{
 				(*it)->move(newTime-oldTime);
 			}
 			scene_graph.updateTree();
 			list<Collision*>& collisions = scene_graph.possibleCollisions();
-			for (list<Collision*>::iterator it = collisions.begin(); it != collisions.end(); it++){
+			for (list<Collision*>::iterator it = collisions.begin(); it != collisions.end(); it++)
+			{
 				Collision& coll = *(*it);
-				if (coll.isTrueCollision()){
+				if (coll.isTrueCollision())
+				{
 					const Vect2D& impulse = coll.get_impulse();
 					Vect2D rev_impulse(-impulse.x, -impulse.y);
 					cout << "colliding " << coll.get_object1() << " " << coll.get_object2() << endl;
@@ -45,12 +53,17 @@ int Physics::mainLoop(){
 	return 0;
 }
 
-void Physics::pause(){
+void Physics::pause()
+{
 	pause_flag = true;
 }
-void Physics::unpause(){
+
+void Physics::unpause()
+{
 	pause_flag = false;
 }
-void Physics::togglePause(){
+
+void Physics::togglePause()
+{
 	pause_flag = !pause_flag;
 }

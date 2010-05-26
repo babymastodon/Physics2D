@@ -19,8 +19,10 @@ using namespace std;
  * and the window that the objects are being drawn in.
  */
 
-class Graphics: public Thread{
+class Graphics: public Thread
+{
 	public:
+	
 		Graphics(const char* name, int w, int h, SceneGraph& world);
 		~Graphics();
 		
@@ -41,6 +43,7 @@ class Graphics: public Thread{
 		int getWindowWidth();
 		
 	private:
+	
 		/*!
 		 * the function for the overriden thread
 		 */
