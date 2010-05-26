@@ -19,6 +19,7 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
+	
 	SceneGraph world(800,600);
 	Physics physics(world);
 	Graphics graphics("Title",800,600,world);
@@ -35,8 +36,6 @@ int main(int argc, char* argv[])
 	object->set_vx(-50);
 	object->set_vy(0);
 	world.addObject(object);
-	
-	
 	
 	event_handler.startThread();	
 	event_handler.waitForStop();

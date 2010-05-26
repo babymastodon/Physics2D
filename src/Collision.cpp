@@ -5,6 +5,7 @@ using namespace std;
 
 Collision::Collision(PObject* obj1, PObject* obj2)
 {
+	
 	cout << "new collision" << endl;
 	trueCollision = false;
 	
@@ -74,7 +75,8 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 							normx=vec2deltay;
 							normx= -vec2deltax;
 						}
-						else{
+						else
+						{
 							normx=vec2deltax;
 							normy= -vec2deltay;
 						}
@@ -87,7 +89,8 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 			}
 		}
 	}
-	if (trueCollision){
+	if (trueCollision)
+	{
 		intersection.x = sumx/numPoints;
 		intersection.y = sumy/numPoints;
 		//calculate impulse here
@@ -98,15 +101,18 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 
 Collision::~Collision(){}
 
-PObject* Collision::get_object1(){
+PObject* Collision::get_object1()
+{
 	return objects[0];
 }
 
-PObject* Collision::get_object2(){
+PObject* Collision::get_object2()
+{
 	return objects[1];
 }
 
-Point Collision::get_pointOf(){
+Point Collision::get_pointOf()
+{
 	return intersection;
 }
 
@@ -115,9 +121,12 @@ bool Collision::isTrueCollision()
 	return trueCollision;
 }
 
-float Collision::getnormx(){
+float Collision::getnormx()
+{
 	return normx;
 }
-float Collision::getnormy(){
+
+float Collision::getnormy()
+{
 	return normy;
 }

@@ -1,12 +1,3 @@
-/*
- *  PEquilateralTriangle.cpp
- *  
- *
- *  Created by Nicholas Lima on 5/9/10.
- *  Copyright 2010 Phillips Exeter Academy. All rights reserved.
- *
- */
-
 #include "PEquilateralTriangle.h"
 #include <iostream>
 using namespace std;
@@ -27,14 +18,17 @@ PEquilateralTriangle::PEquilateralTriangle(float x, float y, float sidelength) :
 	display_list = 0;
 }
 
-void PEquilateralTriangle::compileList(){
+void PEquilateralTriangle::compileList()
+{
 	display_list = glGenLists(1);
 	
-	if (display_list != 0){
+	if (display_list != 0)
+	{
 		glNewList(display_list, GL_COMPILE);
 			glBegin(GL_TRIANGLES);
 			glNormal3f(0, 0, 1);
-				for (int i=0; i<3; i++){
+				for (int i=0; i<3; i++)
+				{
 					glVertex2f(vertices[i].x, vertices[i].y);
 				}
 			glEnd();
@@ -42,15 +36,17 @@ void PEquilateralTriangle::compileList(){
 	}
 }
 
-void PEquilateralTriangle::draw(){
+void PEquilateralTriangle::draw()
+{
 	if (display_list==0) compileList();
 	glPushMatrix();
-		glTranslatef(centerx, centery, 0);
-		glRotatef(theta,0,0,1);
-		glCallList(display_list);
+	glTranslatef(centerx, centery, 0);
+	glRotatef(theta,0,0,1);
+	glCallList(display_list);
 	glPopMatrix();
 }
 
-void PEquilateralTriangle::resetGraphics(){
+void PEquilateralTriangle::resetGraphics()
+{
 	display_list=0;
 }
