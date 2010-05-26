@@ -1,7 +1,8 @@
 
 #include "PElipse.h"
 
-PElipse::PElipse(float x, float y, float w, float h,int ed) : PMovingObject(x,y,w,h) {
+PElipse::PElipse(float x, float y, float w, float h,int ed) : PMovingObject(x,y,w,h) 
+{
 	edges = ed;
 	display_list = 0;
 	num_vertices = edges;
@@ -16,17 +17,20 @@ PElipse::PElipse(float x, float y, float w, float h,int ed) : PMovingObject(x,y,
 	}
 }
 
-void PElipse::compileList(){
+void PElipse::compileList()
+{
 	float xaxis = width/2;
 	float yaxis = height/2;
 	display_list = glGenLists(1);
 	
-	if (display_list!=0){
+	if (display_list!=0)
+	{
 		glNewList(display_list,GL_COMPILE);
 			glBegin(GL_TRIANGLE_FAN);
 				glNormal3f(0,0,1);
 				glVertex2f(0.0,0.0);
-				for (int i=0; i<=edges; i++){
+				for (int i=0; i<=edges; i++)
+				{
 					glVertex2f(xaxis*cos(2*PI*i/edges),-yaxis*sin(2*PI*i/edges));
 				}
 			glEnd();
@@ -34,15 +38,17 @@ void PElipse::compileList(){
 	}
 }
 
-void PElipse::draw(){
+void PElipse::draw()
+{
 	if (display_list == 0) compileList();
 	glPushMatrix();
-		glTranslatef(centerx,centery,0);
-		glRotatef(theta,0,0,1);
-		glCallList(display_list);
+	glTranslatef(centerx,centery,0);
+	glRotatef(theta,0,0,1);
+	glCallList(display_list);
 	glPopMatrix();
 }
 
-void PElipse::resetGraphics(){
+void PElipse::resetGraphics()
+{
 	display_list=0;
 }

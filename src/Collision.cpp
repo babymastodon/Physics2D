@@ -5,6 +5,7 @@ using namespace std;
 
 Collision::Collision(PObject* obj1, PObject* obj2)
 {
+	
 	cout << "new collision" << endl;
 	trueCollision = false;
 	
@@ -78,7 +79,8 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 							//vector1's point of collision was closer to the corner
 							norm.set(vec2deltay,-vec2deltax);
 						}
-						else{
+						else
+						{
 							norm.set(vec2deltax,-vec2deltay);
 						}
 						norm.normalize();
@@ -88,7 +90,8 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 			}
 		}
 	}
-	if (trueCollision){
+	if (trueCollision)
+	{
 		intersection.x = sumx/numPoints;
 		intersection.y = sumy/numPoints;
 		//calculate impulse here
@@ -107,15 +110,18 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 
 Collision::~Collision(){}
 
-PObject* Collision::get_object1() const{
+PObject* Collision::get_object1() const
+{
 	return objects[0];
 }
 
-PObject* Collision::get_object2() const{
+PObject* Collision::get_object2() const
+{
 	return objects[1];
 }
 
-const Point& Collision::get_pointOf() const{
+const Point& Collision::get_pointOf() const
+{
 	return intersection;
 }
 
@@ -124,6 +130,7 @@ bool Collision::isTrueCollision() const
 	return trueCollision;
 }
 
-const Vect2D& Collision::getimpulse() const{
+const Vect2D& Collision::getimpulse() const
+{
 	return impulse;
 }
