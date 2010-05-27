@@ -1,48 +1,32 @@
 {\rtf1\ansi\ansicpg1252\cocoartf1038
-{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\froman\fcharset0 Times-Roman;}
-{\colortbl;\red255\green255\blue255;\red0\green0\blue242;}
-\margl1440\margr1440\vieww11580\viewh15380\viewkind0
+{\fonttbl\f0\froman\fcharset0 Times-Roman;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww18060\viewh14020\viewkind0
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
 
-\f0\fs24 \cf0 The first step to using Physics2D is to install SDL on your computer.\
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
-\cf0 \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
-\cf0 Go to {\field{\*\fldinst{HYPERLINK "http://www.libsdl.org/download-1.2.php"}}{\fldrslt http://www.libsdl.org/download-1.2.php}}\
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
-\cf0 \
-If you are running Windows:\
-	\
-Download the zip file labeled 
-\f1\fs32 \cf2 \ul \ulc2 SDL-1.2.14-win32.zip    \
+\f0\fs32 \cf0 User Guide\
+Nick Lima and Zach Drach\
 \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
-\cf0 \ulnone If you are running Mac OS:\
+In order to get Physics2D working on your computer, you must first install a c++ compiler if you do not already have one.  On a Windows system we would recommend Eclipse for c++, on a Mac OS X system we would recommend using XCode, on a linux machine we would strongly encourage g++ (this program is very easy to run on a linux machine).\
 \
-You must first install xCode --- {\field{\*\fldinst{HYPERLINK "http://developer.apple.com/technologies/xcode.html"}}{\fldrslt http://developer.apple.com/technologies/xcode.html}}\
+To install Eclipse for c++ on a Windows system, go to {\field{\*\fldinst{HYPERLINK "http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/galileo/SR2/eclipse-cpp-galileo-SR2-macosx-cocoa.tar.gz"}}{\fldrslt http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/galileo/SR2/eclipse-cpp-galileo-SR2-macosx-cocoa.tar.gz}} and follow the installation instructions.\
 \
-Download the disk image file labeled \cf2 \ul SDL-1.2.14.dmg\
+For help installing Eclipse for c++ on a Windows system go to {\field{\*\fldinst{HYPERLINK "http://homepage.cs.uri.edu/courses/fall2007/csc200/eclipse.pdf"}}{\fldrslt http://homepage.cs.uri.edu/courses/fall2007/csc200/eclipse.pdf\
+}}\
+To install XCode on a Mac OS X system, go to {\field{\*\fldinst{HYPERLINK "http://developer.apple.com/technologies/xcode.html"}}{\fldrslt http://developer.apple.com/technologies/xcode.html}}\
 \
-\cf0 \ulnone If you are running Linux:\
+For help installing XCode on a Mac OS X system, go to {\field{\*\fldinst{HYPERLINK "http://www.atmos.umd.edu/~drb/install/Xcode.pdf"}}{\fldrslt http://www.atmos.umd.edu/~drb/install/Xcode.pdf}}\
 \
-bash commands\'85\
+Now that you have a working C++ compiler on your computer, you need to install SDL to run the program's graphics.  To do so, go to {\field{\*\fldinst{HYPERLINK "http://lazyfoo.net/SDL_tutorials/lesson01/index.php"}}{\fldrslt http://lazyfoo.net/SDL_tutorials/lesson01/index.php}} and follow the installation instructions for you operating system and compiler.  Also follow the instructions to create a new SDL program.   \
 \
-\cf2 \ul \
+Put all of the Physics2D header and program files (files with extension .h or .cpp) into the new SDL program you have created.\
 \
-\cf0 \ulnone Then You must install g++\'85.\
+Or if you are running linux..\'85..\'85\'85.. (Zach I need your help here)\
 \
-g++ on windows --- {\field{\*\fldinst{HYPERLINK "http://www.cmc.edu/math/alee/g++/g++.html"}}{\fldrslt http://www.cmc.edu/math/alee/g++/g++.html}}\
-\cf2 \ul \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
-\cf0 \ulnone g++ on mac --- {\field{\*\fldinst{HYPERLINK "http://www.edparrish.com/common/macgpp.php"}}{\fldrslt http://www.edparrish.com/common/macgpp.php}}\cf2 \ul \ulc2 \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
-\cf2 \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
-\cf0 \ulnone g++ on linux --- should be bash command?\
+You should now be able to compile and run Physics2D.  \
 \
-Once they have a compiler, go to the link below, it explains how to get sdl working on any system with any compiler\'85 \
-{\field{\*\fldinst{HYPERLINK "http://lazyfoo.net/SDL_tutorials/lesson01/index.php"}}{\fldrslt http://lazyfoo.net/SDL_tutorials/lesson01/index.php}}\
-\cf2 \ul \ulc2 \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\ql\qnatural\pardirnatural
-\cf2 \
-}
+While running the program there are several things that you can do.  Pressing "P" will pause the simulation.  Pressing "Q" or left clicking on the quit button on the top left-hand side of the window.  Left clicking in the window will create a new random shape (an eclipse or a rectangle or a triangle) with an initial velocity, the object will be acted on by gravity.  \
+\
+Try hitting one object with another to test Physics2D's collision detection and reaction.  \
+\
+One thing you will see while making random objects in the window is that once there are more than a certain number of objects in the window, the window will split up into four smaller section.  These smaller sections will split further into four smaller boxes if there is over the certain number of objects in one of them.  This feature of the display allows you to see Physics2D's data structure in action.  Each box in the window represents a node on programs tree.  This feature is meant to help you understand a little bit of how Physics2D works.}
