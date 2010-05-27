@@ -145,7 +145,7 @@ bool PObject::intersect(const PObject* other) const{
 	return intersect(other->cornerx, other->cornery, other->width, other->height);
 }
 
-void PObject::move(GLuint time){}
+void PObject::move(GLint time){}
 
 void PObject::applyImpulse(const Point& point, const Vect2D& impulse){
 	Vect2D r(point.x-centerx, point.y-centery);

@@ -38,7 +38,7 @@ class PObject{
 		 * PObject knows its own position in the window.
 		 */
 		virtual void draw()=0;  
-		virtual void move(GLuint time);
+		virtual void move(GLint time);
 		
 		/*!
 		 * This function is called when the openGL context is initialized

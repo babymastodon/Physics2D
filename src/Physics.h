@@ -2,7 +2,6 @@
 #define PHYSICS_H
 
 #include "SceneGraph.h"
-#include <SDL/SDL.h>
 #include <queue>
 #include <list>
 #include "Thread.h"

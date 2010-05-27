@@ -13,15 +13,15 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 	objects[0] = obj1;
 	objects[1] = obj2;
 	
-	const Point* obj1vertices = objects[0]->getVertices();
-	const Point* obj2vertices = objects[1]->getVertices();
-	
 	/*
 	 * the following was written before the Vect2D class was written
 	 * (and that's why it's so messy)
 	 */
-	float sumx=0;
-	float sumy=0;
+	Vect2D norm;
+	Point p1,p2;
+	
+	const Point* obj1vertices = objects[0]->getVertices();
+	const Point* obj2vertices = objects[1]->getVertices();
 	int numPoints=0;
 	float parametric;
 	float parametric2;
@@ -38,38 +38,48 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 	float vec2deltay;
 	
 	float deltax, deltay; //between the two points on different shapes
-	Vect2D norm;
 	
-	for (int i = 0; i < objects[0]->getNumVertices(); i++)
+	/*
+	 * x1+k*t = x2+c*k
+	 * y1+b*t = y2+d*k
+	 */
+	
+	for (int i = 0; i < objects[0]->getNumVertices() && numPoints<=2; i++)
 	{
-		vec1x = obj1vertices[i].x;
-		vec1y = obj1vertices[i].y;
+		vec1x = obj1vertices[i].x;//x1
+		vec1y = obj1vertices[i].y;//y1
 		
-		vec1deltax = obj1vertices[(i + 1) % objects[0]->getNumVertices()].x - vec1x;
-		vec1deltay = obj1vertices[(i + 1) % objects[0]->getNumVertices()].y - vec1y;
+		vec1deltax = obj1vertices[(i + 1) % objects[0]->getNumVertices()].x - vec1x;//a
+		vec1deltay = obj1vertices[(i + 1) % objects[0]->getNumVertices()].y - vec1y;//b
 		
-		for (int j = 0; j < objects[1]->getNumVertices(); j++)
+		for (int j = 0; j < objects[1]->getNumVertices() && numPoints<=2; j++)
 		{
-			vec2x = obj2vertices[j].x;
-			vec2y = obj2vertices[j].y;
+			vec2x = obj2vertices[j].x;//x2
+			vec2y = obj2vertices[j].y;//y2
 			
-			vec2deltax = obj2vertices[(j + 1) % objects[1]->getNumVertices()].x - vec2x;
-			vec2deltay = obj2vertices[(j + 1) % objects[1]->getNumVertices()].y - vec2y;
+			vec2deltax = obj2vertices[(j + 1) % objects[1]->getNumVertices()].x - vec2x;//c
+			vec2deltay = obj2vertices[(j + 1) % objects[1]->getNumVertices()].y - vec2y;//d
 			
-			denominator = (vec1deltax * vec2deltay) - (vec2deltax * vec1deltay);
+			denominator = (vec1deltax * vec2deltay) - (vec2deltax * vec1deltay);//ad-bc
 			if (denominator != 0)
 			{
-				deltax = vec1x-vec2x;
-				deltay = vec1y-vec2y;
+				deltax = vec1x-vec2x;//x1-x2
+				deltay = vec1y-vec2y;//y1-y2
 				
-				parametric = ((vec2deltax * (deltay)) - vec2deltay * (deltax)) / (denominator);
-				parametric2 = ((vec1deltax * (deltay)) - vec1deltay * (deltax)) / (denominator);
+				parametric = ((vec2deltax * (deltay)) - vec2deltay * (deltax)) / (denominator);//t
+				parametric2 = ((vec1deltax * (deltay)) - vec1deltay * (deltax)) / (denominator);//k
 
 				if (parametric <= 1 && parametric >= 0 && parametric2 <= 1 && parametric2 >= 0)
 				{
-					sumx += vec1x + (parametric * vec1deltax);
-					sumy += vec1y + (parametric * vec1deltay);
 					numPoints++;
+					if (numPoints==1){
+						p1.x = vec1x + (parametric * vec1deltax);//x = x1+a*t
+						p1.y = vec1y + (parametric * vec1deltay);//y = y1+b*t
+					}
+					else{
+						p2.x = vec1x + (parametric * vec1deltax);//x = x1+a*t
+						p2.y = vec1y + (parametric * vec1deltay);//y = y1+b*t
+					}
 					//uses the normal vector of the first collision
 					if (!trueCollision){
 						/* old way of finding
@@ -83,8 +93,15 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 							norm.set(vec2deltax,-vec2deltay);
 						}*/
 						//VERY crude approximation for normal vector at collision point
-						norm.set(objects[1]->get_centerx()-objects[0]->get_centerx(), objects[1]->get_centery()-objects[0]->get_centery());
-						norm.normalize();
+						if (numPoints==2){
+							
+						}
+						else{
+							prev.x=sumx;
+							prev.y=sumy;
+							norm.set(objects[1]->get_centerx()-objects[0]->get_centerx(), objects[1]->get_centery()-objects[0]->get_centery());
+							norm.normalize();
+						}
 					}
 					trueCollision = true;
 				}

@@ -13,7 +13,7 @@ class PMovingObject: public PObject
 {
 	public:
 		PMovingObject(float x, float y, float width, float height, float th=0, float dx=0, float dy=0, float dth=0, float ddx=0, float ddy=0);
-		virtual void move(GLuint time); ///< Time in milliseconds
+		virtual void move(GLint time); ///< Time in milliseconds
 		virtual bool contains(float x, float y) const;
 		virtual const Point* getVertices() const;
 

@@ -52,7 +52,7 @@ void Graphics::initWindow(){
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_SMOOTH);
     
-    //no need for lighting
+    //no need for lighting yet
     /*GLfloat specColor0[] = {1,1,1,0};
     GLfloat diffColor0[] = {.8,.8,.8,0};
     GLfloat lightPos0[] = {0,0,1,0};
@@ -124,7 +124,7 @@ int Graphics::mainLoop(){
  * in the world variable that are currently visible in the window.
  */
 void Graphics::display(){
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     //GLfloat lightPos0[] = {0,0,1,0};
 	//glColorMaterial(GL_FRONT_AND_BACK,GL_AMBIENT_AND_DIFFUSE);
     
@@ -142,18 +142,16 @@ void Graphics::display(){
 		(*it)->draw();
 	}
 	glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
-	scene_graph.drawTree();
-	glPolygonMode(GL_FRONT_AND_BACK,GL_POINT);
-	glPointSize(5);
-	glPushAttrib(GL_CURRENT_BIT);
-	glBegin(GL_POINTS);
-		glVertex2f(scene_graph.last.x,scene_graph.last.y);
-	glEnd();
-	glPopAttrib();
+	glPushMatrix();
+		glColor3f(.2,.9,.3);
+		glTranslatef(0,0,-.1);
+		scene_graph.drawTree();
+	glPopMatrix();
 	glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
     scene_graph.unlock();
     
     SDL_GL_SwapBuffers();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 const char* Graphics::getWindowName(){
@@ -165,4 +163,15 @@ int Graphics::getWindowHeight(){
 }
 int Graphics::getWindowWidth(){
 	return window_width;
+}
+
+void Graphics::drawPoint(float x, float y){
+	glPolygonMode(GL_FRONT_AND_BACK,GL_POINT);
+	glPointSize(5);
+	glPushAttrib(GL_CURRENT_BIT);
+	glBegin(GL_POINTS);
+		glColor3f(1,1,1);
+		glVertex3f(x,y,.5);
+	glEnd();
+	glPopAttrib();
 }

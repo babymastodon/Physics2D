@@ -40,6 +40,7 @@ class Graphics: public Thread{
 		int getWindowHeight();
 		int getWindowWidth();
 		
+		
 	private:
 		/*!
 		 * the function for the overriden thread
@@ -50,6 +51,7 @@ class Graphics: public Thread{
 		void initWindow();
 		void quitWindow();
 		void compileLists();
+		void drawPoint(float x, float y);
 		
 		const char* window_name;
 		int window_width;

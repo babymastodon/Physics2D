@@ -33,7 +33,7 @@ float PMovingObject::get_ay() const{
 	return ay;
 }
 
-void PMovingObject::move(GLuint time){
+void PMovingObject::move(GLint time){
 	float time_scale = time/1000.0; //convert time from milliseconds to seconds
 	vx +=ax*time_scale;
 	vy += ay*time_scale;

@@ -17,13 +17,13 @@ int Physics::mainLoop(){
 			SDL_Delay(P_REFRESH_TIME-(newTime-oldTime));
 			newTime=SDL_GetTicks();
 		}
-		
+		int dtime = newTime-oldTime;
 		//lock graph and move objects
 		if (!pause_flag){
 			scene_graph.lock();
 			const deque<PObject*>& pobjects = scene_graph.getPObjects();
 			for (deque<PObject*>::const_iterator it = pobjects.begin(); it != pobjects.end(); it++){
-				(*it)->move(newTime-oldTime);
+				(*it)->move(dtime);
 			}
 			scene_graph.updateTree();
 			list<Collision*>& collisions = scene_graph.possibleCollisions();
@@ -35,8 +35,18 @@ int Physics::mainLoop(){
 					cout << "colliding " << coll.get_object1() << " " << coll.get_object2() << endl;
 					coll.get_object1()->applyImpulse(coll.get_pointOf(),impulse);
 					coll.get_object2()->applyImpulse(coll.get_pointOf(),rev_impulse);
-					scene_graph.last.x=coll.get_pointOf().x;
-					scene_graph.last.y=coll.get_pointOf().y;
+					//This will separate the two objects.
+					/*while (true){
+						coll.get_object1()->move(dtime);
+						coll.get_object2()->move(dtime);
+						cout << "moved" << endl;
+						Collision* collision = new Collision(coll.get_object1(),coll.get_object2());
+						bool stillColliding = collision->isTrueCollision();
+						delete collision;
+						if (!stillColliding){
+							break;
+						}
+					}*/
 				}
 			}
 			scene_graph.unlock();

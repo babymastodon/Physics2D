@@ -19,7 +19,6 @@ using namespace std;
 
 class SceneGraph{
 	public:
-		Point last;
 		/*!
 		 * SceneGraph constructor:
 		 * 1) Populate pobj_list with PObject pointers
