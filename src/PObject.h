@@ -6,9 +6,7 @@
 #include "Point.h"
 #include "Vect2D.h"
 #include <cstring>
-#include <iostream>
 
-using namespace std;
 
 /*!
  *	PObject is a generic class that is responsible for both the Physical and Graphical aspects

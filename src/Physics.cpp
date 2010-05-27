@@ -1,6 +1,4 @@
 #include "Physics.h"
-#include <iostream>
-using namespace std;
 
 Physics::Physics(SceneGraph& world):Thread(),scene_graph(world)
 {
@@ -41,14 +39,12 @@ int Physics::mainLoop()
 				{
 					const Vect2D& impulse = coll.get_impulse();
 					Vect2D rev_impulse(-impulse.x, -impulse.y);
-					cout << "colliding " << coll.get_object1() << " " << coll.get_object2() << endl;
 					coll.get_object1()->applyImpulse(coll.get_pointOf(),impulse);
 					coll.get_object2()->applyImpulse(coll.get_pointOf(),rev_impulse);
 					//This will separate the two objects. (fail)
 					/*while (true){
 						coll.get_object1()->move(dtime);
 						coll.get_object2()->move(dtime);
-						cout << "moved" << endl;
 						Collision* collision = new Collision(coll.get_object1(),coll.get_object2());
 						bool stillColliding = collision->isTrueCollision();
 						delete collision;

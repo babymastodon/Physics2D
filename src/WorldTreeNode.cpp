@@ -9,9 +9,6 @@
 
 #include "WorldTreeNode.h"
 
-#include <iostream>
-using namespace std;
-
 WorldTreeNode::WorldTreeNode(float cx, float cy, float wi, float hi)
 {
 	cornerx = cx;
@@ -59,7 +56,6 @@ void WorldTreeNode::add(PObject* addthis)
 	if (successfully_added){
 		numElements++;
 		if (!haschildren && numElements > MAX_ELEMENTS && width>MIN_NODE_DIMENSION && height>MIN_NODE_DIMENSION){
-			//cout << "split node into children, width " << width << " height " << height << endl;
 			haschildren = true;
 			//Precalculate for efficiency
 			float halfwidth = width/2;
@@ -148,7 +144,6 @@ void WorldTreeNode::update(int cycle)
 {
 	deque<PObject*>::iterator it = element_deque.begin();
 	while (it != element_deque.end()){
-		//cout << "update tree" << endl;
 		if(!(*it)->completelyInside(cornerx, cornery, width, height))
 		{
 			//how will we prevent redundant "move ups"? originally, it would attempt to move up anything that intersected with the border of any child, even if of of the sibling nodes "moved it up" in the same cycle of updates.
@@ -174,7 +169,6 @@ void WorldTreeNode::update(int cycle)
 				//delete from all the children also???
 				/*if(haschildren){
 					for (int i = 0; i < 4; i++){
-						cout << "remove from children" << endl;
 						children[i]->remove((*it));
 					}
 				}*/

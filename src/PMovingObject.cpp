@@ -1,6 +1,4 @@
 #include "PMovingObject.h"
-#include <iostream>
-using namespace std;
 
 PMovingObject::PMovingObject(float x, float y, float w, float h, float th, float dx, float dy, float dth, float ddx, float ddy) : PObject()
 {

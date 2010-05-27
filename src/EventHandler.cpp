@@ -1,8 +1,5 @@
 #include "EventHandler.h"
 
-#include <iostream>
-using namespace std;
-
 EventHandler::EventHandler(Physics& ph, Graphics& gr, SceneGraph& sg) : Thread(), physics(ph), graphics(gr), scene_graph(sg)
 {
 	srand(static_cast<const int>(time(0)));

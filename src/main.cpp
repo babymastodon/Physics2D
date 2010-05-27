@@ -6,9 +6,6 @@
 #include "PElipse.h"
 #include "PEquilateralTriangle.h"
 
-#include <iostream>
-using namespace std;
-
 /**
 	@mainpage Physics2D - A project to simulate physical interactions of two dimensional objects
 	@version 1.0 Pre-Alpha Release

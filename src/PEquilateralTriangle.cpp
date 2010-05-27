@@ -1,13 +1,10 @@
 #include "PEquilateralTriangle.h"
-#include <iostream>
-using namespace std;
 
 PEquilateralTriangle::PEquilateralTriangle(float x, float y, float sidelength, float m) : PMovingObject(x, y, sidelength, sqrt(3) * sidelength / 2)
 {
 	num_vertices = 3;
 	vertices = new Point[num_vertices];
 	returnVertices = new Point[num_vertices];
-	cout << height << " " << sidelength << endl;
 	vertices[0].x = -sidelength/2;
 	vertices[0].y = -1.0/3*height;
 	vertices[1].x = sidelength/2;

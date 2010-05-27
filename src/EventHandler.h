@@ -11,6 +11,7 @@
 #include "PEquilateralTriangle.h"
 #include "PElipse.h"
 #include <SDL/SDL.h>
+#include <ctime>
 
 #define EVENT_CHECK_TIME 100///< delay between event checks in milliseconds
 

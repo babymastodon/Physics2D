@@ -1,12 +1,7 @@
 #include "Collision.h"
-#include <iostream>
-
-using namespace std;
 
 Collision::Collision(PObject* obj1, PObject* obj2)
 {
-	
-	cout << "new collision" << endl;
 	trueCollision = false;
 	
 	objects = new PObject*[2];
@@ -117,10 +112,6 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 		
 		impulse.set(norm);
 		impulse.scale(j);
-		
-		cout << "collision at " << intersection.x << " " << intersection.x << endl;
-		cout << j << endl;
-		cout << "impulse = " << impulse.x << " " << impulse.y << endl;
 	}
 }
 
