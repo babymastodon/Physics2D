@@ -25,17 +25,19 @@ int main(int argc, char* argv[])
 	Graphics graphics("Fun with Shapes",800,600,world);
 	EventHandler event_handler(physics,graphics,world);
 	
-	/*PMovingObject* object = new PRectangle(100,280,50,80);
-	object->set_ay(0);
-	object->set_vx(50);
-	object->set_vy(0);
+	PMovingObject* object = new PElipse(300,100,40, 60, 10);
+	object->set_ay(-150);
+	object->set_vx(40);
+	object->set_vy(300);
+	object->set_dtheta(.2);
 	world.addObject(object);
 	
-	object = new PEquilateralTriangle(400,300,50);
-	object->set_ay(0);
-	object->set_vx(-50);
-	object->set_vy(0);
-	world.addObject(object);*/
+	object = new PEquilateralTriangle(400,100,50);
+	object->set_ay(-150);
+	object->set_vx(-40);
+	object->set_vy(300);
+	object->set_dtheta(.1);
+	world.addObject(object);
 	
 	event_handler.startThread();	
 	event_handler.waitForStop();
