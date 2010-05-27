@@ -44,7 +44,7 @@ int Physics::mainLoop()
 					cout << "colliding " << coll.get_object1() << " " << coll.get_object2() << endl;
 					coll.get_object1()->applyImpulse(coll.get_pointOf(),impulse);
 					coll.get_object2()->applyImpulse(coll.get_pointOf(),rev_impulse);
-					//This will separate the two objects.
+					//This will separate the two objects. (fail)
 					/*while (true){
 						coll.get_object1()->move(dtime);
 						coll.get_object2()->move(dtime);

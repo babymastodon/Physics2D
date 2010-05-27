@@ -104,41 +104,13 @@ void WorldTreeNode::remove(PObject* removethis){
 			for (int j=0; j<4; j++)
 			{
 				WorldTreeNode* child = children[j];
-				/*if (removethis->intersect(child->cornerx, child->cornery, child->width, child->height))*/
-					child->remove(removethis);
+				child->remove(removethis);
 			}
 			if (numElements<MIN_ELEMENTS)
 			{
 				deleteChildren();
-				//no longer needed if deques are used
-				//collect the PObjects in the children
-				/*int counter = 0;
-				for (int j=0; j<4; j++){
-					//child nodes are guarenteed to not have any more child nodes
-					WorldTreeNode* child = children[j];
-					for (int i = 0; i < child->numElements; i++){
-						//check for duplicates before collecting
-						bool noDup = true;
-						for (int k=0; k<counter; k++){
-							if (child->elements[i]==elements[j]) noDup = false;
-						}
-						if (noDup){
-							elements[counter] = child->elements[i];
-							counter++;
-						}
-					}
-				}*/
 			}
 		}
-		/*else{//no children
-			for (int i = 0; i < numElements; i++){
-				if (elements[i] == removethis){
-					for (int j = i; j < numElements-1; j++){
-						elements[j] = elements[i + 1];
-					}
-				}
-			}
-		}*/
 	}
 }
 

@@ -20,9 +20,6 @@ class Physics: public Thread{
 		 */
 		Physics(SceneGraph& world); 
 		~Physics();
-	
-		
-		/// @todo need functions that will modify the behavior of physics
 		
 		void pause();
 		void unpause();
@@ -35,14 +32,6 @@ class Physics: public Thread{
 		int mainLoop();
 		
 		void processEvents();
-
-		/*
-		 * I think I ditched the event queue. Scene graph should
-		 * implement lock and unlock methods.
-		 */
-		/*bool isQueueLocked(); ///< returns true if mutex is currently locked
-		void lockQueue(); ///< internal wrapper for the SDL mutex P and V functions
-		void unlockQueue(); ///< internal wrapper for the SDL mutex P and V functions*/
 		
 		SceneGraph& scene_graph;
 		bool pause_flag;

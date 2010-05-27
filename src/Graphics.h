@@ -31,13 +31,6 @@ class Graphics: public Thread
 		 */
 		bool isInitialized();
 		
-		/*
-		 * TODO:
-		 * need functions that will modify the behavior of graphics
-		 * such as moving the display around (remember that the 
-		 * whole world is not necessarily displayed on the screen)
-		 */
-		
 		const char* getWindowName();
 		int getWindowHeight();
 		int getWindowWidth();
