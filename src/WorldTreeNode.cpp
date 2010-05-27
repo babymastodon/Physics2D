@@ -12,7 +12,8 @@
 #include <iostream>
 using namespace std;
 
-WorldTreeNode::WorldTreeNode(float cx, float cy, float wi, float hi){
+WorldTreeNode::WorldTreeNode(float cx, float cy, float wi, float hi)
+{
 	cornerx = cx;
 	cornery = cy;
 	height = hi;
@@ -22,10 +23,12 @@ WorldTreeNode::WorldTreeNode(float cx, float cy, float wi, float hi){
 	haschildren = false;
 }
 
-WorldTreeNode::~WorldTreeNode(){
+WorldTreeNode::~WorldTreeNode()
+{
 	//delete child nodes
 	if (haschildren){
-		for (int j=0; j<4; j++){
+		for (int j=0; j<4; j++)
+		{
 			delete children[j];
 		}
 	}
@@ -36,7 +39,8 @@ WorldTreeNode::~WorldTreeNode(){
  * value than the true number of elements. (what if a element is in
  * more than one of the child nodes)
  */
-int WorldTreeNode::getNumElements(){
+int WorldTreeNode::getNumElements()
+{
 	return numElements;
 }
 
@@ -49,7 +53,8 @@ bool WorldTreeNode::hasChildren()
 	return haschildren;
 }
 
-void WorldTreeNode::add(PObject* addthis){
+void WorldTreeNode::add(PObject* addthis)
+{
 	bool successfully_added = addToDeque(addthis);
 	if (successfully_added){
 		numElements++;
@@ -81,29 +86,29 @@ void WorldTreeNode::add(PObject* addthis){
 	}
 }
 
-void WorldTreeNode::addToChildren(PObject* addThis){
-	for (int j=0; j<4; j++){
+void WorldTreeNode::addToChildren(PObject* addThis)
+{
+	for (int j=0; j<4; j++)
+	{
 		WorldTreeNode* child = children[j];
 		if (addThis->intersect(child->cornerx, child->cornery, child->width, child->height))
 			child->add(addThis);
 	}
 }
 
-/*
- * Don't use!!
- * This function still must be reviewed and tested before use
- */
 void WorldTreeNode::remove(PObject* removethis){
 	bool successfully_removed = removeFromDeque(removethis);
 	if (successfully_removed){
 		numElements--;
 		if (haschildren){
-			for (int j=0; j<4; j++){
+			for (int j=0; j<4; j++)
+			{
 				WorldTreeNode* child = children[j];
 				/*if (removethis->intersect(child->cornerx, child->cornery, child->width, child->height))*/
 					child->remove(removethis);
 			}
-			if (numElements<MIN_ELEMENTS){
+			if (numElements<MIN_ELEMENTS)
+			{
 				deleteChildren();
 				//no longer needed if deques are used
 				//collect the PObjects in the children
@@ -137,11 +142,13 @@ void WorldTreeNode::remove(PObject* removethis){
 	}
 }
 
-void WorldTreeNode::setParent(WorldTreeNode* thisisp){
+void WorldTreeNode::setParent(WorldTreeNode* thisisp)
+{
 	parent = thisisp;
 }
 
-WorldTreeNode* WorldTreeNode::getParent(){
+WorldTreeNode* WorldTreeNode::getParent()
+{
 	return parent;
 }
 
@@ -149,14 +156,17 @@ float WorldTreeNode::getcornerx()
 {
 	return cornerx;
 }
+
 float WorldTreeNode::getcornery()
 {
 	return cornery;
 }
+
 float WorldTreeNode::getheight()
 {
 	return height;
 }
+
 float WorldTreeNode::getwidth()
 {
 	return width;
@@ -167,13 +177,16 @@ void WorldTreeNode::update(int cycle)
 	deque<PObject*>::iterator it = element_deque.begin();
 	while (it != element_deque.end()){
 		//cout << "update tree" << endl;
-		if(!(*it)->completelyInside(cornerx, cornery, width, height)){
+		if(!(*it)->completelyInside(cornerx, cornery, width, height))
+		{
 			//how will we prevent redundant "move ups"? originally, it would attempt to move up anything that intersected with the border of any child, even if of of the sibling nodes "moved it up" in the same cycle of updates.
 			//have pobject keep track of cycle numbers and only move up if cycle number is outdated
 			if (parent!=NULL){
 				WorldTreeNode* moveup = parent;
-				if (cycle!=(*it)->getLastCycle()){
-					while ((moveup->getParent() != 0) && (!(*it)->completelyInside(moveup->cornerx, moveup->cornery, moveup->width, moveup->height))){
+				if (cycle!=(*it)->getLastCycle())
+				{
+					while ((moveup->getParent() != 0) && (!(*it)->completelyInside(moveup->cornerx, moveup->cornery, moveup->width, moveup->height)))
+					{
 						moveup = moveup->getParent();
 					}
 					moveup->addToChildren(*it);
@@ -182,7 +195,8 @@ void WorldTreeNode::update(int cycle)
 			}
 			//remove elements that are no longer in box
 			//beware, PObjects that exist completely outside the root node will get deleted
-			if (!(*it)->intersect(cornerx, cornery, width, height)){
+			if (!(*it)->intersect(cornerx, cornery, width, height))
+			{
 				it = element_deque.erase(it);
 				numElements--;
 				//delete from all the children also???
@@ -193,56 +207,70 @@ void WorldTreeNode::update(int cycle)
 					}
 				}*/
 			}
-			else{
+			else
+			{
 				it++;
 			}
 		}
-		else{
+		else
+		{
 			it++;
 		}
 	}
-	if (haschildren){
-		if (numElements<MIN_ELEMENTS){
+	if (haschildren)
+	{
+		if (numElements<MIN_ELEMENTS)
+		{
 			deleteChildren();
 		}
 		else{
-			for (int i = 0; i < 4; i++){
+			for (int i = 0; i < 4; i++)
+			{
 				children[i]->update(cycle);
 			}
 		}
 	}
 }
 
-bool WorldTreeNode::addToDeque(PObject* addthis){
+bool WorldTreeNode::addToDeque(PObject* addthis)
+{
 	deque<PObject*>::iterator insert_location;
 	insert_location = lower_bound(element_deque.begin(),element_deque.end(),addthis);
-	if (addthis != *insert_location){
+	if (addthis != *insert_location)
+	{
 		element_deque.insert(insert_location, addthis);
 		return true;
 	}
 	return false;
 }
-bool WorldTreeNode::removeFromDeque(PObject* removethis){
+bool WorldTreeNode::removeFromDeque(PObject* removethis)
+{
 	deque<PObject*>::iterator remove_location;
 	remove_location = lower_bound(element_deque.begin(), element_deque.end(), removethis);
-	if (removethis == *remove_location){
+	if (removethis == *remove_location)
+	{
 		element_deque.erase(remove_location);
 		return true;
 	}
 	return false;
 }
 
-const deque<PObject*>& WorldTreeNode::getElements() const{
+const deque<PObject*>& WorldTreeNode::getElements() const
+{
 	return element_deque;
 }
 
-void WorldTreeNode::draw(){
-	if(haschildren){
-		for (int i=0; i<4; i++){
+void WorldTreeNode::draw()
+{
+	if(haschildren)
+	{
+		for (int i=0; i<4; i++)
+		{
 			children[i]->draw();
 		}
 	}
-	else{
+	else
+	{
 		glBegin(GL_QUADS);
 			glVertex2f(cornerx, cornery);
 			glVertex2f(cornerx+width, cornery);
@@ -252,26 +280,35 @@ void WorldTreeNode::draw(){
 	}
 }
 
-void WorldTreeNode::deleteChildren(){
+void WorldTreeNode::deleteChildren()
+{
 	haschildren = false;
-	for (int i = 0; i < 4; i++){
+	for (int i = 0; i < 4; i++)
+	{
 		delete children[i]; //remember that c++ doesn't have automatic garbage collection
 		children[i] = NULL;
 	}
 }
 
-void WorldTreeNode::addPossibleCollisions(list<Collision*> & addToThis){
-	if (haschildren){
-		for (int i=0; i<4; i++){
+void WorldTreeNode::addPossibleCollisions(list<Collision*> & addToThis)
+{
+	if (haschildren)
+	{
+		for (int i=0; i<4; i++)
+		{
 			children[i]->addPossibleCollisions(addToThis);
 		}
 	}
-	else{
-		for (deque<PObject*>::iterator it = element_deque.begin(); it!=element_deque.end(); it++){
+	else
+	{
+		for (deque<PObject*>::iterator it = element_deque.begin(); it!=element_deque.end(); it++)
+		{
 			deque<PObject*>::iterator it2 = it;
 			it2++;
-			for (; it2!=element_deque.end(); it2++){
-				if ((*it)->intersect(*it2)){
+			for (; it2!=element_deque.end(); it2++)
+			{
+				if ((*it)->intersect(*it2))
+				{
 					addToThis.push_back(new Collision((*it),(*it2)));
 				}
 			}

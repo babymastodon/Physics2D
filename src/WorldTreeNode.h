@@ -1,9 +1,3 @@
-/*
- *  WorldTreeNode.h
- *  worldtree
- *
- *  Created by Nicholas Lima on 4/5/10.
- */
 #ifndef WORLDTREENODE_H
 #define WORLDTREENODE_H
 
@@ -19,92 +13,174 @@ using namespace std;
 #define MIN_ELEMENTS 4
 #define MIN_NODE_DIMENSION 10.0
 
-/*
- * Represents a section of the world and stores the objects within that section
- * Objects can be added or removed, if a node contains too many elements
- * it creates 4 children each containing a smaller section of the world and adds
- * its elements to the appropriate child
- *
- * currently the node will devide when a 10th element is added to it, it is fairly simple
- * to increase or decrease this number
+/*!
+ *	Represents a section of the world and stores the objects within that section
+ *	Objects can be added or removed, if a node contains too many elements
+ *	it creates 4 children each containing a smaller section of the world and adds
+ *	its elements to the appropriate child
  */
-
-/*
- * new implementation could contain a sorted deque in each node to keep track of
- * all PObjects in its children. Although is is much more memory intensive, it will
- * allow efficient traversal of the objects as well as a more
- * efficient remove() method.
- */
-
 class WorldTreeNode
 {
-private:
 	
-/*
- *	stores the dimensions of the node
- */
-	float cornerx;
-	float cornery;
-	float height;
-	float width;
-/*
- * stores the number of elements contained in the node, and whether or not the node has childrew
- */
-	int numElements;
-	bool haschildren;
-/*
- * stores an array of the node's children (if it has any), if it does not, 
- * then the elements array stores the node's elements
- */
-	WorldTreeNode* children[4];
-	WorldTreeNode* parent;
+	private:
 	
-	//PObjects stored in sorted deque for faster searching
-	deque<PObject*> element_deque;
+		/*!
+		 *	The floats cornerx, cornery, height, and width
+		 *	store the location and dimentions that the
+		 *	node is keeping track of in the larger world
+		 *	tree.
+		 */
+		float cornerx;
+		float cornery;
+		float height;
+		float width;
+	
+		/*!
+		 *	numElements stores the number of elements stored in
+		 *	the node and its children.  The haschildren boolean
+		 *	stores whether or not the node has children.
+		 */
+		int numElements;
+		bool haschildren;
+	
+		/*!
+		 *	The children array stores null if the node has no 
+		 *	childen, if the node does have children, then 
+		 *	it stores pointers to the node's childre.
+		 */
+		WorldTreeNode* children[4];
+	
+		/*!
+		 *	parent stores the parent node of the current node.
+		 *	It stores null if the current node is the root.
+		 */
+		WorldTreeNode* parent;
+	
+		/*!
+		 *	element_deque stores the elements containted in this
+		 *	node in a sorted deque for faster searching.
+		 */
+		deque<PObject*> element_deque;
 
 	
-public:
-	//Changed order for to be consistant
-	WorldTreeNode(float cx, float cy, float wi, float hi);
-	~WorldTreeNode();
-	WorldTreeNode* getChild(int x);
-	bool hasChildren();
-	/*!
-	 * adds the PObject. if the node has more than (n) elements in it,
-	 * this node will create 4 child nodes and put elements in them
-	 */
-	void add(PObject* addthis);
-	/*
-	 * Precondition: removeThis intersects with this node's bounding rect
-	 */
-	void remove(PObject* removethis);
+	public:
 	
-	int getNumElements();
+		/*!
+		 *	The WorldTreeNode constructor takes the dimensions that
+		 *	the WorldTreeNode occupies in the larger world tree.
+		 */
+		WorldTreeNode(float cx, float cy, float wi, float hi);
+		~WorldTreeNode();
 	
-	float getcornerx();
-	float getcornery();
-	float getheight();
-	float getwidth();
+		/*!
+		 *	the getChild method returns one of the node's child
+		 *	nodes from the children array.
+		 */
+		WorldTreeNode* getChild(int x);
 	
-	//what if it's the top level tree node. Parent could == NULL
-	WorldTreeNode* getParent();
+		/*!
+		 *	The hasChildren method returns true if the node 
+		 *	has children.
+		 */ 
+		bool hasChildren();
 	
-	void update(int cycle);
+		/*!
+		 *	The add method adds the PObject to the node.  If the node
+		 *	has children, then it adds the PObject to its correct child
+		 *	instead.  If adding the PObject would cause the node to have 
+		 *	more than the maximum number of elements, it creates four child
+		 *	nodes and adds it to the correct child(ren).
+		 */
+		void add(PObject* addthis);
 	
-	const deque<PObject*>& getElements() const;
+		/*!
+		 *	The remove method removes the given object from the node.
+		 *	The given object must be at least partially within the node.
+		 */
+		void remove(PObject* removethis);
 	
-	void draw();
+		/*!
+		 *	The getNumElements method returns the number of elements
+		 *	in the node.
+		 */
+		int getNumElements();
 	
-	void addPossibleCollisions(list<Collision*> & addToThis);
+		/*!
+		 *	The methods getcornerx, getcornery, getheight, and
+		 *	getwidth return the bottom left coordinate of the node
+		 *	and its dimensions.
+		 */
+		float getcornerx();
+		float getcornery();
+		float getheight();
+		float getwidth();
 	
-private:
-	void setParent(WorldTreeNode* thisisp);
-	void addToChildren(PObject* addthis);
-	//true if successfully added
-	bool addToDeque(PObject* addthis);
-	//true if successfully removed
-	bool removeFromDeque(PObject* removethis);
-	void deleteChildren();
+		/*!
+		 *	The getParent method returns the node's parent node.
+		 *	It returns null if the current node doesn't have a 
+		 *	parent (if it's the root of the tree).
+		 */
+		WorldTreeNode* getParent();
+	
+		/*!
+		 *	The update method checks to see if all the elements
+		 *	that were in the node before they moved are still in
+		 *	the node, if they are not, then it adds them to the 
+		 *	proper node on the tree.
+		 */
+		void update(int cycle);
+	
+		/*!
+		 *	The getElements method return a deque containing all
+		 *	the elemtns in the node.
+		 */
+		const deque<PObject*>& getElements() const;
+	
+		/*!
+		 *	The draw method draws the boundaries of the node to
+		 *	the screen.
+		 */
+		void draw();
+	
+		/*!
+		 *	The addPossibleCollisions method add the given list of
+		 *	collisions to the current list of possible collisions.
+		 */
+		void addPossibleCollisions(list<Collision*> & addToThis);
+	
+	private:
+	
+		/*!
+		 *	The setParent method sets the node's parent node.
+		 */
+		void setParent(WorldTreeNode* thisisp);
+	
+		/*!
+		 *	The addToChildren method adds the given PObject
+		 *	to its correct position in the node's children.
+		 */
+		void addToChildren(PObject* addthis);
+	
+		/*!
+		 *	The method addToDeque adds the given PObject to the 
+		 *	sorted deque.  It returns true if the object was 
+		 *	successfully added, false if it wasn't.
+		 */ 
+		bool addToDeque(PObject* addthis);
+	
+		/*!
+		 *	The method removeFromDeque removes the given PObject
+		 *	from the sorted deque.  It returns true if the object was 
+		 *	successfully removed, false if it wasn't.
+		 */ 		
+		bool removeFromDeque(PObject* removethis);
+	
+		/*!
+		 *	The deleteChildren method deletes the node's children.
+		 *	It is used if the number of elements in the node's
+		 *	children is less than a minimum number.
+		 */
+		void deleteChildren();
 };
 
 #endif

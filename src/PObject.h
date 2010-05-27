@@ -6,38 +6,38 @@
 #include "Point.h"
 #include "Vect2D.h"
 #include <cstring>
-
-
 #include <iostream>
+
 using namespace std;
 
-
-/*
- * Forget about separation of domain and representation. I'm putting
- * the functions for physics and drawing into the same class.
- */
-
-/**
- * A generic class that is responsible for both the Physical and Graphical aspects
- * of the object. A PObject knows its own coordinates relative to the window, the orientation,
- * and other physical constants or variables.
+/*!
+ *	PObject is a generic class that is responsible for both the Physical and Graphical aspects
+ *	of the object. A PObject knows its own coordinates relative to the window, the orientation,
+ *	and other physical constants or variables.  For more information about the specific uses of 
+ *	methods or variable look at the classes that extend PObject.  
  */
 
 class PObject{
 	public:
+	
 		/*!
-		 * Default constructor sets all internal variable to 0 or 1. It is the
+		 * The default constructor sets all internal variables to 0 or 1. It is the
 		 * subclass's job to reassign all necessary variables.
 		 */
 		PObject();
 		~PObject();
 		
-		/**
-		 * Function responsible for the graphical display of the PObject onto the screen.
-		 * Assumes that the center of the current perspective is at the origin of the window.
-		 * PObject knows its own position in the window.
+		/*!
+		 * The draw function is responsible for the graphical display of the PObject onto the screen.
+		 * It assumes that the center of the current perspective is at the origin of the window.
+		 * The PObject knows its own position in the window.
 		 */
-		virtual void draw()=0;  
+		virtual void draw()=0; 
+	
+		/*!
+		 *	The move method moves the PObject for the given amount of time.
+		 *	The time is measured in milliseconds.
+		 */
 		virtual void move(GLint time);
 		
 		/*!
@@ -118,6 +118,7 @@ class PObject{
 		void set_dtheta(float n);
 
 	protected:
+	
 		Point* vertices;
 		int num_vertices;
 		
@@ -136,26 +137,8 @@ class PObject{
 		float dtheta;
 		
 	private:
+	
 		int last_cycle;
 };
-
-/*
- * remember to use display lists: compile in constructor and call in
- * the draw() function.
- */
-
-/*
- * Idea for a rotating object class:
- * 
- * x and y refer to the center of the bounding square
- * since the object can rotate, the center of mass will be the
- * center of the square. therefore, the radius of the square
- * will be the distance from the center of mass to the
- * point furthest away from the center of mass. Ex: a rect of
- * 8x2 will have a bounding square radius of sqrt(4^2+1^2).
- * if the center of mass were the bottom left corner of the
- * rect, the square radius would be sqrt(8^2+2^2).
- */
-
 
 #endif

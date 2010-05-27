@@ -1,10 +1,9 @@
-
 #include "PMovingObject.h"
 #include <iostream>
 using namespace std;
 
-
-PMovingObject::PMovingObject(float x, float y, float w, float h, float th, float dx, float dy, float dth, float ddx, float ddy) : PObject(){
+PMovingObject::PMovingObject(float x, float y, float w, float h, float th, float dx, float dy, float dth, float ddx, float ddy) : PObject()
+{
 	vx=dx;
 	vy=dy;
 	ax=ddx;
@@ -20,18 +19,26 @@ PMovingObject::PMovingObject(float x, float y, float w, float h, float th, float
 	recalculateVertices = true;
 }
 
-void PMovingObject::set_ax(float n){
+void PMovingObject::set_ax(float n)
+{
 	ax=n;
 }
-void PMovingObject::set_ay(float n){
+
+void PMovingObject::set_ay(float n)
+{
 	ay=n;
 }
-float PMovingObject::get_ax() const{
+
+float PMovingObject::get_ax() const
+{
 	return ax;
 }
-float PMovingObject::get_ay() const{
+
+float PMovingObject::get_ay() const
+{
 	return ay;
 }
+
 
 void PMovingObject::move(GLint time){
 	float time_scale = time/1000.0; //convert time from milliseconds to seconds
@@ -47,15 +54,19 @@ void PMovingObject::move(GLint time){
 	recalculateVertices = true;
 }
 
-bool PMovingObject::contains(float x, float y) const{
+bool PMovingObject::contains(float x, float y) const
+{
 	return x>cornerx && y>cornery && x<cornerx+width && y<cornery+height;
 }
 
-const Point* PMovingObject::getVertices() const{
-	if (recalculateVertices){
+const Point* PMovingObject::getVertices() const
+{
+	if (recalculateVertices)
+	{
 		float cost = cos(theta);
 		float sint = sin(theta);
-		for (int i=0; i<num_vertices; i++){
+		for (int i=0; i<num_vertices; i++)
+		{
 			returnVertices[i].x = vertices[i].x*cost-vertices[i].y*sint+centerx;
 			returnVertices[i].y = vertices[i].y*sint+vertices[i].y*cost+centery;
 		}

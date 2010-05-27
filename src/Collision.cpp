@@ -23,6 +23,8 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 	const Point* obj1vertices = objects[0]->getVertices();
 	const Point* obj2vertices = objects[1]->getVertices();
 	int numPoints=0;
+	float sumx=0;
+	float sumy=0;
 	float parametric;
 	float parametric2;
 	float denominator;
@@ -44,7 +46,7 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 	 * y1+b*t = y2+d*k
 	 */
 	
-	for (int i = 0; i < objects[0]->getNumVertices() && numPoints<=2; i++)
+	for (int i = 0; i < objects[0]->getNumVertices(); i++)
 	{
 		vec1x = obj1vertices[i].x;//x1
 		vec1y = obj1vertices[i].y;//y1
@@ -52,7 +54,7 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 		vec1deltax = obj1vertices[(i + 1) % objects[0]->getNumVertices()].x - vec1x;//a
 		vec1deltay = obj1vertices[(i + 1) % objects[0]->getNumVertices()].y - vec1y;//b
 		
-		for (int j = 0; j < objects[1]->getNumVertices() && numPoints<=2; j++)
+		for (int j = 0; j < objects[1]->getNumVertices(); j++)
 		{
 			vec2x = obj2vertices[j].x;//x2
 			vec2y = obj2vertices[j].y;//y2
@@ -72,14 +74,8 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 				if (parametric <= 1 && parametric >= 0 && parametric2 <= 1 && parametric2 >= 0)
 				{
 					numPoints++;
-					if (numPoints==1){
-						p1.x = vec1x + (parametric * vec1deltax);//x = x1+a*t
-						p1.y = vec1y + (parametric * vec1deltay);//y = y1+b*t
-					}
-					else{
-						p2.x = vec1x + (parametric * vec1deltax);//x = x1+a*t
-						p2.y = vec1y + (parametric * vec1deltay);//y = y1+b*t
-					}
+					sumx += vec1x + (parametric * vec1deltax);//x = x1+a*t
+					sumy += vec1y + (parametric * vec1deltay);//y = y1+b*t
 					//uses the normal vector of the first collision
 					if (!trueCollision){
 						/* old way of finding
@@ -93,15 +89,8 @@ Collision::Collision(PObject* obj1, PObject* obj2)
 							norm.set(vec2deltax,-vec2deltay);
 						}*/
 						//VERY crude approximation for normal vector at collision point
-						if (numPoints==2){
-							
-						}
-						else{
-							prev.x=sumx;
-							prev.y=sumy;
-							norm.set(objects[1]->get_centerx()-objects[0]->get_centerx(), objects[1]->get_centery()-objects[0]->get_centery());
-							norm.normalize();
-						}
+						norm.set(objects[1]->get_centerx()-objects[0]->get_centerx(), objects[1]->get_centery()-objects[0]->get_centery());
+						norm.normalize();
 					}
 					trueCollision = true;
 				}
