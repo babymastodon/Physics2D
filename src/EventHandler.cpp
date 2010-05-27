@@ -109,16 +109,19 @@ void EventHandler::addRandomPMovingObject(int x, int y)
 		object->set_ay(-150);
 		object->set_vx(20);
 		object->set_vy(300);
+		//object->set_dtheta(.3);
+		object->set_theta(0);
 		scene_graph.lock();
 		scene_graph.addObject(object);
 		scene_graph.unlock();
 	}
 	else if (randomness > 3 && randomness <= 6)
 	{
-		PMovingObject* object = new PEquilateralTriangle(x-5,y-5,40);
+		PMovingObject* object = new PEquilateralTriangle(x-5,y-5,50);
 		object->set_ay(-150);
 		object->set_vx(20);
 		object->set_vy(300);
+		object->set_dtheta(.1);
 		scene_graph.lock();
 		scene_graph.addObject(object);
 		scene_graph.unlock();
@@ -129,6 +132,7 @@ void EventHandler::addRandomPMovingObject(int x, int y)
 		object->set_ay(-150);
 		object->set_vx(20);
 		object->set_vy(300);
+		object->set_dtheta(.2);
 		scene_graph.lock();
 		scene_graph.addObject(object);
 		scene_graph.unlock();

@@ -68,7 +68,7 @@ const Point* PMovingObject::getVertices() const
 		for (int i=0; i<num_vertices; i++)
 		{
 			returnVertices[i].x = vertices[i].x*cost-vertices[i].y*sint+centerx;
-			returnVertices[i].y = vertices[i].y*sint+vertices[i].y*cost+centery;
+			returnVertices[i].y = vertices[i].x*sint+vertices[i].y*cost+centery;
 		}
 		recalculateVertices = false;
 	}
