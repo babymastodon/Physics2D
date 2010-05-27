@@ -22,8 +22,6 @@ PElipse::PElipse(float x, float y, float w, float h,int ed,float m) : PMovingObj
 
 void PElipse::compileList()
 {
-	float xaxis = width/2;
-	float yaxis = height/2;
 	display_list = glGenLists(1);
 	
 	if (display_list!=0)
@@ -35,7 +33,7 @@ void PElipse::compileList()
 				glVertex2f(0.0,0.0);
 				for (int i=0; i<=edges; i++)
 				{
-					glVertex2f(xaxis*cos(2*PI*i/edges),yaxis*sin(2*PI*i/edges));
+					glVertex2f(vertices[i%edges].x,vertices[i%edges].y);
 				}
 			glEnd();
 		glEndList();
