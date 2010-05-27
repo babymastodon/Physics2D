@@ -47,6 +47,7 @@ void PRectangle::draw()
 	glTranslatef(centerx,centery,0);
 	glRotatef(theta*180/PI,0,0,1);
 	glCallList(display_list);
+	glPopMatrix();
 }
 
 void PRectangle::resetGraphics()
