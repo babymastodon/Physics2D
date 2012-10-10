@@ -5,7 +5,7 @@ SceneGraph::SceneGraph(int width, int height)
 	worldWidth = width;
 	worldHeight = height;
 	mutex = SDL_CreateMutex();	
-	root_node = new WorldTreeNode::WorldTreeNode(0,0, width, height);
+	root_node = new WorldTreeNode(0,0, width, height);
 	update_cycle=0;
 	
 }
